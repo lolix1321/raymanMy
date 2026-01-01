@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=4 uid="uid://6dd1cc16qscd"]
+
+[ext_resource type="Texture2D" uid="uid://dkbi8flmg70df" path="res://graphic/New Piskel (1)adsadsadsadsadsas.png" id="1_fhj65"]
+[ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_12mwy"]
+[ext_resource type="PackedScene" uid="uid://ggwjg3cgfmdk" path="res://scenes/portal_leave_level_one_1.tscn" id="3_iyqfa"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_12mwy"]
+texture = ExtResource("1_fhj65")
+0:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:6/0 = 0
+4:6/0 = 0
+6:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_iyqfa"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_12mwy")
+
+[node name="Portal_one_level_one" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAoAAAACAAYAAAABAAoAAAACAAYAAAACAAoAAAACAAYAAAADAAsAAAACAAYAAAAEAAsAAAACAAYAAAAFAAsAAAACAAYAAAAGAAsAAAACAAYAAAAHAAsAAAACAAYAAAAIAAsAAAACAAYAAAAJAAsAAAACAAYAAAAKAAoAAAACAAYAAAALAAoAAAACAAYAAAAMAAoAAAACAAYAAAAMAAkAAAACAAYAAAANAAkAAAACAAYAAAAOAAkAAAACAAYAAAAOAAgAAAACAAYAAAAPAAgAAAACAAYAAAAPAAcAAAACAAYAAAAQAAcAAAACAAYAAAA=")
+tile_set = SubResource("TileSet_iyqfa")
+
+[node name="Player" parent="." instance=ExtResource("2_12mwy")]
+
+[node name="PortalTimer" type="Timer" parent="Player"]
+one_shot = true
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="PortalLeaveLevelOne1" parent="Portals" instance=ExtResource("3_iyqfa")]
+position = Vector2(285, 47)
+collision_mask = 3
+
+[connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]

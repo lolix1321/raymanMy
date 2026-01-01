@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://dy17q1wahvid6"]
+
+[ext_resource type="Script" uid="uid://bl1q85bawrd0n" path="res://scenes/black_ninja.gd" id="1_e738a"]
+[ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_cojvc"]
+[ext_resource type="Texture2D" uid="uid://1lj6oe5leym2" path="res://graphic/assets_ray/New Piskel/l0_sprite_2.png" id="4_au4ve"]
+[ext_resource type="Texture2D" uid="uid://csaalqwqqdk8w" path="res://graphic/assets_ray/New Piskel/l0_sprite_3.png" id="5_51160"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3cyjj"]
+shader = ExtResource("2_cojvc")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1qyd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_au4ve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_51160")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e738a"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmj5y"]
+size = Vector2(16, 4)
+
+[node name="BlackNinja" type="Area2D"]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_e738a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_3cyjj")
+sprite_frames = SubResource("SpriteFrames_p1qyd")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.79380393
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_e738a")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jmj5y")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,200 @@
+[gd_scene load_steps=20 format=3 uid="uid://dyxomf0byld4o"]
+
+[ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cc3q1aogx7mjs" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://gkfglpsq6k0x" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://dk3e1k3mfcijy" path="res://graphic/guns/fire.png" id="6_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://rrhry3i3xr7u" path="res://graphic/assets_ray/ssds/knight_run.png" id="7_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bj8nl7tsb0we2" path="res://graphic/assets_ray/ssds/knight_run_gun.png" id="8_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://cqle5y3pg65d3" path="res://graphic/assets_ray/ssds/knight_run2.png" id="8_jej6c"]
+[ext_resource type="Texture2D" uid="uid://c1w12c2cosdyt" path="res://graphic/assets_ray/ssds/knight_run_gun2.png" id="8_oprun"]
+[ext_resource type="Texture2D" uid="uid://dgg0igejaavu0" path="res://graphic/assets_ray/jump_anim/jump_anim0.png" id="8_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://cd4l1c0effi5" path="res://graphic/assets_ray/jump_anim/jump_anim1.png" id="9_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smehm"]
+shader = ExtResource("2_fjrip")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2els"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3v2ag")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_f1ej7")
+}],
+"loop": true,
+"name": &"idle_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_3v2ag")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_f1ej7")
+}],
+"loop": true,
+"name": &"jump_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_jej6c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3v2ag")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_oprun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f1ej7")
+}],
+"loop": true,
+"name": &"walk_gun",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
+radius = 9.0
+
+[sub_resource type="Gradient" id="Gradient_jej6c"]
+offsets = PackedFloat32Array(0.24725275, 0.63736266)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jej6c"]
+gradient = SubResource("Gradient_jej6c")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
+animations = [{
+"frames": [{
+"duration": 0.05,
+"texture": ExtResource("8_y4r1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_d2wvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3v2ag")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_smehm")
+position = Vector2(-1, 2)
+sprite_frames = SubResource("SpriteFrames_g2els")
+animation = &"jump_gun"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 5)
+shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="FireTimer" type="Timer" parent="Timers"]
+wait_time = 0.144
+one_shot = true
+
+[node name="InvicibilityTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PortalTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="GainHealth" type="Timer" parent="Timers"]
+
+[node name="WaitTimer" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="jumpTimer" type="Timer" parent="Timers"]
+wait_time = 0.05
+
+[node name="jumpTimerEnd" type="Timer" parent="Timers"]
+wait_time = 0.05
+one_shot = true
+
+[node name="Fire" type="Node2D" parent="."]
+
+[node name="FireLeft" type="Sprite2D" parent="Fire"]
+visible = false
+position = Vector2(-21, 5.5)
+texture = ExtResource("6_tuyoq")
+flip_h = true
+
+[node name="PointLight2D" type="PointLight2D" parent="Fire/FireLeft"]
+position = Vector2(2.3841858e-07, -0.49999988)
+scale = Vector2(0.12890625, 0.125)
+color = Color(0.2056467, 0.7151441, 0.7887302, 1)
+energy = 3.1
+texture = SubResource("GradientTexture2D_jej6c")
+
+[node name="FireRight" type="Sprite2D" parent="Fire"]
+visible = false
+position = Vector2(19, 5.5)
+texture = ExtResource("6_tuyoq")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Fire/FireRight"]
+position = Vector2(1.0000011, -0.5)
+scale = Vector2(0.14257813, 0.12499999)
+color = Color(0.2056467, 0.7151441, 0.7887302, 1)
+energy = 3.1
+texture = SubResource("GradientTexture2D_jej6c")
+
+[node name="jumpAnimation" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="jumpAnimation"]
+visible = false
+position = Vector2(1, 17)
+sprite_frames = SubResource("SpriteFrames_jej6c")
+animation = &"jump"
+autoplay = "jump"
+frame_progress = 0.13861173
+
+[node name="HealthBar" parent="." instance=ExtResource("11_d2wvv")]
+
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="Timers/InvicibilityTimer" to="." method="_on_invicibility_timer_timeout"]
+[connection signal="timeout" from="Timers/PortalTimer" to="." method="_on_portal_timer_timeout"]
+[connection signal="timeout" from="Timers/GainHealth" to="." method="_on_gain_health_timeout"]
+[connection signal="timeout" from="Timers/WaitTimer" to="." method="_on_wait_timer_timeout"]
+[connection signal="timeout" from="Timers/jumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/jumpTimerEnd" to="." method="_on_jump_timer_end_timeout"]

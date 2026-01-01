@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://beccln3gwj8l"]
+
+[ext_resource type="Shader" uid="uid://giymnviqbsan" path="res://rozmycie.gdshader" id="1_oqduu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0ra8"]
+shader = ExtResource("1_oqduu")
+shader_parameter/inner_radius = 0.0610000028975
+shader_parameter/outer_radius = 1.200000057
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[node name="Vignette" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="." groups=["Vignette"]]
+material = SubResource("ShaderMaterial_v0ra8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

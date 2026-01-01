@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=3 uid="uid://dyxomf0byld4o"]
+
+[ext_resource type="Texture2D" uid="uid://dlovdkw622evi" path="res://graphic/assets_ray/ssds/sprite_0.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
+[ext_resource type="Texture2D" uid="uid://b4vpcb5kjxa16" path="res://graphic/assets_ray/ssds/sprite_1.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://xyxoj0af1qh3" path="res://graphic/assets_ray/ssds/sprite_2.png" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://cfi0kbtxbl3ac" path="res://graphic/assets_ray/ssds/sprite_3.png" id="5_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dk3e1k3mfcijy" path="res://graphic/guns/fire.png" id="6_tuyoq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smehm"]
+shader = ExtResource("2_fjrip")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2els"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vyb7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qlg0r")
+}],
+"loop": true,
+"name": &"idle_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qhqgy")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tuyoq")
+}],
+"loop": true,
+"name": &"jump_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vyb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qhqgy")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qlg0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tuyoq")
+}],
+"loop": true,
+"name": &"walk_gun",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
+radius = 7.0
+height = 14.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_smehm")
+position = Vector2(0, 2)
+sprite_frames = SubResource("SpriteFrames_g2els")
+animation = &"walk_gun"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="Timers"]
+wait_time = 0.236
+one_shot = true
+
+[node name="FireTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="InvicibilityTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="PortalTimer" type="Timer" parent="Timers"]
+
+[node name="Fire" type="Node2D" parent="."]
+
+[node name="FireLeft" type="Sprite2D" parent="Fire"]
+visible = false
+position = Vector2(-9, 2)
+texture = ExtResource("6_tuyoq")
+flip_h = true
+
+[node name="FireRight" type="Sprite2D" parent="Fire"]
+visible = false
+position = Vector2(9, 2)
+texture = ExtResource("6_tuyoq")
+
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="Timers/InvicibilityTimer" to="." method="_on_invicibility_timer_timeout"]
+[connection signal="timeout" from="Timers/PortalTimer" to="." method="_on_portal_timer_timeout"]

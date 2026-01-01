@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://du11kv313w2kf"]
+
+[ext_resource type="Script" uid="uid://b012ftwtjpbi8" path="res://lava_damage.gd" id="1_ahudy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjpmq"]
+size = Vector2(1684, 67)
+
+[node name="lavaDamage" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ahudy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(832, 23.5)
+shape = SubResource("RectangleShape2D_jjpmq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

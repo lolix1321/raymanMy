@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxoey22irvm5"]
+
+[ext_resource type="Script" uid="uid://by0erwiophl7d" path="res://scenes/health_bar.gd" id="1_1bvlm"]
+[ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="2_y3kqx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3kqx"]
+bg_color = Color(0.39738342, 0, 0.004501717, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 10.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6opq1"]
+bg_color = Color(0.8256774, 0, 0.12663466, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvlm"]
+content_margin_top = 8.0
+content_margin_right = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0.02745098)
+
+[node name="HealthBar" type="CanvasLayer"]
+script = ExtResource("1_1bvlm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, -200)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -108.0
+offset_right = 100.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 60
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 37)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_y3kqx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6opq1")
+rounded = true
+show_percentage = false
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("2_y3kqx")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_1bvlm")
+text = "HEALTH:"
+metadata/_edit_use_anchors_ = true

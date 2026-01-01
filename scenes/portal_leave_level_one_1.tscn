@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ggwjg3cgfmdk"]
+
+[ext_resource type="Script" uid="uid://q40b4se3v7gk" path="res://scenes/portal_leave_level_one_1.gd" id="1_4rk8o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mslhs"]
+size = Vector2(92, 195)
+
+[node name="PortalLeaveLevelOne1" type="Area2D"]
+script = ExtResource("1_4rk8o")
+spawn_position = Vector2(520, 410)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mslhs")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://x47h0ruk20yx"]
+
+[ext_resource type="Script" uid="uid://c1niqy40g2ar6" path="res://scenes/portal_entrence_2.gd" id="1_5ani4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3sc7"]
+size = Vector2(49.625, 60.5)
+
+[node name="PortalEntrence2" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_5ani4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n3sc7")
+
+[node name="EnterTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="EnterTimer" to="." method="_on_enter_timer_timeout"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqe6ey42tjo5b"]
+
+[ext_resource type="Script" uid="uid://dn47e0d2526qn" path="res://scenes/portal_entrence_1.gd" id="1_na37u"]
+[ext_resource type="PackedScene" uid="uid://dkbxhp1g265co" path="res://scenes/portal_one_menu.tscn" id="2_bse68"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jboht"]
+size = Vector2(46, 64)
+
+[node name="PortalEntrence1" type="Area2D" groups=["Player"]]
+script = ExtResource("1_na37u")
+target_scene = ExtResource("2_bse68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, -22)
+shape = SubResource("RectangleShape2D_jboht")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

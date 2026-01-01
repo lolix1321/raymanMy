@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhi681scuegty"]
+
+[ext_resource type="Texture2D" uid="uid://dep5fhssit5km" path="res://graphic/guns/bullet.png" id="1_mkf8s"]
+[ext_resource type="Script" uid="uid://fyhq1q21wxf3" path="res://scenes/bullet.gd" id="1_y25gk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y25gk"]
+size = Vector2(7, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5glv"]
+size = Vector2(7, 3)
+
+[sub_resource type="Gradient" id="Gradient_3ies3"]
+offsets = PackedFloat32Array(0.24725275, 0.63736266)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y25gk"]
+gradient = SubResource("Gradient_3ies3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_y25gk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mkf8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_y25gk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_l5glv")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.49999952, -0.50000024)
+scale = Vector2(0.265625, 0.20312499)
+color = Color(0.2056467, 0.7151441, 0.7887302, 1)
+energy = 3.1
+texture = SubResource("GradientTexture2D_y25gk")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

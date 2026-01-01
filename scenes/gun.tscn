@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dygbjupofxcet"]
+
+[ext_resource type="Script" uid="uid://dgwdko0hg32ow" path="res://scenes/gun.gd" id="1_og67c"]
+[ext_resource type="Texture2D" uid="uid://b07p2phcppkc0" path="res://graphic/guns/purple_gun.png" id="2_og67c"]
+
+[sub_resource type="Gradient" id="Gradient_3ies3"]
+offsets = PackedFloat32Array(0.24725275, 0.63736266)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_og67c"]
+gradient = SubResource("Gradient_3ies3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_og67c"]
+size = Vector2(30, 10)
+
+[node name="Gun" type="Area2D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_og67c")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.5, 1.0000001)
+scale = Vector2(0.515625, 0.21875)
+color = Color(0.1977348, 0.767659, 0.0603484, 1)
+energy = 3.1
+texture = SubResource("GradientTexture2D_og67c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_og67c")
+
+[node name="PurpleGun" type="Sprite2D" parent="."]
+position = Vector2(1, 2)
+texture = ExtResource("2_og67c")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

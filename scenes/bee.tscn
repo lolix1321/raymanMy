@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://cv06dgnyh7jdg"]
+
+[ext_resource type="Script" uid="uid://d085rvllqb105" path="res://bee.gd" id="1_vie5o"]
+[ext_resource type="Texture2D" uid="uid://dp6i7sr2702jl" path="res://graphic/ghost/ghost.png" id="2_ogg2i"]
+[ext_resource type="Texture2D" uid="uid://c1sdlbeaq2owi" path="res://graphic/ghost/ghost2.png" id="3_qf6nb"]
+[ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="4_qf6nb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf6nb"]
+resource_local_to_scene = true
+shader = ExtResource("4_qf6nb")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qf6nb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qf6nb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ogg2i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oynbf"]
+shader = ExtResource("4_qf6nb")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[node name="Bee" type="Area2D"]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_vie5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_qf6nb")
+sprite_frames = SubResource("SpriteFrames_qf6nb")
+autoplay = "default"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+material = SubResource("ShaderMaterial_oynbf")
+use_parent_material = true
+polygon = PackedVector2Array(16, 6, 16, 5, 15, 5, 15, 4, 10, 4, 10, 3, 9, 3, 9, 2, 7, 2, 7, 1, 6, 1, 6, -1, 5, -1, 5, -2, 4, -2, 4, -5, 3, -5, 3, -8, 2, -8, 2, -9, 1, -9, 1, -10, 0, -10, 0, -11, -1, -11, -1, -12, -7, -12, -7, -11, -8, -11, -8, -10, -10, -10, -10, -9, -11, -9, -11, -8, -12, -8, -12, 7, -11, 7, -11, 8, -10, 8, -10, 9, -9, 9, -9, 10, -7, 10, -7, 11, -5, 11, -5, 12, 1, 12, 1, 11, 3, 11, 3, 12, 5, 12, 6, 12, 6, 11, 7, 11, 7, 10, 9, 10, 9, 9, 14, 9, 14, 8, 15, 8, 15, 7, 16, 7)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds8jd5sv11s1p"]
+
+[ext_resource type="PackedScene" uid="uid://bsekiujt56atn" path="res://scenes/level.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://sm2eeiuqit6o" path="res://scenes/stamina.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Node"]
+
+[node name="Stamina" parent="." instance=ExtResource("2_yqjtg")]
+
+[node name="Scenes" type="Node2D" parent="."]
+
+[node name="Level" parent="Scenes" instance=ExtResource("1_uwrxv")]

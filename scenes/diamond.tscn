@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfh0p45h2bofx"]
+
+[ext_resource type="Script" uid="uid://cahlr4k4qkjd2" path="res://diamond.gd" id="1_okr8r"]
+[ext_resource type="Texture2D" uid="uid://xl8iuhwf5chb" path="res://graphic/assets_ray/New Piskel/knight_run2.png" id="2_bd64o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_up2nb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bd64o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5v7i"]
+
+[node name="diamond" type="Area2D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_okr8r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_up2nb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p5v7i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

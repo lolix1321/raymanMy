@@ -1,0 +1,12 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Pliki importu (Godot sam je odtworzy, nie trzeba ich trzymać na GitHubie)
+*.import/
+
+# Konfiguracja eksportu (może zawierać Twoje hasła do kluczy Androida!)
+export_preset.cfg
+
+# Pliki tymczasowe i logi
+*.log

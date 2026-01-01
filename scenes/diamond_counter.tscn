@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bacewamobby6l"]
+
+[ext_resource type="Script" uid="uid://bjakevx4hyfo6" path="res://scenes/diamond_label.gd" id="1_mb76k"]
+[ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="1_w0h4o"]
+
+[sub_resource type="GDScript" id="GDScript_w0h4o"]
+
+[node name="diamondCounter" type="CanvasLayer"]
+script = SubResource("GDScript_w0h4o")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+
+[node name="DiamondLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_w0h4o")
+theme_override_font_sizes/font_size = 30
+text = "00"
+script = ExtResource("1_mb76k")
