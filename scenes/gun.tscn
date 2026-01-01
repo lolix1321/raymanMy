@@ -23,7 +23,7 @@ script = ExtResource("1_og67c")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0.5, 1.0000001)
 scale = Vector2(0.515625, 0.21875)
-color = Color(0.1977348, 0.767659, 0.0603484, 1)
+color = Color(0.078431375, 0.7647059, 0.05882353, 1)
 energy = 3.1
 texture = SubResource("GradientTexture2D_og67c")
 
