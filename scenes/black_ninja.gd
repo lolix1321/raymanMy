@@ -3,7 +3,8 @@ extends Area2D
 var health := 5
 var direction_x := 1
 var speed := 60
-
+var vignette_tween: Tween
+	
 func _on_area_entered(area: Area2D) -> void:
 	health -= 1
 	area.queue_free()
@@ -32,17 +33,23 @@ func _on_body_entered(body: Node2D) -> void:
 			# Jeśli nie masz systemu HP, a chcesz żeby mob zabijał od razu:
 			respawn_player(body)
 			
+
 func animate_vignette(vignette: ColorRect):
 	var mat = vignette.material
-	var tween = create_tween()
 	
-	# 1. Natychmiast ustaw kolor na czerwony i zacieśnij winietę
-	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0)) # Ciemna czerwień
-	mat.set_shader_parameter("outer_radius", 1.5) # Mocne przyciemnienie
+	# Jeśli stary Tween jeszcze działa, natychmiast go zatrzymaj
+	if vignette_tween and vignette_tween.is_running():
+		vignette_tween.kill()
 	
-	# 2. Płynnie wróć do normalnego wyglądu (czarny i szeroki promień)
-	tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
-	tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
+	vignette_tween = create_tween()
+	
+	# Ustawienie stanu początkowego (natychmiastowe)
+	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0))
+	mat.set_shader_parameter("outer_radius", 1.5)
+	
+	# Płynny powrót
+	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
+	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
 	
 
 # Funkcja pomocnicza do teleportacji gracza

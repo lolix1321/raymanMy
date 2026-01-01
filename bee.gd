@@ -5,7 +5,7 @@ var speed := 50
 var knockback_velocity := Vector2.ZERO
 var knockback_strength := 600.0
 var can_attack := true # Nowa zmienna sprawdzająca, czy może atakować
-
+var vignette_tween: Tween
 @onready var target = marker2
 
 @export var marker1: Marker2D
@@ -70,15 +70,21 @@ func _on_body_entered(body: Node2D) -> void:
 		can_attack = false
 		await get_tree().create_timer(1.0).timeout
 		can_attack = true
-		
+	
+
 func animate_vignette(vignette: ColorRect):
 	var mat = vignette.material
-	var tween = create_tween()
 	
-	# 1. Natychmiast ustaw kolor na czerwony i zacieśnij winietę
-	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0)) # Ciemna czerwień
-	mat.set_shader_parameter("outer_radius", 1.5) # Mocne przyciemnienie
+	# Jeśli stary Tween jeszcze działa, natychmiast go zatrzymaj
+	if vignette_tween and vignette_tween.is_running():
+		vignette_tween.kill()
 	
-	# 2. Płynnie wróć do normalnego wyglądu (czarny i szeroki promień)
-	tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
-	tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
+	vignette_tween = create_tween()
+	
+	# Ustawienie stanu początkowego (natychmiastowe)
+	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0))
+	mat.set_shader_parameter("outer_radius", 1.5)
+	
+	# Płynny powrót
+	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
+	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)

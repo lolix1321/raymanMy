@@ -61,6 +61,7 @@ Sprint={
 2d_physics/layer_4="Items"
 2d_physics/layer_5="Bullets"
 2d_physics/layer_6="Portal"
+2d_physics/layer_7="Barierblock"
 
 [rendering]
 
