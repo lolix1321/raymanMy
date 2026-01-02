@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtcoemt5miss8"]
+
+[ext_resource type="Texture2D" uid="uid://bqw13ljmkrquw" path="res://graphic/torch/torch2.png" id="1_r3k50"]
+[ext_resource type="Texture2D" uid="uid://c32unflqtj5m8" path="res://graphic/torch/torch3.png" id="2_ndh0a"]
+[ext_resource type="Texture2D" uid="uid://d3s04t3hy761v" path="res://graphic/torch/torch1.png" id="3_ktql7"]
+[ext_resource type="Texture2D" uid="uid://c1lc7vjmgjq10" path="res://graphic/torch/torch4.png" id="4_gybtl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_21l5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_r3k50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ndh0a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ktql7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gybtl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wjrvc"]
+radius = 1.0
+
+[node name="Torch" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, -1)
+sprite_frames = SubResource("SpriteFrames_21l5o")
+autoplay = "default"
+frame_progress = 0.70484734
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wjrvc")

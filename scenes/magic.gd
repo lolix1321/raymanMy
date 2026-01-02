@@ -65,7 +65,7 @@ func shoot():
 		
 		bullet.global_position = marker.global_position
 		
-		var look_direction = -1 if $AnimatedSprite2D.flip_h else 1
+		var _look_direction = -1 if $AnimatedSprite2D.flip_h else 1
 		bullet.launch(direction_x)
 		
 		if direction_x == 1:
