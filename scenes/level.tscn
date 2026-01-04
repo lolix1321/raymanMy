@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://bsekiujt56atn"]
+[gd_scene load_steps=64 format=4 uid="uid://bsekiujt56atn"]
 
 [ext_resource type="Script" uid="uid://fynhtgm8ug70" path="res://scenes/level.gd" id="1_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://bu4rb6g5pav70" path="res://graphic/New Piskel (1)22.png" id="1_w7c3h"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://x47h0ruk20yx" path="res://scenes/portal_entrence_2.tscn" id="11_64w2a"]
 [ext_resource type="Texture2D" uid="uid://m6q035v2tw1e" path="res://graphic/portalewszystkie.png" id="11_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://dqmbci4fiqp5d" path="res://graphic/windowFrame.png" id="12_8gofh"]
-[ext_resource type="PackedScene" uid="uid://dygbjupofxcet" path="res://scenes/gun.tscn" id="13_64w2a"]
 [ext_resource type="PackedScene" uid="uid://sm2eeiuqit6o" path="res://scenes/stamina.tscn" id="13_fpun6"]
 [ext_resource type="Texture2D" uid="uid://8iprup5aewnr" path="res://graphic/windowFlowers.png" id="13_h6wmr"]
 [ext_resource type="Texture2D" uid="uid://bqqii743vcwf5" path="res://graphic/windowMoon.png" id="14_pqd0y"]
@@ -977,12 +976,11 @@ tile_map_data = PackedByteArray("AAAYABAAAQAAAAAAAAAYABEAAQAAAAEAAAAYABIAAQAAAAI
 tile_set = SubResource("TileSet_w3o6u")
 
 [node name="Player" parent="." instance=ExtResource("4_ppgk2")]
-position = Vector2(308, 290)
+position = Vector2(940, 283)
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
 position = Vector2(0, -1)
 offset = Vector2(0, -40)
-zoom = Vector2(5.5, 5.5)
 limit_left = 0
 limit_top = 120
 limit_right = 1872
@@ -999,13 +997,10 @@ one_shot = true
 [node name="Portals" type="Node2D" parent="."]
 
 [node name="PortalEntrence1" parent="Portals" instance=ExtResource("10_olg7q")]
-position = Vector2(301, 300)
+position = Vector2(301, 302)
 
 [node name="PortalEntrence2" parent="Portals" instance=ExtResource("11_64w2a")]
-position = Vector2(616, 281)
-
-[node name="Gun" parent="." instance=ExtResource("13_64w2a")]
-position = Vector2(710, 312)
+position = Vector2(624, 164)
 
 [node name="Bullets" type="Node2D" parent="."]
 

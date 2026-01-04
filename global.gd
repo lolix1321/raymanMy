@@ -1,7 +1,7 @@
 extends Node
 
 var spawn_position: Vector2 = Vector2.ZERO
-
+var target_spawn_name: String = ""
 var last_checkpoint_pos : Vector2 = Vector2.ZERO
 
 var diamonds = 0

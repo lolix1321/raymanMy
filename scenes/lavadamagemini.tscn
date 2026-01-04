@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://boklgvb6j5qwi"]
+
+[ext_resource type="Script" uid="uid://ce4xjq026l8lm" path="res://scenes/lavadamagemini.gd" id="1_1f868"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cq47t"]
+size = Vector2(67, 35)
+
+[node name="Lavadamagemini" type="Area2D"]
+script = ExtResource("1_1f868")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(23.5, 7.5)
+shape = SubResource("RectangleShape2D_cq47t")
