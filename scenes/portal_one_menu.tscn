@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://dkbxhp1g265co"]
+[gd_scene load_steps=63 format=4 uid="uid://dkbxhp1g265co"]
 
 [ext_resource type="Script" uid="uid://dr4ilj2qigv4g" path="res://scenes/portal_one_menu.gd" id="1_x3fpt"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_tcdi0"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://dtekrepd8qqxr" path="res://scenes/exit_from_lvl_1.tscn" id="20_78go5"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="20_dxsga"]
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
+[ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
 texture = ExtResource("5_x3fpt")
@@ -2131,6 +2132,10 @@ position = Vector2(4898, 973)
 position = Vector2(1873, 444)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("20_dxsga")]
+
+[node name="menucanvas" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="menucanvas" instance=ExtResource("29_ecmrn")]
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]

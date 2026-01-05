@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 	if is_teleporting:
 		velocity = Vector2.ZERO
 
-	print($AnimatedSprite2D.animation)
+	
 	if is_teleporting:
 		velocity = Vector2.ZERO
 		direction_x=0
