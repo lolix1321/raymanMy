@@ -23,6 +23,9 @@ var can_regenerate := false
 @onready var dead := false
 @onready var entered = false
 
+var can_animate = true
+
+
 signal shoot(pos: Vector2, direction: bool)
 
 
@@ -63,8 +66,16 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
+
 	if is_teleporting:
 		velocity = Vector2.ZERO
+
+	print($AnimatedSprite2D.animation)
+	if is_teleporting:
+		velocity = Vector2.ZERO
+		direction_x=0
+		set_anim('jump')
+
 		move_and_slide()
 		return 
 		
@@ -93,7 +104,12 @@ func _process(delta: float) -> void:
 	velocity.x = direction_x * speed 
 	move_and_slide()
 	gravity()
+
 	get_animation()
+
+	if can_animate:
+		get_animation()
+
 	get_facing_direction()
 
 	
@@ -256,3 +272,19 @@ func _on_gain_health_timeout() -> void:
 		print("Zregenerowano! Obecne HP: ", health)
 		if health >= 100:
 			$Timers/GainHealth.stop()
+
+			
+			
+
+
+func zmianaCanAnimate():
+	can_animate = !can_animate
+
+
+func set_anim(anim: String):
+	
+	if has_gun:
+		anim += "_gun"
+	$AnimatedSprite2D.animation = anim
+	$AnimatedSprite2D.flip_h = not facing_right
+	
