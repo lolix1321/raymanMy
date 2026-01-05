@@ -14,7 +14,7 @@ func testEsc():
 		print("odpalonmo setingsy")
 		pause()
 	elif Input.is_action_just_pressed("esc") and get_tree().paused == true:
-		print("powrotw")
+		print("powrot")
 		
 		resume()
 
@@ -60,11 +60,14 @@ func _process(delta: float) -> void:
 func _on_yes_pressed() -> void:
 	if cr=="quit":
 		get_tree().quit()
+		cr = "nic"
 	elif cr == "lobby":
 		resume()
+		cr = "nic"
 		get_tree().change_scene_to_file("res://scenes/level.tscn")
 	elif cr == "reset":
 		resume()
+		cr = "nic"
 		get_tree().reload_current_scene()
 		
 	

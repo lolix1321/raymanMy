@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 class_name Player
-var stamina = 510.0       
-var max_stamina = 510.0    
+var stamina = 5150.0       
+var max_stamina = 50.0    
 var stamina_drain = 20.0   
 var stamina_regen = 10.0  
 var can_sprint = true  
-@onready var health := 1000
+@onready var health := 10001
 var is_teleporting := false
 var vignette_tween: Tween
 var speed := 1120

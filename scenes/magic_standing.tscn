@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=3 uid="uid://bh4prbjpmabxi"]
+
+[ext_resource type="Script" uid="uid://cprn7yf66v1eo" path="res://scenes/magic_standing.gd" id="1_dmw8v"]
+[ext_resource type="PackedScene" uid="uid://dsrhkps3da471" path="res://scenes/fire_ball.tscn" id="2_u5mmg"]
+[ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="3_ofw6x"]
+[ext_resource type="Texture2D" uid="uid://bv0rnl51q85am" path="res://graphic/magician/magician.png" id="4_jo3u4"]
+[ext_resource type="Texture2D" uid="uid://bk4pwros5hie4" path="res://graphic/magician/magician_shoot2.png" id="6_aoebh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwhys"]
+resource_local_to_scene = true
+shader = ExtResource("3_ofw6x")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_788o1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jo3u4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 4.0,
+"texture": ExtResource("6_aoebh")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_788o1"]
+size = Vector2(32, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fggut"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87hvv"]
+size = Vector2(4, 4)
+
+[node name="magicRight" type="Area2D"]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_dmw8v")
+fire_ball = ExtResource("2_u5mmg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_wwhys")
+sprite_frames = SubResource("SpriteFrames_788o1")
+animation = &"shoot"
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 13.5)
+polygon = PackedVector2Array(-16, 10.5, -16, 18.5, 16, 18.5, 16, 6.5, 15, 6.5, 15, 3.5, 14, 3.5, 14, -0.5, 13, -0.5, 13, -4.5, 14, -4.5, 14, -6.5, 15, -6.5, 15, -8.5, 16, -8.5, 16, -10.5, 17, -10.5, 17, -11.5, 18, -11.5, 18, -13.5, 19, -13.5, 19, -14.5, 20, -14.5, 20, -22.5, 19, -22.5, 19, -23.5, 18, -23.5, 18, -24.5, 17, -24.5, 17, -25.5, 15, -25.5, 15, -26.5, 13, -26.5, 13, -27.5, 9, -27.5, 9, -28.5, 4, -28.5, 4, -29.5, -8, -29.5, -8, -28.5, -10, -28.5, -10, -27.5, -12, -27.5, -12, -26.5, -13, -26.5, -13, -24.5, -14, -24.5, -14, -22.5, -15, -22.5, -15, -21.5, -15, -20.5, -16, -20.5, -16, -14.5, -15, -14.5, -15, -11.5, -15, -10.5, -14, -10.5, -14, -9.5, -14, -8.5, -13, -8.5, -13, -7.5, -12, -7.5, -12, -2.5, -13, -2.5, -13, 0.5, -14, 0.5, -14, 6.5, -15, 6.5, -15, 10.5)
+
+[node name="walneicie" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walneicie"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_788o1")
+
+[node name="RightCliff" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCliff"]
+position = Vector2(18, 32)
+shape = SubResource("RectangleShape2D_fggut")
+
+[node name="LeftCliff" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCliff"]
+position = Vector2(-18, 32)
+shape = SubResource("RectangleShape2D_87hvv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(29, 14.5)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="walneicie" to="." method="_on_walneicie_body_entered"]
+[connection signal="body_exited" from="RightCliff" to="." method="_on_right_cliff_body_exited"]
+[connection signal="body_exited" from="LeftCliff" to="." method="_on_left_cliff_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

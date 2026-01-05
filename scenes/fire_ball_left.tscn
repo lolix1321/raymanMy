@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://d10bys4suitjp"]
+
+[ext_resource type="Script" uid="uid://cwfeuopkgb57l" path="res://fire_ball_left.gd" id="1_2mhsk"]
+[ext_resource type="Texture2D" uid="uid://dde4try6u736i" path="res://graphic/magician/fireball2.png" id="2_lmetn"]
+[ext_resource type="Texture2D" uid="uid://1ui6wpq1gvbx" path="res://graphic/magician/fireball.png" id="3_qreqb"]
+[ext_resource type="Texture2D" uid="uid://cuxfo37kl4k64" path="res://graphic/magician/fireball3.png" id="4_bsgrp"]
+
+[sub_resource type="Gradient" id="Gradient_ggq3o"]
+offsets = PackedFloat32Array(0.24725275, 0.63736266)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ggq3o"]
+gradient = SubResource("Gradient_ggq3o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggq3o"]
+animations = [{
+"frames": [{
+"duration": 0.7,
+"texture": ExtResource("2_lmetn")
+}, {
+"duration": 0.7,
+"texture": ExtResource("3_qreqb")
+}, {
+"duration": 0.7,
+"texture": ExtResource("4_bsgrp")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry06"]
+size = Vector2(15, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qddq2"]
+size = Vector2(15, 11)
+
+[node name="FireBallLeft" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_2mhsk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-0.49999908, -6.556511e-07)
+scale = Vector2(0.45312503, 0.37499994)
+color = Color(0.8248971, 0.596861, 0.058152974, 1)
+energy = 3.1
+texture = SubResource("GradientTexture2D_ggq3o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ggq3o")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kry06")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-2, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_qddq2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

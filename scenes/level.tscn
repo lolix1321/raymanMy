@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://bsekiujt56atn"]
+[gd_scene load_steps=65 format=4 uid="uid://bsekiujt56atn"]
 
 [ext_resource type="Script" uid="uid://fynhtgm8ug70" path="res://scenes/level.gd" id="1_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://bu4rb6g5pav70" path="res://graphic/New Piskel (1)22.png" id="1_w7c3h"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://caih331ts2232" path="res://graphic/swiecawielka.png" id="24_3ies3"]
 [ext_resource type="Texture2D" uid="uid://birgs7tq0nl6" path="res://graphic/wielkasweica2.png" id="25_xy2fk"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="27_cmcjb"]
+[ext_resource type="PackedScene" uid="uid://cu66a1jei48p8" path="res://scenes/undermapteleport.tscn" id="28_7agi7"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="28_556r4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wu01b"]
@@ -975,7 +976,7 @@ tile_map_data = PackedByteArray("AAAYABAAAQAAAAAAAAAYABEAAQAAAAEAAAAYABIAAQAAAAI
 tile_set = SubResource("TileSet_w3o6u")
 
 [node name="Player" parent="." instance=ExtResource("4_ppgk2")]
-position = Vector2(942, 259)
+position = Vector2(944, 263)
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
 position = Vector2(0, -1)
@@ -1118,6 +1119,12 @@ position = Vector2(312, 282)
 [node name="menucanvas" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="menucanvas" instance=ExtResource("27_cmcjb")]
+
+[node name="undermapteleport" parent="." node_paths=PackedStringArray("spawn_point") instance=ExtResource("28_7agi7")]
+position = Vector2(1074, 459)
+collision_layer = 32
+collision_mask = 2
+spawn_point = NodePath("../MenuSpawnPoint")
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PlayerTimer" to="Player" method="_on_player_timer_timeout"]

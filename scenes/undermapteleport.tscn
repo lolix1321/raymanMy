@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu66a1jei48p8"]
+
+[ext_resource type="Script" uid="uid://da2ct51t3ljdv" path="res://undermapteleport.gd" id="1_w2ali"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf70h"]
+size = Vector2(2545, 659.5)
+
+[node name="undermapteleport" type="Area2D"]
+script = ExtResource("1_w2ali")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 256.25)
+shape = SubResource("RectangleShape2D_jf70h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
