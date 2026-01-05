@@ -6,6 +6,8 @@
 size = Vector2(49, 60.25)
 
 [node name="PortalExit1" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
 script = ExtResource("1_6i3tk")
 spawn_position = Vector2(841, 270)
 

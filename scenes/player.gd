@@ -1,15 +1,15 @@
 extends CharacterBody2D
 
 class_name Player
-var stamina = 50.0       
-var max_stamina = 50.0    
+var stamina = 510.0       
+var max_stamina = 510.0    
 var stamina_drain = 20.0   
 var stamina_regen = 10.0  
 var can_sprint = true  
-@onready var health := 100
+@onready var health := 1000
 var is_teleporting := false
 var vignette_tween: Tween
-var speed := 120
+var speed := 1120
 var direction_x := 0.0
 var direction_y := 0.0
 var facing_right := true
@@ -25,17 +25,41 @@ var can_regenerate := false
 
 signal shoot(pos: Vector2, direction: bool)
 
+
+	
 func _ready():
-	if Global.spawn_position != Vector2.ZERO:
-		global_position = Global.spawn_position
-		Global.spawn_position = Vector2.ZERO 
-		$AnimatedSprite2D.material.set_shader_parameter("amount", 1.0)
-		start_portal_effect(false)
-	if Global.last_checkpoint_pos != Vector2.ZERO:
+	if $AnimatedSprite2D.material:
+		$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
+	
+	if Global.target_spawn_name != "":
+		Global.last_checkpoint_pos = Vector2.ZERO 
+		set_player_to_spawn.call_deferred()
+		
+	elif Global.last_checkpoint_pos != Vector2.ZERO:
 		global_position = Global.last_checkpoint_pos
-	
-	
-	
+		print("Gracz odrodzony w punkcie kontrolnym")
+		
+	elif Global.spawn_position != Vector2.ZERO:
+		global_position = Global.spawn_position
+		# TUTAJ DODAJEMY EFEKT:
+		start_portal_effect(false) 
+		Global.spawn_position = Vector2.ZERO
+		
+
+func set_player_to_spawn():
+	var spawn_node = get_tree().current_scene.find_child(Global.target_spawn_name, true, false)
+	if spawn_node:
+		# Resetujemy prędkość, żeby postać "nie wleciała" w nową scenę z pędem
+		if self is CharacterBody2D:
+			velocity = Vector2.ZERO
+			
+		global_position = spawn_node.global_position
+		print("Pozycja ustawiona ostatecznie na: ", global_position)
+		
+		if $AnimatedSprite2D.material:
+			$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
+		start_portal_effect(false)
+		Global.target_spawn_name = ""
 
 		
 func _process(delta: float) -> void:

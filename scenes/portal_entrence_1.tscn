@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dn47e0d2526qn" path="res://scenes/portal_entrence_1.gd" id="1_na37u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jboht"]
-size = Vector2(46, 64)
+size = Vector2(60, 64)
 
 [node name="PortalEntrence1" type="Area2D" groups=["Player"]]
 collision_layer = 32
@@ -11,7 +11,7 @@ collision_mask = 2
 script = ExtResource("1_na37u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(12, -22)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_jboht")
 
 [node name="EnterTimer" type="Timer" parent="."]

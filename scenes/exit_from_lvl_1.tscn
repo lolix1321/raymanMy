@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtekrepd8qqxr"]
+
+[ext_resource type="Script" uid="uid://d3o4b5coxm5px" path="res://scenes/exit_from_lvl_1.gd" id="1_j2jvt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ax75y"]
+size = Vector2(44, 53)
+
+[node name="ExitFromLvl1" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_j2jvt")
+target_scene_path = "uid://bsekiujt56atn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ax75y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
