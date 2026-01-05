@@ -16,6 +16,9 @@ var forward := true
 @export var notice_radius := 120
 
 func _ready():
+
+	print("test")
+
 	position = marker1.position
 
 func _process(delta):
