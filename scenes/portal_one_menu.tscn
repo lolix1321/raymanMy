@@ -27,8 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://dtekrepd8qqxr" path="res://scenes/exit_from_lvl_1.tscn" id="20_78go5"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="20_dxsga"]
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
-[ext_resource type="PackedScene" uid="uid://bh4prbjpmabxi" path="res://scenes/magic_standing.tscn" id="27_11na4"]
-[ext_resource type="PackedScene" uid="uid://damcwjiwser0l" path="res://scenes/magic_left.tscn" id="28_07eo4"]
+[ext_resource type="PackedScene" path="res://scenes/magic_standing.tscn" id="27_11na4"]
+[ext_resource type="PackedScene" path="res://scenes/magic_left.tscn" id="28_07eo4"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]

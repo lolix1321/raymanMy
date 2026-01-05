@@ -3,9 +3,15 @@ var cr = "nic"
 func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play_backwards("blur")
+	self.hide()
+	
+	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 func pause():
 	get_tree().paused = true
 	$AnimationPlayer.play("blur")
+	self.show()
+	self.mouse_filter = Control.MOUSE_FILTER_STOP
+
 
 func testEsc():
 	if Input.is_action_just_pressed("esc") and get_tree().paused == false:

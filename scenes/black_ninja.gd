@@ -1,10 +1,12 @@
 extends Area2D
-
-var health := 5
+var max_health:int = 5 # TU USTAWIAJ HP
+var health := max_health
 var direction_x := 1
 var speed := 60
 var vignette_tween: Tween
 	
+	
+
 func _on_area_entered(area: Area2D) -> void:
 	health -= 1
 	area.queue_free()
@@ -14,6 +16,7 @@ func _on_area_entered(area: Area2D) -> void:
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1)
 	
 func _process(delta: float) -> void:
+	update_health()
 	check_death()
 	position.x += speed * direction_x * delta
 	
@@ -76,3 +79,14 @@ func _on_left_cliff_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("Player"):
 		direction_x *= -1 
 		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+
+
+func update_health():
+	var healthbar = $HealthBar
+	healthbar.max_value = max_health
+	healthbar.value = health
+	healthbar.visible = health < max_health
+	if direction_x < 0:
+		$HealthBar.position.x = -20 
+	elif direction_x > 0:
+		$HealthBar.position.x = -14.0 

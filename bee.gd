@@ -1,6 +1,6 @@
 extends Area2D
-
-var health := 6
+var max_health: int= 6
+var health := max_health
 var speed := 50
 var knockback_velocity := Vector2.ZERO
 var knockback_strength := 600.0
@@ -24,6 +24,7 @@ func _ready():
 func _process(delta):
 	check_death()
 	get_target()
+	update_health()
 	
 	if knockback_velocity.length() > 20:
 		position += knockback_velocity * delta
@@ -91,3 +92,11 @@ func animate_vignette(vignette: ColorRect):
 	# Płynny powrót
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
+	
+	
+func update_health():
+	var healthbar = $AnimatedSprite2D/HealthBar
+	healthbar.max_value = max_health
+	healthbar.value = health
+	healthbar.visible = health < max_health
+	 

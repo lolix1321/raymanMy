@@ -31,6 +31,7 @@ signal shoot(pos: Vector2, direction: bool)
 
 	
 func _ready():
+	$CooldownBar.visible = false
 	if $AnimatedSprite2D.material:
 		$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
 	
@@ -66,6 +67,8 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
+	
+	cooldownAnim()
 
 	if is_teleporting:
 		velocity = Vector2.ZERO
@@ -218,6 +221,7 @@ func animate_vignette():
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
 
 func _on_cooldown_timer_timeout() -> void:
+	$CooldownBar.visible = false
 	can_shoot = true
 
 
@@ -288,3 +292,15 @@ func set_anim(anim: String):
 	$AnimatedSprite2D.animation = anim
 	$AnimatedSprite2D.flip_h = not facing_right
 	
+	
+
+func cooldownAnim():
+	if !$Timers/CooldownTimer.is_stopped():
+		var timer = $Timers/CooldownTimer
+		var coolDownBar = $CooldownBar
+		var left = $Timers/CooldownTimer.time_left
+		coolDownBar.visible = true
+		
+		
+		coolDownBar.max_value = timer.wait_time
+		coolDownBar.value = timer.time_left

@@ -40,6 +40,14 @@ material = SubResource("ShaderMaterial_qf6nb")
 sprite_frames = SubResource("SpriteFrames_qf6nb")
 autoplay = "default"
 
+[node name="HealthBar" type="ProgressBar" parent="AnimatedSprite2D"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -21.0
+offset_top = -25.0
+offset_right = 15.0
+offset_bottom = -17.0
+show_percentage = false
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 material = SubResource("ShaderMaterial_oynbf")
 use_parent_material = true

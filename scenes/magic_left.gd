@@ -1,6 +1,6 @@
 extends Area2D
-
-var health := 5
+var max_health:int = 5
+var health := max_health
 var speed := 30
 var direction_x := 1
 var is_shooting := false
@@ -14,6 +14,7 @@ const fireball_scene: PackedScene = preload("res://scenes/fire_ball.tscn")
 @onready var player = get_tree().get_first_node_in_group("Player")
 
 func _process(delta: float) -> void:
+	update_health()
 	if not is_shooting:
 		$AnimatedSprite2D.play("default") 
 	
@@ -85,3 +86,11 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "shoot":
 		is_shooting = false
+
+
+func update_health():
+	var healthbar = $HealthBar
+	healthbar.max_value = max_health
+	healthbar.value = health
+	healthbar.visible = health < max_health
+	

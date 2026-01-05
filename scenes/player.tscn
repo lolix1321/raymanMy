@@ -190,6 +190,14 @@ frame_progress = 0.13861173
 
 [node name="HealthBar" parent="." instance=ExtResource("11_d2wvv")]
 
+[node name="CooldownBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0.8642304, 0.8412026, 1)
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 10.0
+offset_bottom = -15.0
+show_percentage = false
+
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="Timers/FireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="Timers/InvicibilityTimer" to="." method="_on_invicibility_timer_timeout"]
