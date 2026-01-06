@@ -14,8 +14,8 @@ func _on_area_entered(area: Area2D) -> void:
 		health -= 1
 		area.queue_free()
 		var tween = create_tween() 
-		#tween.tween_property($Sprite2D, "material:shader_parameter/amount", 1.0, 0.1)
-		#tween.tween_property($Sprite2D, "material:shader_parameter/amount", 0.0, 0.1)
+		tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.1)
+		tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1)
 
 
 
@@ -26,17 +26,30 @@ func zeskocz():
 	jumping = false
 	falling = true
 	rotation_degrees = 0 # Obraca go do góry nogami
+	$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h 
+	
+func get_animation():
+	var animation = 'spider'
+	if onplayer:
+		animation = "spider_player"
+	if jumping:
+		animation += "_jump"
+	if falling:
+		animation += "_jump2"
+	$AnimatedSprite2D.animation = animation
+
 
 func _process(delta: float) -> void:
 	update_health()
 	check_death()
+	get_animation()
 	
 	if onplayer:
 		global_position = player.global_position + Vector2(0, -20)
 	elif jumping:
 		global_position = global_position.move_toward(player.global_position, speed * 2.0 * delta)
 	elif falling:
-		position.y += speed * 0.3 * delta
+		position.y += speed * 1 * delta
 		if falling and $RayCast2D.is_colliding():
 			falling = false
 			rotation_degrees = 0 # Wraca do normalnej pozycji
@@ -98,19 +111,19 @@ func respawn_player(player: Node2D):
 func _on_border_area_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Player"):
 		direction_x *= -1 
-		$Sprite2D.flip_h = not $Sprite2D.flip_h
+		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
 
 
 func _on_right_cliff_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("Player"):
 		direction_x *= -1 
-		$Sprite2D.flip_h = not $Sprite2D.flip_h
+		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
 
 
 func _on_left_cliff_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("Player"):
 		direction_x *= -1 
-		$Sprite2D.flip_h = not $Sprite2D.flip_h
+		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
 		
 		
 func update_health():

@@ -1,18 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=24 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cc3q1aogx7mjs" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
-[ext_resource type="Texture2D" uid="uid://gkfglpsq6k0x" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://d0byiya60sjrj" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://dxkaxiq3mnw5h" path="res://graphic/spider/spiderOnPlayer2.png" id="5_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dk3e1k3mfcijy" path="res://graphic/guns/fire.png" id="6_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://rrhry3i3xr7u" path="res://graphic/assets_ray/ssds/knight_run.png" id="7_3v2ag"]
-[ext_resource type="Texture2D" uid="uid://bj8nl7tsb0we2" path="res://graphic/assets_ray/ssds/knight_run_gun.png" id="8_f1ej7"]
-[ext_resource type="Texture2D" uid="uid://cqle5y3pg65d3" path="res://graphic/assets_ray/ssds/knight_run2.png" id="8_jej6c"]
-[ext_resource type="Texture2D" uid="uid://c1w12c2cosdyt" path="res://graphic/assets_ray/ssds/knight_run_gun2.png" id="8_oprun"]
+[ext_resource type="Texture2D" uid="uid://cqil8hgaifse4" path="res://graphic/assets_ray/ssds/knight_run.png" id="7_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://ds41q3jndmfhe" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun1.png" id="8_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://wahaltqieu1e" path="res://graphic/assets_ray/ssds/knight_run_gun.png" id="8_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://k4m5ggyll2h3" path="res://graphic/assets_ray/ssds/knight_run2.png" id="8_jej6c"]
+[ext_resource type="Texture2D" uid="uid://dsq6yxetlncip" path="res://graphic/assets_ray/ssds/knight_run_gun2.png" id="8_oprun"]
 [ext_resource type="Texture2D" uid="uid://dgg0igejaavu0" path="res://graphic/assets_ray/jump_anim/jump_anim0.png" id="8_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cd4l1c0effi5" path="res://graphic/assets_ray/jump_anim/jump_anim1.png" id="9_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smehm"]
 shader = ExtResource("2_fjrip")
@@ -39,6 +42,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("5_f1ej7")
+}],
+"loop": true,
+"name": &"idle_gun_spider",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("7_3v2ag")
 }],
 "loop": true,
@@ -51,6 +62,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_a8ls1")
+}],
+"loop": true,
+"name": &"jump_gun_spider",
 "speed": 5.0
 }, {
 "frames": [{
@@ -73,6 +92,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_qfm1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_a8ls1")
+}],
+"loop": true,
+"name": &"walk_gun_spider",
 "speed": 5.0
 }]
 
@@ -106,7 +136,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jej6c"]
-size = Vector2(31, 6)
+size = Vector2(31, 4)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -115,9 +145,9 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_smehm")
-position = Vector2(-1, 2)
+position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"idle"
+animation = &"idle_gun_spider"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -206,7 +236,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="colision"]
-position = Vector2(-2, -11)
+position = Vector2(-2, -10)
 shape = SubResource("RectangleShape2D_jej6c")
 
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://obte6uuxhady"
-path="res://.godot/imported/jumpman.png-1acd16551a49a19baa55943b6c0cd702.ctex"
+uid="uid://dxkaxiq3mnw5h"
+path="res://.godot/imported/spiderOnPlayer2.png-e5a891f8948ab4934476042dec0f3cd5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphic/assets_ray/ssds/jumpman.png"
-dest_files=["res://.godot/imported/jumpman.png-1acd16551a49a19baa55943b6c0cd702.ctex"]
+source_file="res://graphic/spider/spiderOnPlayer2.png"
+dest_files=["res://.godot/imported/spiderOnPlayer2.png-e5a891f8948ab4934476042dec0f3cd5.ctex"]
 
 [params]
 

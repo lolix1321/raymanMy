@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xyxoj0af1qh3"
-path="res://.godot/imported/sprite_2.png-1472c819a9f39fb43460654c6a248aa0.ctex"
+uid="uid://dd7bfgtfpqebs"
+path="res://.godot/imported/spider_falling.png-32ab72e74cb2db1f3fefc6e52f2e126c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphic/assets_ray/ssds/sprite_2.png"
-dest_files=["res://.godot/imported/sprite_2.png-1472c819a9f39fb43460654c6a248aa0.ctex"]
+source_file="res://graphic/spider/spider_falling.png"
+dest_files=["res://.godot/imported/spider_falling.png-32ab72e74cb2db1f3fefc6e52f2e126c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqil8hgaifse4"
-path="res://.godot/imported/knight_run.png-a75d5a272c82ec0a60c041aa1d6557cc.ctex"
+uid="uid://dkdafd3mxhe8s"
+path="res://.godot/imported/spiderOnPlayer.png-a7c83b2c42409f45f2b65574b949a6ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphic/assets_ray/ssds/knight_run.png"
-dest_files=["res://.godot/imported/knight_run.png-a75d5a272c82ec0a60c041aa1d6557cc.ctex"]
+source_file="res://graphic/spiderOnPlayer.png"
+dest_files=["res://.godot/imported/spiderOnPlayer.png-a7c83b2c42409f45f2b65574b949a6ae.ctex"]
 
 [params]
 

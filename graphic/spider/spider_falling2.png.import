@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqil8hgaifse4"
-path="res://.godot/imported/knight_run.png-a75d5a272c82ec0a60c041aa1d6557cc.ctex"
+uid="uid://cw5t74i7hhyup"
+path="res://.godot/imported/spider_falling2.png-80776990093f84df7b8ac02514cda2ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphic/assets_ray/ssds/knight_run.png"
-dest_files=["res://.godot/imported/knight_run.png-a75d5a272c82ec0a60c041aa1d6557cc.ctex"]
+source_file="res://graphic/spider/spider_falling2.png"
+dest_files=["res://.godot/imported/spider_falling2.png-80776990093f84df7b8ac02514cda2ec.ctex"]
 
 [params]
 

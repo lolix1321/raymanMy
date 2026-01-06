@@ -58,7 +58,7 @@ func _ready() -> void:
 	$PanelContainer/kontenerAREUSURE.visible = false
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	testEsc()
 
 

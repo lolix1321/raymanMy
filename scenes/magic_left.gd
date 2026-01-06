@@ -13,7 +13,7 @@ const fireball_scene: PackedScene = preload("res://scenes/fire_ball.tscn")
 
 @onready var player = get_tree().get_first_node_in_group("Player")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_health()
 	if not is_shooting:
 		$AnimatedSprite2D.play("default") 

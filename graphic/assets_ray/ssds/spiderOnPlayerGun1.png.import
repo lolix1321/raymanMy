@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfi0kbtxbl3ac"
-path="res://.godot/imported/sprite_3.png-56a5337aac513c3e0ec39eea788c6cc1.ctex"
+uid="uid://ds41q3jndmfhe"
+path="res://.godot/imported/spiderOnPlayerGun1.png-ff92a903c4d43d5896716ff60e110399.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphic/assets_ray/ssds/sprite_3.png"
-dest_files=["res://.godot/imported/sprite_3.png-56a5337aac513c3e0ec39eea788c6cc1.ctex"]
+source_file="res://graphic/assets_ray/ssds/spiderOnPlayerGun1.png"
+dest_files=["res://.godot/imported/spiderOnPlayerGun1.png-ff92a903c4d43d5896716ff60e110399.ctex"]
 
 [params]
 

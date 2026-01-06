@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://l4sgpyfd5k0a"]
+[gd_scene load_steps=20 format=3 uid="uid://l4sgpyfd5k0a"]
 
 [ext_resource type="Script" uid="uid://c0v8bbxpvggoi" path="res://scenes/spider.gd" id="1_algeo"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_wghsh"]
@@ -11,10 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://dhdb3cuty2ata" path="res://graphic/spider/spider4.png" id="5_it4vu"]
 [ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="5_wdplg"]
 [ext_resource type="Texture2D" uid="uid://cw5t74i7hhyup" path="res://graphic/spider/spider_falling2.png" id="7_8qx0x"]
+[ext_resource type="Texture2D" uid="uid://dd7bfgtfpqebs" path="res://graphic/spider/spider_falling.png" id="7_it4vu"]
 [ext_resource type="Texture2D" uid="uid://doxv4kpbao4tb" path="res://graphic/spider/spider_none.png" id="9_8qx0x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1byya"]
-resource_local_to_scene = true
 shader = ExtResource("2_wghsh")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/amount = 0.0
@@ -48,7 +48,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wj5t3")
+"texture": ExtResource("7_it4vu")
 }],
 "loop": true,
 "name": &"spider_jump2",
@@ -73,18 +73,18 @@ size = Vector2(33, 4)
 size = Vector2(1.75, 1.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdplg"]
-size = Vector2(28, 157)
+size = Vector2(28, 108)
 
 [node name="Spider" type="Area2D" groups=["Spider"]]
 collision_layer = 4
-collision_mask = 19
+collision_mask = 18
 script = ExtResource("1_algeo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_1byya")
-position = Vector2(0, -11)
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_8qx0x")
-animation = &"spider_jump2"
+animation = &"spider_player"
 autoplay = "spider"
 flip_h = true
 
@@ -119,7 +119,7 @@ scale = Vector2(0.21875, 0.84375)
 texture = ExtResource("3_txxy0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2(0, -88.5)
+position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_wdplg")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]

@@ -156,6 +156,8 @@ func get_animation():
 		animation = 'walk'
 	if has_gun:
 		animation += "_gun"
+	if spiderOnHead:
+		animation += "_spider"
 	$AnimatedSprite2D.animation = animation
 	$AnimatedSprite2D.flip_h = not facing_right
 	
@@ -306,7 +308,7 @@ func cooldownAnim():
 	if !$Timers/CooldownTimer.is_stopped():
 		var timer = $Timers/CooldownTimer
 		var coolDownBar = $CooldownBar
-		var left = $Timers/CooldownTimer.time_left
+		var _left = $Timers/CooldownTimer.time_left
 		coolDownBar.visible = true
 		
 		
@@ -339,6 +341,11 @@ func spiderOnHeadFunc():
 
 func _on_colision_area_entered(area: Area2D) -> void:
 	if area.has_method("spider"):
+		if spider:
+			spider.zeskocz()
+			spiderOnHead = false
+			spider = null
+		
 		
 		spider = area
 		print("spider to",spider )
