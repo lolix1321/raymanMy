@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cv06dgnyh7jdg"]
+[gd_scene load_steps=11 format=3 uid="uid://cv06dgnyh7jdg"]
 
 [ext_resource type="Script" uid="uid://d085rvllqb105" path="res://bee.gd" id="1_vie5o"]
 [ext_resource type="Texture2D" uid="uid://dp6i7sr2702jl" path="res://graphic/ghost/ghost.png" id="2_ogg2i"]
 [ext_resource type="Texture2D" uid="uid://c1sdlbeaq2owi" path="res://graphic/ghost/ghost2.png" id="3_qf6nb"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="4_qf6nb"]
+[ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="5_kro73"]
+[ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="6_qe60h"]
+[ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="7_yiyqc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qf6nb"]
 resource_local_to_scene = true
@@ -40,13 +43,15 @@ material = SubResource("ShaderMaterial_qf6nb")
 sprite_frames = SubResource("SpriteFrames_qf6nb")
 autoplay = "default"
 
-[node name="HealthBar" type="ProgressBar" parent="AnimatedSprite2D"]
-modulate = Color(1, 0, 0, 1)
-offset_left = -21.0
-offset_top = -25.0
-offset_right = 15.0
-offset_bottom = -17.0
-show_percentage = false
+[node name="HealthBar" type="TextureProgressBar" parent="AnimatedSprite2D"]
+offset_left = -18.0
+offset_top = -22.0
+offset_right = 19.0
+offset_bottom = -7.0
+value = 50.0
+texture_under = ExtResource("5_kro73")
+texture_over = ExtResource("6_qe60h")
+texture_progress = ExtResource("7_yiyqc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 material = SubResource("ShaderMaterial_oynbf")

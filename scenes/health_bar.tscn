@@ -17,6 +17,7 @@ corner_radius_bottom_left = 5
 corner_detail = 1
 expand_margin_left = 10.0
 expand_margin_right = 5.0
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6opq1"]
 bg_color = Color(0.8256774, 0, 0.12663466, 1)
@@ -29,6 +30,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 expand_margin_left = 10.0
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvlm"]
 content_margin_top = 8.0

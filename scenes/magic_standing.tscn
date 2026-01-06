@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://bh4prbjpmabxi"]
+[gd_scene load_steps=14 format=3 uid="uid://bh4prbjpmabxi"]
 
 [ext_resource type="Script" uid="uid://cprn7yf66v1eo" path="res://scenes/magic_standing.gd" id="1_dmw8v"]
 [ext_resource type="PackedScene" uid="uid://dsrhkps3da471" path="res://scenes/fire_ball.tscn" id="2_u5mmg"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="3_ofw6x"]
 [ext_resource type="Texture2D" uid="uid://bv0rnl51q85am" path="res://graphic/magician/magician.png" id="4_jo3u4"]
 [ext_resource type="Texture2D" uid="uid://bk4pwros5hie4" path="res://graphic/magician/magician_shoot2.png" id="6_aoebh"]
+[ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="6_u5mmg"]
+[ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="7_ofw6x"]
+[ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="8_jo3u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wwhys"]
 resource_local_to_scene = true
@@ -79,6 +82,16 @@ autostart = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(29, 14.5)
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -18.0
+offset_top = -26.0
+offset_right = 19.0
+offset_bottom = -11.0
+value = 50.0
+texture_under = ExtResource("6_u5mmg")
+texture_over = ExtResource("7_ofw6x")
+texture_progress = ExtResource("8_jo3u4")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dy17q1wahvid6"]
+[gd_scene load_steps=13 format=3 uid="uid://dy17q1wahvid6"]
 
 [ext_resource type="Script" uid="uid://bl1q85bawrd0n" path="res://scenes/black_ninja.gd" id="1_e738a"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_cojvc"]
 [ext_resource type="Texture2D" uid="uid://be3xyr3ldbswf" path="res://graphic/zombieee/zombie_walk2.png" id="3_ppt7a"]
 [ext_resource type="Texture2D" uid="uid://dwle6y41twngm" path="res://graphic/zombieee/zombie_walk.png" id="4_cojvc"]
+[ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="5_51160"]
+[ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="6_3cyjj"]
+[ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="7_p1qyd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3cyjj"]
 resource_local_to_scene = true
@@ -70,13 +73,15 @@ position = Vector2(6, 17)
 position = Vector2(-19, 15)
 shape = SubResource("RectangleShape2D_cojvc")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-modulate = Color(1, 0, 0, 1)
+[node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -14.0
-offset_top = -26.0
-offset_right = 22.0
-offset_bottom = -18.0
-show_percentage = false
+offset_top = -25.0
+offset_right = 23.0
+offset_bottom = -10.0
+value = 50.0
+texture_under = ExtResource("5_51160")
+texture_over = ExtResource("6_3cyjj")
+texture_progress = ExtResource("7_p1qyd")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

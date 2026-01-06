@@ -1,9 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://j8jfegfxs5og"]
+[gd_scene load_steps=14 format=3 uid="uid://j8jfegfxs5og"]
 
 [ext_resource type="Script" uid="uid://7akmfckqgdxp" path="res://scenes/magic_left.gd" id="1_1gn6w"]
+[ext_resource type="PackedScene" uid="uid://d10bys4suitjp" path="res://scenes/fire_ball_left.tscn" id="2_efc3k"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="3_afufh"]
 [ext_resource type="Texture2D" uid="uid://bv0rnl51q85am" path="res://graphic/magician/magician.png" id="4_sfyni"]
 [ext_resource type="Texture2D" uid="uid://bk4pwros5hie4" path="res://graphic/magician/magician_shoot2.png" id="5_kebi8"]
+[ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="6_sfyni"]
+[ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="7_kebi8"]
+[ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="8_k0e26"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wwhys"]
 resource_local_to_scene = true
@@ -43,6 +47,7 @@ size = Vector2(4, 4)
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_1gn6w")
+fire_ball = ExtResource("2_efc3k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wwhys")
@@ -79,13 +84,15 @@ autostart = true
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-29, 14.5)
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-modulate = Color(1, 0, 0, 1)
-offset_left = -25.0
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -18.0
 offset_top = -26.0
-offset_right = 25.0
-offset_bottom = -18.0
-show_percentage = false
+offset_right = 19.0
+offset_bottom = -11.0
+value = 50.0
+texture_under = ExtResource("6_sfyni")
+texture_over = ExtResource("7_kebi8")
+texture_progress = ExtResource("8_k0e26")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

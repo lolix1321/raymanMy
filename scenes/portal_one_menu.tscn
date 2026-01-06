@@ -27,8 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://dtekrepd8qqxr" path="res://scenes/exit_from_lvl_1.tscn" id="20_78go5"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="20_dxsga"]
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
-[ext_resource type="PackedScene" path="res://scenes/magic_standing.tscn" id="27_11na4"]
-[ext_resource type="PackedScene" path="res://scenes/magic_left.tscn" id="28_07eo4"]
+[ext_resource type="PackedScene" uid="uid://bh4prbjpmabxi" path="res://scenes/magic_standing.tscn" id="27_11na4"]
+[ext_resource type="PackedScene" uid="uid://j8jfegfxs5og" path="res://scenes/magic_left.tscn" id="28_07eo4"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
@@ -1018,9 +1018,8 @@ position = Vector2(300, 433)
 position = Vector2(4, 5)
 offset = Vector2(0, -40)
 zoom = Vector2(5.5, 5.5)
-limit_left = 191
-limit_top = -9999996
-limit_bottom = 10000004
+limit_left = 194
+limit_right = 10000003
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_vertical_enabled = true
@@ -2131,6 +2130,7 @@ position = Vector2(1873, 444)
 [node name="menucanvas" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="menucanvas" instance=ExtResource("29_ecmrn")]
+visible = false
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
