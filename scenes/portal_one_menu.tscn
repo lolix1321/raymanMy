@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://dkbxhp1g265co"]
+[gd_scene load_steps=65 format=4 uid="uid://dkbxhp1g265co"]
 
 [ext_resource type="Script" uid="uid://dr4ilj2qigv4g" path="res://scenes/portal_one_menu.gd" id="1_x3fpt"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_tcdi0"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
 [ext_resource type="PackedScene" uid="uid://bh4prbjpmabxi" path="res://scenes/magic_standing.tscn" id="27_11na4"]
 [ext_resource type="PackedScene" uid="uid://j8jfegfxs5og" path="res://scenes/magic_left.tscn" id="28_07eo4"]
+[ext_resource type="PackedScene" uid="uid://l4sgpyfd5k0a" path="res://scenes/spider.tscn" id="28_eusc0"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
@@ -1283,6 +1284,14 @@ position = Vector2(4434, 66)
 [node name="magicLeft3" parent="Enemies" instance=ExtResource("28_07eo4")]
 position = Vector2(2997, 267)
 
+[node name="Spider" parent="Enemies" instance=ExtResource("28_eusc0")]
+position = Vector2(627, 379)
+rotation = 3.1415927
+
+[node name="Spider2" parent="Enemies" instance=ExtResource("28_eusc0")]
+position = Vector2(435, 378)
+rotation = 3.1415927
+
 [node name="BeePathPoints" type="Node2D" parent="."]
 
 [node name="Marker2D3" type="Marker2D" parent="BeePathPoints"]
@@ -2054,7 +2063,7 @@ texture = SubResource("GradientTexture2D_sjk68")
 position = Vector2(994, 415)
 
 [node name="diamond6" parent="Diamonds" instance=ExtResource("19_sjk68")]
-position = Vector2(766, 428)
+position = Vector2(769, 414)
 
 [node name="diamond2" parent="Diamonds" instance=ExtResource("19_sjk68")]
 position = Vector2(1231, 284)

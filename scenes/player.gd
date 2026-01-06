@@ -6,7 +6,7 @@ var max_stamina = 50.0
 var stamina_drain = 20.0   
 var stamina_regen = 10.0  
 var can_sprint = true  
-@onready var health := 10001
+@onready var health := 100
 var is_teleporting := false
 var vignette_tween: Tween
 var speed := 1120
@@ -23,7 +23,10 @@ var can_regenerate := false
 @onready var dead := false
 @onready var entered = false
 
+var spiderOnHead = false
+
 var can_animate = true
+var spider
 
 
 signal shoot(pos: Vector2, direction: bool)
@@ -67,7 +70,8 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
-	
+	if spiderOnHead:
+		spiderOnHeadFunc()
 	cooldownAnim()
 
 	if is_teleporting:
@@ -177,7 +181,11 @@ func get_damage(amount):
 			die()
 	
 func die():
-	# Resetujemy HP do pełna przy odrodzeniu
+	if spider:
+		if spiderOnHead:
+			spider.zeskocz()
+			spider = null
+			spiderOnHead = false
 	health = 100 
 	
 	if Global.last_checkpoint_pos != Vector2.ZERO:
@@ -304,3 +312,33 @@ func cooldownAnim():
 		
 		coolDownBar.max_value = timer.wait_time
 		coolDownBar.value = timer.time_left
+		
+		
+var jumpCounter:int  = 0
+func spiderOnHeadFunc():
+	if spiderOnHead == false:
+		jumpCounter = 0
+		spiderOnHead = true
+	else:
+		
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			jumpCounter+=1
+			
+		if jumpCounter==2:
+			if spider:
+				spider.zeskocz()
+				spider = null
+				spiderOnHead = false
+				
+				
+		
+	
+	
+	
+
+
+func _on_colision_area_entered(area: Area2D) -> void:
+	if area.has_method("spider"):
+		
+		spider = area
+		print("spider to",spider )

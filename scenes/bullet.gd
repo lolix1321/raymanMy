@@ -14,3 +14,7 @@ func _process(delta):
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	queue_free()
+
+
+func bullet():
+	pass

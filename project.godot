@@ -67,6 +67,7 @@ esc={
 2d_physics/layer_5="Bullets"
 2d_physics/layer_6="Portal"
 2d_physics/layer_7="Barierblock"
+2d_physics/layer_8="detector"
 
 [rendering]
 

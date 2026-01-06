@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://l4sgpyfd5k0a"]
+
+[ext_resource type="Script" uid="uid://c0v8bbxpvggoi" path="res://scenes/spider.gd" id="1_algeo"]
+[ext_resource type="Texture2D" uid="uid://dsxsjwih5yfdi" path="res://index.icon.png" id="1_c7em6"]
+[ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="3_evcmw"]
+[ext_resource type="Texture2D" uid="uid://c660jdatcvpuw" path="res://icon.svg" id="3_txxy0"]
+[ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="4_txxy0"]
+[ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="5_wdplg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_algeo"]
+size = Vector2(26, 19.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_047qd"]
+size = Vector2(33, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wj5t3"]
+size = Vector2(1.75, 1.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdplg"]
+size = Vector2(28, 108)
+
+[node name="Spider" type="Area2D" groups=["Spider"]]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_algeo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.203125, 0.15234375)
+texture = ExtResource("1_c7em6")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_algeo")
+
+[node name="BorderArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderArea"]
+shape = SubResource("RectangleShape2D_047qd")
+
+[node name="RightCliff" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCliff"]
+position = Vector2(15, 11)
+shape = SubResource("RectangleShape2D_wj5t3")
+
+[node name="LeftCliff" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftCliff"]
+position = Vector2(-15, 11)
+shape = SubResource("RectangleShape2D_wj5t3")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDetector"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, -64)
+scale = Vector2(0.21875, 0.84375)
+texture = ExtResource("3_txxy0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_wdplg")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -19.0
+offset_right = 18.0
+offset_bottom = -4.0
+value = 50.0
+texture_under = ExtResource("3_evcmw")
+texture_over = ExtResource("4_txxy0")
+texture_progress = ExtResource("5_wdplg")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 10)
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BorderArea" to="." method="_on_border_area_body_entered"]
+[connection signal="body_exited" from="RightCliff" to="." method="_on_right_cliff_body_exited"]
+[connection signal="body_exited" from="LeftCliff" to="." method="_on_left_cliff_body_exited"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
