@@ -18,10 +18,10 @@ shader_parameter/amount = 0.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ppt7a")
+"texture": ExtResource("4_cojvc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_cojvc")
+"texture": ExtResource("3_ppt7a")
 }],
 "loop": true,
 "name": &"walk",
@@ -47,7 +47,8 @@ material = SubResource("ShaderMaterial_3cyjj")
 sprite_frames = SubResource("SpriteFrames_p1qyd")
 animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.79380393
+frame = 1
+frame_progress = 0.8557808
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

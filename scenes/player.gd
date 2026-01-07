@@ -244,16 +244,29 @@ func animate_vignette():
 	if not vignette: return
 	
 	var mat = vignette.material
+	
+	# Jeśli leci poprzedni tween, ubijamy go
 	if vignette_tween and vignette_tween.is_running():
 		vignette_tween.kill()
 	
 	vignette_tween = create_tween()
 	
-	# Natychmiast czerwień
+	# --- ZMIANA TUTAJ ---
+	# Sprawdzamy czy tarcza jest włączona. 
+	# Użyj 'player.sShieldOn' lub samej zmiennej 'sShieldOn' w zależności gdzie ona jest.
+	if isShieldOn: 
+		# Jeśli tarcza jest on: Szybki powrót do normalnego koloru (czarny) i rozmiaru
+		vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.1)
+		vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.1)
+		return # Kończymy funkcję, nie robimy czerwonego błysku
+	
+	# --- EFEKT OBRAŻEŃ (Tylko gdy tarcza wyłączona) ---
+	
+	# Natychmiast czerwień (uderzenie)
 	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0))
 	mat.set_shader_parameter("outer_radius", 1.5)
 	
-	# Powrót
+	# Powrót do czerni (zanikanie bólu)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
 

@@ -64,7 +64,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_algeo"]
-size = Vector2(26, 19.5)
+size = Vector2(26, 29.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_047qd"]
 size = Vector2(33, 4)
@@ -82,13 +82,14 @@ script = ExtResource("1_algeo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_1byya")
-position = Vector2(0, -11)
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_8qx0x")
 animation = &"spider_jump2"
 autoplay = "spider"
 flip_h = true
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.125)
 shape = SubResource("RectangleShape2D_algeo")
 
 [node name="BorderArea" type="Area2D" parent="."]

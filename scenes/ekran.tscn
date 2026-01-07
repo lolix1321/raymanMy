@@ -6,7 +6,7 @@
 shader = ExtResource("1_oqduu")
 shader_parameter/inner_radius = 0.0610000028975
 shader_parameter/outer_radius = 1.200000057
-shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/vignette_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
 
 [node name="Vignette" type="CanvasLayer"]
 

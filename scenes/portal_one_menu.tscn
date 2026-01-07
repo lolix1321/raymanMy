@@ -1372,8 +1372,8 @@ tile_set = SubResource("TileSet_vvlsa")
 [node name="Lights" type="Node2D" parent="."]
 
 [node name="PointLight2D" type="PointLight2D" parent="Lights"]
-position = Vector2(568, 422)
-scale = Vector2(1.1640611, 1.0585936)
+position = Vector2(567, 409.99997)
+scale = Vector2(1.8789054, 1.6542969)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
@@ -1827,8 +1827,8 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D2" type="PointLight2D" parent="Lights"]
-position = Vector2(392.00003, 423)
-scale = Vector2(1.1640611, 1.0585936)
+position = Vector2(391, 412)
+scale = Vector2(1.95703, 1.6699218)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
@@ -2140,6 +2140,9 @@ position = Vector2(1873, 444)
 
 [node name="PauseMenu" parent="menucanvas" instance=ExtResource("29_ecmrn")]
 visible = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.585062, 0.585062, 0.58506197, 1)
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
