@@ -28,8 +28,17 @@ var spiderOnHead = false
 var can_animate = true
 var spider
 
+var isShieldOn = false
+var can_use_shield = true
+var isHittedDuringShield = false
+
 
 signal shoot(pos: Vector2, direction: bool)
+
+
+
+func isShieldOnFunc():
+	return isShieldOn
 
 
 	
@@ -70,6 +79,8 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
+	
+			
 	if spiderOnHead:
 		spiderOnHeadFunc()
 	cooldownAnim()
@@ -125,6 +136,9 @@ func _process(delta: float) -> void:
 func get_input():
 	direction_x = Input.get_axis("left", "right")
 	
+	shield()
+	
+	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = -230
 		
@@ -169,7 +183,19 @@ func get_facing_direction():
 	
 func get_damage(amount):
 	if vulnerable:
+		print("tarcza jest", isShieldOn)
+		if isShieldOn:
+			amount = 0
+			isHittedDuringShield = true
+			isShieldOn = false
+			$ShieldArea/Sprite2D.visible = false
+			can_use_shield = false
+			$ShieldArea/trwanieTarczy.stop()
+			$ShieldArea/cooldownTarczy.start()
+			
+			
 		health -= amount
+		print("dostales za ", amount)
 		animate_vignette()
 		can_regenerate = false    
 		$Timers/GainHealth.stop()  
@@ -188,6 +214,7 @@ func die():
 			spider.zeskocz()
 			spider = null
 			spiderOnHead = false
+			$ShieldArea/cooldownTarczy.paused = false
 	health = 100 
 	
 	if Global.last_checkpoint_pos != Vector2.ZERO:
@@ -317,11 +344,23 @@ func cooldownAnim():
 		
 		
 var jumpCounter:int  = 0
+
 func spiderOnHeadFunc():
 	if spiderOnHead == false:
 		jumpCounter = 0
 		spiderOnHead = true
 	else:
+		if isShieldOn:
+			isShieldOn = false
+			$ShieldArea/Sprite2D.visible = false
+			can_use_shield = false
+			$ShieldArea/trwanieTarczy.stop()
+			$ShieldArea/cooldownTarczy.start()
+			$ShieldArea/cooldownTarczy.paused = true
+		else:
+			$ShieldArea/cooldownTarczy.paused = true
+			
+			
 		
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			jumpCounter+=1
@@ -331,6 +370,8 @@ func spiderOnHeadFunc():
 				spider.zeskocz()
 				spider = null
 				spiderOnHead = false
+				$ShieldArea/cooldownTarczy.paused = false
+			
 				
 				
 		
@@ -345,7 +386,37 @@ func _on_colision_area_entered(area: Area2D) -> void:
 			spider.zeskocz()
 			spiderOnHead = false
 			spider = null
+			$ShieldArea/cooldownTarczy.paused = false
 		
 		
 		spider = area
 		print("spider to",spider )
+
+
+		
+		
+
+
+func shield():
+	
+	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield:
+		isShieldOn = true
+		$ShieldArea/Sprite2D.visible = true
+		$ShieldArea/trwanieTarczy.start()
+	
+	
+	
+		
+	
+
+
+func _on_cooldown_tarczy_timeout() -> void:
+	can_use_shield = true
+	isHittedDuringShield = false
+
+
+func _on_trwanie_tarczy_timeout() -> void:
+	isShieldOn = false
+	$ShieldArea/Sprite2D.visible = false
+	can_use_shield = false
+	$ShieldArea/cooldownTarczy.start()

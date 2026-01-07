@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://7ofapmkkm3nm"]
+
+[ext_resource type="Texture2D" uid="uid://c660jdatcvpuw" path="res://icon.svg" id="1_2xfuc"]
+
+[node name="Node3D" type="Area2D"]
+
+[node name="ShieldArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="ShieldArea"]
+visible = false
+modulate = Color(1, 1, 1, 0.38431373)
+position = Vector2(-1.5000019, -11.5)
+scale = Vector2(0.38281247, 0.4921875)
+texture = ExtResource("1_2xfuc")
+
+[node name="trwanieTarczy" type="Timer" parent="ShieldArea"]
+wait_time = 2.0
+one_shot = true
+
+[node name="cooldownTarczy" type="Timer" parent="ShieldArea"]
+wait_time = 10.0
+one_shot = true

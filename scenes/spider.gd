@@ -9,6 +9,7 @@ var onplayer = false
 @onready var player = get_tree().get_first_node_in_group('Player')
 var jumping = false
 
+
 func _on_area_entered(area: Area2D) -> void:
 	if area.has_method('bullet'):
 		health -= 1
@@ -22,6 +23,7 @@ func _on_area_entered(area: Area2D) -> void:
 var falling = false
 
 func zeskocz():
+	wasOnHead = true
 	onplayer = false
 	jumping = false
 	falling = true
@@ -138,16 +140,53 @@ func update_health():
 
 func _on_player_detector_body_entered(_body: Node2D) -> void:
 	if not onplayer and not wasOnHead:
-		jumping = true
-		
-		get_tree().create_timer(0.5).timeout.connect(func(): 
+		if player and player.isShieldOnFunc():
 			jumping = false
-			onplayer = true
-			wasOnHead = true
-			rotation_degrees = 0
-			get_tree().get_first_node_in_group("Player").spiderOnHeadFunc()
-		)
-
+			
+			var shield_marker = player.get_node("ShieldPoint")
+			
+			
+			var dir_x = sign(global_position.x - shield_marker.global_position.x)
+			if dir_x == 0: dir_x = 1 
+			
+			
+			var attack_tween = create_tween()
+			
+			attack_tween.tween_property(self, "global_position", shield_marker.global_position, 0.1).set_trans(Tween.TRANS_SINE)
+			
+			
+			attack_tween.finished.connect(func():
+				
+				var recoil_tween = create_tween()
+				
+				var sila_odrzutu = 40 
+				var wysokosc_skoku = -30
+				
+				
+				var recoil_pos = global_position + Vector2(dir_x * sila_odrzutu, wysokosc_skoku)
+				
+				
+				recoil_tween.parallel().tween_property(self, "global_position", recoil_pos, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				recoil_tween.parallel().tween_property(self, "rotation_degrees", 360 * dir_x, 0.3)
+				
+				
+				recoil_tween.finished.connect(func():
+					rotation_degrees = 0
+					zeskocz()
+				)
+			)
+			
+		else:
+			
+			jumping = true
+			get_tree().create_timer(0.5).timeout.connect(func(): 
+				if jumping:
+					jumping = false
+					onplayer = true
+					wasOnHead = true
+					rotation_degrees = 0
+					player.spiderOnHeadFunc()
+			)
 
 func spider():
 	pass
