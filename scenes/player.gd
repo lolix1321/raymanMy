@@ -189,7 +189,7 @@ func get_damage(amount):
 			amount = 0
 			isHittedDuringShield = true
 			isShieldOn = false
-			$ShieldArea/Sprite2D.visible = false
+			$ShieldArea/AnimatedSprite2D.visible = false
 			can_use_shield = false
 			$ShieldArea/trwanieTarczy.stop()
 			$ShieldArea/cooldownTarczy.start()
@@ -367,7 +367,7 @@ func spiderOnHeadFunc():
 	else:
 		if isShieldOn:
 			isShieldOn = false
-			$ShieldArea/Sprite2D.visible = false
+			$ShieldArea/AnimatedSprite2D.visible = false
 			can_use_shield = false
 			$ShieldArea/trwanieTarczy.stop()
 			$ShieldArea/cooldownTarczy.start()
@@ -416,8 +416,9 @@ func shield():
 	
 	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield:
 		isShieldOn = true
-		$ShieldArea/Sprite2D.visible = true
+		$ShieldArea/AnimatedSprite2D.visible = true
 		$ShieldArea/trwanieTarczy.start()
+		
 	
 	
 	
@@ -432,6 +433,6 @@ func _on_cooldown_tarczy_timeout() -> void:
 
 func _on_trwanie_tarczy_timeout() -> void:
 	isShieldOn = false
-	$ShieldArea/Sprite2D.visible = false
+	$ShieldArea/AnimatedSprite2D.visible = false
 	can_use_shield = false
 	$ShieldArea/cooldownTarczy.start()

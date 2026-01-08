@@ -1,8 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=49 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
-[ext_resource type="Texture2D" uid="uid://bcx5rlx13lwn1" path="res://graphic/assets_ray/ssds/sheild.png" id="2_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://d0byiya60sjrj" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dxkaxiq3mnw5h" path="res://graphic/spider/spiderOnPlayer2.png" id="5_f1ej7"]
@@ -17,6 +17,31 @@
 [ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
+[ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
+[ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://cniluqrrwt7v6" path="res://graphic/playerShield/playerShield1.png" id="14_hax0n"]
+[ext_resource type="Texture2D" uid="uid://d3pl06k1wnr8k" path="res://graphic/playerShield/playerShield2.png" id="15_t4otl"]
+[ext_resource type="Texture2D" uid="uid://b3drgt347v6bk" path="res://graphic/playerShield/playerShield3.png" id="16_j2b1d"]
+[ext_resource type="Texture2D" uid="uid://egl5oqly3cca" path="res://graphic/playerShield/playerShield4.png" id="17_cs1tg"]
+[ext_resource type="Texture2D" uid="uid://dojxn848wy38e" path="res://graphic/playerShield/playerShield5.png" id="18_2dvfe"]
+[ext_resource type="Texture2D" uid="uid://li8on2udoog5" path="res://graphic/playerShield/playerShield6.png" id="19_giy8y"]
+[ext_resource type="Texture2D" uid="uid://cigrcvc2sko1f" path="res://graphic/playerShield/playerShield7.png" id="20_fdfoy"]
+[ext_resource type="Texture2D" uid="uid://bbyts7mqrmebd" path="res://graphic/playerShield/playerShield8.png" id="21_hhpqf"]
+[ext_resource type="Texture2D" uid="uid://6dsyo8vhrt1k" path="res://graphic/playerShield/playerShield9.png" id="22_g5jhy"]
+[ext_resource type="Texture2D" uid="uid://bymplj21uqblu" path="res://graphic/playerShield/playerShield10.png" id="23_holxr"]
+[ext_resource type="Texture2D" uid="uid://b310yi68srq03" path="res://graphic/playerShield/playerShield11.png" id="24_mx1m4"]
+[ext_resource type="Texture2D" uid="uid://bd5kywdg12gro" path="res://graphic/playerShield/playerShield12.png" id="25_4gjji"]
+[ext_resource type="Texture2D" uid="uid://c5gjc3sqxyji2" path="res://graphic/playerShield/playerShield13.png" id="26_u2ulf"]
+[ext_resource type="Texture2D" uid="uid://cvagcfrj74x57" path="res://graphic/playerShield/playerShield14.png" id="27_6e8lb"]
+[ext_resource type="Texture2D" uid="uid://b1uniovdcg4jk" path="res://graphic/playerShield/playerShield15.png" id="28_2gdjj"]
+[ext_resource type="Texture2D" uid="uid://b6y0tfkwhyyt8" path="res://graphic/playerShield/playerShield16.png" id="29_sc3ue"]
+[ext_resource type="Texture2D" uid="uid://b7uuwrxank4k0" path="res://graphic/playerShield/playerShield17.png" id="30_lxlsd"]
+[ext_resource type="Texture2D" uid="uid://dkbotkjk047tg" path="res://graphic/playerShield/playerShield18.png" id="31_ha2mi"]
+[ext_resource type="Texture2D" uid="uid://c0mgfqy7lryeo" path="res://graphic/playerShield/playerShield19.png" id="32_apa73"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4otl"]
+shader = ExtResource("1_hax0n")
+shader_parameter/whiteness = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smehm"]
 shader = ExtResource("2_fjrip")
@@ -107,6 +132,79 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2b1d"]
+shader = ExtResource("12_fulsm")
+shader_parameter/brightness = 0.33600001596
+shader_parameter/opacity = 0.8270000392825
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fulsm"]
+animations = [{
+"frames": [{
+"duration": 0.3,
+"texture": ExtResource("12_qfm1y")
+}, {
+"duration": 0.3,
+"texture": ExtResource("14_hax0n")
+}, {
+"duration": 0.3,
+"texture": ExtResource("15_t4otl")
+}, {
+"duration": 0.3,
+"texture": ExtResource("16_j2b1d")
+}, {
+"duration": 0.3,
+"texture": ExtResource("17_cs1tg")
+}, {
+"duration": 0.3,
+"texture": ExtResource("18_2dvfe")
+}, {
+"duration": 0.3,
+"texture": ExtResource("19_giy8y")
+}, {
+"duration": 0.3,
+"texture": ExtResource("20_fdfoy")
+}, {
+"duration": 0.3,
+"texture": ExtResource("21_hhpqf")
+}, {
+"duration": 0.3,
+"texture": ExtResource("22_g5jhy")
+}, {
+"duration": 0.3,
+"texture": ExtResource("23_holxr")
+}, {
+"duration": 0.3,
+"texture": ExtResource("24_mx1m4")
+}, {
+"duration": 0.3,
+"texture": ExtResource("25_4gjji")
+}, {
+"duration": 0.3,
+"texture": ExtResource("26_u2ulf")
+}, {
+"duration": 0.3,
+"texture": ExtResource("27_6e8lb")
+}, {
+"duration": 0.3,
+"texture": ExtResource("28_2gdjj")
+}, {
+"duration": 0.3,
+"texture": ExtResource("29_sc3ue")
+}, {
+"duration": 0.3,
+"texture": ExtResource("30_lxlsd")
+}, {
+"duration": 0.3,
+"texture": ExtResource("31_ha2mi")
+}, {
+"duration": 0.3,
+"texture": ExtResource("32_apa73")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
 radius = 9.0
 
@@ -140,6 +238,7 @@ animations = [{
 size = Vector2(31, 4)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+material = SubResource("ShaderMaterial_t4otl")
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_g2els")
@@ -155,11 +254,14 @@ autoplay = "idle"
 collision_layer = 2
 collision_mask = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="ShieldArea"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShieldArea"]
 visible = false
-modulate = Color(1, 1, 1, 0.38431373)
-position = Vector2(-1, -3)
-texture = ExtResource("2_qfm1y")
+light_mask = 2
+visibility_layer = 2
+material = SubResource("ShaderMaterial_j2b1d")
+position = Vector2(1, 4)
+sprite_frames = SubResource("SpriteFrames_fulsm")
+autoplay = "default"
 
 [node name="trwanieTarczy" type="Timer" parent="ShieldArea"]
 wait_time = 2.0
@@ -259,7 +361,7 @@ position = Vector2(-2, -10)
 shape = SubResource("RectangleShape2D_jej6c")
 
 [node name="ShieldPoint" type="Marker2D" parent="."]
-position = Vector2(-1, -43)
+position = Vector2(1, -21)
 
 [connection signal="timeout" from="ShieldArea/trwanieTarczy" to="." method="_on_trwanie_tarczy_timeout"]
 [connection signal="timeout" from="ShieldArea/cooldownTarczy" to="." method="_on_cooldown_tarczy_timeout"]
