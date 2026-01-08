@@ -51,6 +51,11 @@ func _process(delta: float) -> void:
 	check_death()
 	get_animation()
 	
+	if !wasOnHead:
+		$AnimatedSprite2D.flip_h = direction_x>0
+	else:
+		$AnimatedSprite2D.flip_h = direction_x<0
+	
 	if onplayer:
 		global_position = player.global_position + Vector2(0, -20)
 	elif jumping:
@@ -60,7 +65,7 @@ func _process(delta: float) -> void:
 		position.y += speed * 3 * delta
 		if falling and $RayCast2D.is_colliding():
 			falling = false
-			rotation_degrees = 0 # Wraca do normalnej pozycji
+			rotation_degrees = 0 # Wraca dwo normalnej pozycji
 	else:
 		position.x += speed * direction_x * delta
 		
@@ -94,7 +99,7 @@ func _on_body_entered(body: Node2D) -> void:
 			else:
 			   
 				direction_x *= -1
-				$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+				
 			return #
 		
 		
@@ -141,21 +146,21 @@ func respawn_player(player: Node2D):
 		get_tree().reload_current_scene()
 
 func _on_border_area_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
+	if not body.is_in_group("Player") or body.is_in_group("Spider"):
 		direction_x *= -1 
-		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+		
 
 
 func _on_right_cliff_body_exited(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
+	if not body.is_in_group("Player") or body.is_in_group("Spider"):
 		direction_x *= -1 
-		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+		
 
 
 func _on_left_cliff_body_exited(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
+	if not body.is_in_group("Player") or body.is_in_group("Spider"):
 		direction_x *= -1 
-		$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+		
 		
 		
 func update_health():
@@ -256,7 +261,7 @@ func zrob_odrzut(target_player):
 	
 	
 	var dir_x = sign(global_position.x - target_player.global_position.x)
-	if dir_x == 0: dir_x = 1
+	#if dir_x == 0: dir_x = 1
 	
 	
 	var sila_odrzutu_x = 90 * dir_x 
