@@ -148,9 +148,8 @@ script = ExtResource("1_g2els")
 material = SubResource("ShaderMaterial_smehm")
 position = Vector2(1, -10)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"jump_gun"
+animation = &"walk_gun_spider"
 autoplay = "idle"
-frame_progress = 0.88457936
 
 [node name="ShieldArea" type="Area2D" parent="."]
 collision_layer = 2

@@ -231,6 +231,7 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 			)
 			
 		
+		# Wewnątrz _on_player_detector_body_entered:
 		else:
 			jumping = true
 			get_tree().create_timer(0.5).timeout.connect(func(): 
@@ -238,7 +239,7 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 					jumping = false
 					onplayer = true
 					wasOnHead = true
-					rotation_degrees = 0
+					
 					player.spiderOnHeadFunc()
 			)
 
