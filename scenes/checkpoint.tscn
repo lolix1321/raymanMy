@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn2j3gnfw8b67"]
+[gd_scene load_steps=4 format=3 uid="uid://dn2j3gnfw8b67"]
 
 [ext_resource type="Script" uid="uid://cw8gtodsikapu" path="res://scenes/checkpoint.gd" id="1_yyywg"]
+[ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="2_ywqth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xam77"]
 size = Vector2(69, 60)
@@ -11,5 +12,25 @@ script = ExtResource("1_yyywg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xam77")
+
+[node name="CheckpointUI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="CheckpointLabel" type="Label" parent="CheckpointUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.5
+offset_top = -11.5
+offset_right = 50.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.30980393, 1, 0.29803923, 1)
+theme_override_fonts/font = ExtResource("2_ywqth")
+theme_override_font_sizes/font_size = 40
+text = "CHECKPOINT!"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

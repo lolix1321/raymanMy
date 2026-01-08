@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
+[ext_resource type="Texture2D" uid="uid://bcx5rlx13lwn1" path="res://graphic/assets_ray/ssds/sheild.png" id="2_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://d0byiya60sjrj" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
-[ext_resource type="Texture2D" uid="uid://c660jdatcvpuw" path="res://icon.svg" id="3_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dxkaxiq3mnw5h" path="res://graphic/spider/spiderOnPlayer2.png" id="5_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dk3e1k3mfcijy" path="res://graphic/guns/fire.png" id="6_tuyoq"]
@@ -144,6 +144,14 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_g2els")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_smehm")
+position = Vector2(1, -10)
+sprite_frames = SubResource("SpriteFrames_g2els")
+animation = &"jump_gun"
+autoplay = "idle"
+frame_progress = 0.88457936
+
 [node name="ShieldArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
@@ -151,9 +159,8 @@ collision_mask = 4
 [node name="Sprite2D" type="Sprite2D" parent="ShieldArea"]
 visible = false
 modulate = Color(1, 1, 1, 0.38431373)
-position = Vector2(-1.5000019, -11.5)
-scale = Vector2(0.38281247, 0.4921875)
-texture = ExtResource("3_4r5pv")
+position = Vector2(-1, -3)
+texture = ExtResource("2_qfm1y")
 
 [node name="trwanieTarczy" type="Timer" parent="ShieldArea"]
 wait_time = 2.0
@@ -162,14 +169,6 @@ one_shot = true
 [node name="cooldownTarczy" type="Timer" parent="ShieldArea"]
 wait_time = 10.0
 one_shot = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_smehm")
-position = Vector2(1, -10)
-sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"walk"
-autoplay = "idle"
-frame_progress = 0.15458983
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 5)

@@ -130,6 +130,7 @@ func _process(delta: float) -> void:
 
 	get_facing_direction()
 
+
 	
 
 
@@ -209,6 +210,7 @@ func get_damage(amount):
 			die()
 	
 func die():
+	Global.player_died()
 	if spider:
 		if spiderOnHead:
 			spider.zeskocz()

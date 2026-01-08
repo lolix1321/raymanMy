@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkxbrw6wtgehs"]
+
+[ext_resource type="Texture2D" uid="uid://dbi216hk50rpc" path="res://graphic/cross/checkpopintStand1.png" id="1_7yy1r"]
+[ext_resource type="Texture2D" uid="uid://k5c6fskpf533" path="res://graphic/cross/checkpopintStand2.png" id="2_kd7k1"]
+[ext_resource type="Texture2D" uid="uid://2hc3ssypnjyp" path="res://graphic/cross/checkpopintStand3.png" id="3_vbjwf"]
+[ext_resource type="Texture2D" uid="uid://diqe3gyfn8yv5" path="res://graphic/cross/checkpopintStand4.png" id="4_72aj3"]
+[ext_resource type="Texture2D" uid="uid://byaft4teyfhxk" path="res://graphic/cross/checkpopintStand5.png" id="5_547jn"]
+[ext_resource type="Texture2D" uid="uid://diqdl507mo0df" path="res://graphic/cross/checkpopintStand6.png" id="6_i335p"]
+[ext_resource type="Texture2D" uid="uid://k4vfp3xegp15" path="res://graphic/cross/checkpopintStand6-7.png" id="7_dogkb"]
+[ext_resource type="Texture2D" uid="uid://bxvtq8gtc2i53" path="res://graphic/cross/checkpopintStand7.png" id="8_xv844"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bq7x2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7yy1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kd7k1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vbjwf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_72aj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_547jn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_i335p")
+}, {
+"duration": 15.0,
+"texture": ExtResource("7_dogkb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xv844")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Cross" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_bq7x2")
+frame_progress = 0.12917386

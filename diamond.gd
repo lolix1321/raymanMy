@@ -1,11 +1,28 @@
 extends Area2D
 
+@onready var start_y: float = position.y
+var collected: bool = false
 
-func _process(delta: float) -> void: #lewitacja broni
-	position.y += sin(Time.get_ticks_msec() / 200.0) * 10 * delta
-	
+func _ready() -> void:
+	add_to_group("Collectibles")
+
+func _process(delta: float) -> void:
+	if not collected:
+		position.y = start_y + sin(Time.get_ticks_msec() / 300.0) * 10
+
 func _on_body_entered(body: Node2D) -> void:
-	# Sprawdzamy czy to gracz (upewnij się, że gracz jest w grupie "Player")
-	if body.is_in_group("Player"):
-		Global.add_diamond() # Wywołujemy funkcję z Twojego skryptu global
-		queue_free() # Diament znika po podniesieniu
+	if body.is_in_group("Player") and not collected:
+		collect()
+
+func collect():
+	collected = true
+	visible = false
+	$CollisionShape2D.set_deferred("disabled", true)
+	Global.add_diamond()
+
+func reset_diamond():
+	if collected:
+		collected = false
+		visible = true
+		$CollisionShape2D.set_deferred("disabled", false)
+	

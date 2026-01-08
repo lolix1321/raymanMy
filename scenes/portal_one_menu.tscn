@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://dkbxhp1g265co"]
+[gd_scene load_steps=66 format=4 uid="uid://dkbxhp1g265co"]
 
 [ext_resource type="Script" uid="uid://dr4ilj2qigv4g" path="res://scenes/portal_one_menu.gd" id="1_x3fpt"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_tcdi0"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://j8jfegfxs5og" path="res://scenes/magic_left.tscn" id="28_07eo4"]
 [ext_resource type="PackedScene" uid="uid://l4sgpyfd5k0a" path="res://scenes/spider.tscn" id="28_eusc0"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
+[ext_resource type="PackedScene" uid="uid://bkxbrw6wtgehs" path="res://scenes/cross.tscn" id="32_eusc0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
 texture = ExtResource("5_x3fpt")
@@ -698,6 +699,15 @@ texture = ExtResource("11_vac2k")
 [sub_resource type="TileSet" id="TileSet_78go5"]
 sources/0 = SubResource("TileSetAtlasSource_iieun")
 
+[sub_resource type="Gradient" id="Gradient_eusc0"]
+offsets = PackedFloat32Array(0.24725275, 0.63736266)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sjk68"]
+gradient = SubResource("Gradient_eusc0")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vac2k"]
 texture = ExtResource("5_x3fpt")
 0:2/0 = 0
@@ -794,15 +804,6 @@ texture = ExtResource("5_x3fpt")
 [sub_resource type="TileSet" id="TileSet_vvlsa"]
 sources/0 = SubResource("TileSetAtlasSource_m13ye")
 
-[sub_resource type="Gradient" id="Gradient_hhe2v"]
-offsets = PackedFloat32Array(0.24725275, 0.63736266)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sjk68"]
-gradient = SubResource("Gradient_hhe2v")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="Portal_one_menu" type="Node2D"]
 script = ExtResource("1_x3fpt")
 
@@ -846,6 +847,52 @@ tile_set = SubResource("TileSet_iieun")
 tile_map_data = PackedByteArray("AABzABwAAAAAAAIAAABzAB0AAAAAAAMAAAB0ABwAAAABAAIAAAB0AB0AAAABAAMAAAB1ABwAAAACAAIAAAB1AB0AAAACAAMAAAB2ABwAAAADAAIAAAB2AB0AAAADAAMAAAA8ABwAAAAAAAIAAAA8AB0AAAAAAAMAAAA9ABwAAAABAAIAAAA9AB0AAAABAAMAAAA+ABwAAAACAAIAAAA+AB0AAAACAAMAAAA/ABwAAAADAAIAAAA/AB0AAAADAAMAAAAcABwAAAAAAAIAAAAcAB0AAAAAAAMAAAAdABwAAAABAAIAAAAdAB0AAAABAAMAAAAeABwAAAACAAIAAAAeAB0AAAACAAMAAAAfABwAAAADAAIAAAAfAB0AAAADAAMAAABHAP3/AAAAAAIAAABHAP7/AAAAAAMAAABIAP3/AAABAAIAAABIAP7/AAABAAMAAABJAP3/AAACAAIAAABJAP7/AAACAAMAAABKAP3/AAADAAIAAABKAP7/AAADAAMAAAAXARYAAAAAAAIAAAAXARcAAAAAAAMAAAAYARYAAAABAAIAAAAYARcAAAABAAMAAAAZARYAAAACAAIAAAAZARcAAAACAAMAAAAaARYAAAADAAIAAAAaARcAAAADAAMAAAA=")
 tile_set = SubResource("TileSet_78go5")
 
+[node name="Crosses" type="Node2D" parent="."]
+
+[node name="Cross" parent="Crosses" instance=ExtResource("32_eusc0")]
+position = Vector2(1822, 448)
+autoplay = "default"
+
+[node name="light" type="PointLight2D" parent="Crosses/Cross"]
+position = Vector2(-1, 12)
+scale = Vector2(1.1640611, 1.0585936)
+color = Color(0.261258, 0.26551422, 0.28732467, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_sjk68")
+
+[node name="Cross2" parent="Crosses" instance=ExtResource("32_eusc0")]
+position = Vector2(2808, 114)
+autoplay = "default"
+
+[node name="light2" type="PointLight2D" parent="Crosses/Cross2"]
+position = Vector2(-2, 8)
+scale = Vector2(1.1640611, 1.0585936)
+color = Color(0.261258, 0.26551422, 0.28732467, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_sjk68")
+
+[node name="Cross3" parent="Crosses" instance=ExtResource("32_eusc0")]
+position = Vector2(3857, 352)
+autoplay = "default"
+
+[node name="light3" type="PointLight2D" parent="Crosses/Cross3"]
+position = Vector2(-3, 10)
+scale = Vector2(1.1640611, 1.0585936)
+color = Color(0.261258, 0.26551422, 0.28732467, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_sjk68")
+
+[node name="Cross4" parent="Crosses" instance=ExtResource("32_eusc0")]
+position = Vector2(4281, 1040)
+autoplay = "default"
+
+[node name="light4" type="PointLight2D" parent="Crosses/Cross4"]
+position = Vector2(-2, 12)
+scale = Vector2(1.1640611, 1.0585936)
+color = Color(0.261258, 0.26551422, 0.28732467, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_sjk68")
+
 [node name="Torches" type="Node2D" parent="."]
 
 [node name="Torch" parent="Torches" instance=ExtResource("22_0lkga")]
@@ -885,7 +932,7 @@ position = Vector2(2874, 232)
 position = Vector2(2873, -136)
 
 [node name="Torch27" parent="Torches" instance=ExtResource("22_0lkga")]
-position = Vector2(2874, 104)
+position = Vector2(2882, 77)
 
 [node name="Torch20" parent="Torches" instance=ExtResource("22_0lkga")]
 position = Vector2(3119, 232)
@@ -1069,18 +1116,19 @@ target_spawn_name = "MenuSpawnPoint"
 
 [node name="checkpoint" parent="CheckPoints" instance=ExtResource("8_li605")]
 position = Vector2(300, 436)
+is_starting_checkpoint = true
 
 [node name="checkpoint2" parent="CheckPoints" instance=ExtResource("8_li605")]
-position = Vector2(1813, 449)
+position = Vector2(1818, 450)
 
 [node name="checkpoint3" parent="CheckPoints" instance=ExtResource("8_li605")]
-position = Vector2(2749, 122)
+position = Vector2(2807, 116)
 
 [node name="checkpoint4" parent="CheckPoints" instance=ExtResource("8_li605")]
 position = Vector2(3857, 354)
 
 [node name="checkpoint5" parent="CheckPoints" instance=ExtResource("8_li605")]
-position = Vector2(4281, 1042)
+position = Vector2(4274, 1042)
 
 [node name="Gun" parent="." instance=ExtResource("10_d8hb6")]
 position = Vector2(481, 444)
@@ -1252,7 +1300,7 @@ marker1 = NodePath("../../BeePathPoints/Marker2D25")
 marker2 = NodePath("../../BeePathPoints/Marker2D26")
 
 [node name="magicRight" parent="Enemies" instance=ExtResource("27_11na4")]
-position = Vector2(2738, 114)
+position = Vector2(2735, 114)
 
 [node name="magicRight2" parent="Enemies" instance=ExtResource("27_11na4")]
 position = Vector2(4116, 1009)
@@ -1420,13 +1468,6 @@ color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
-[node name="PointLight2D27" type="PointLight2D" parent="Lights"]
-position = Vector2(1745.0001, 231.00002)
-scale = Vector2(1.1640611, 1.0585936)
-color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
-energy = 2.0
-texture = SubResource("GradientTexture2D_sjk68")
-
 [node name="PointLight2D32" type="PointLight2D" parent="Lights"]
 position = Vector2(2422, 221.00002)
 scale = Vector2(1.1640611, 1.0585936)
@@ -1498,7 +1539,7 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D42" type="PointLight2D" parent="Lights"]
-position = Vector2(2873.0002, 83)
+position = Vector2(2882, 66)
 scale = Vector2(1.1640611, 1.0585936)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
@@ -1981,7 +2022,7 @@ energy = 1.07
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="moonglight15" type="PointLight2D" parent="Lights"]
-position = Vector2(2752, 22.999996)
+position = Vector2(2754, 7.9999995)
 scale = Vector2(2.3906257, 3.390625)
 color = Color(0.78775924, 0.78775924, 0.78775924, 1)
 energy = 1.07
@@ -2044,6 +2085,7 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D6" type="PointLight2D" parent="Lights"]
+visible = false
 position = Vector2(1495.0001, 503)
 scale = Vector2(12.812502, 1.7099615)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
@@ -2126,13 +2168,13 @@ position = Vector2(3635, 107)
 position = Vector2(3238, -108)
 
 [node name="diamond24" parent="Diamonds" instance=ExtResource("19_sjk68")]
-position = Vector2(1744, 492)
+position = Vector2(1678, 452)
 
 [node name="diamond25" parent="Diamonds" instance=ExtResource("19_sjk68")]
 position = Vector2(4898, 973)
 
 [node name="diamond5" parent="Diamonds" instance=ExtResource("19_sjk68")]
-position = Vector2(1873, 444)
+position = Vector2(1871, 442)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("20_dxsga")]
 
