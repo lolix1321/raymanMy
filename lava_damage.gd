@@ -16,3 +16,9 @@ func _on_body_entered(body: Node2D) -> void:
 				body.velocity = Vector2.ZERO
 				
 	
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_method("spider"):
+		if area.has_method("kill"):
+			area.kill()

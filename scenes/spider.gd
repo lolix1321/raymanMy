@@ -11,6 +11,8 @@ var jumping = false
 var sShieldOn: bool
 
 
+
+
 func _on_area_entered(area: Area2D) -> void:
 	if area.has_method('bullet'):
 		health -= 1
@@ -38,6 +40,7 @@ func get_animation():
 		animation = "spider_player"
 	if jumping:
 		animation += "_jump"
+		
 	if falling:
 		animation += "_jump2"
 	$AnimatedSprite2D.animation = animation
@@ -51,7 +54,8 @@ func _process(delta: float) -> void:
 	if onplayer:
 		global_position = player.global_position + Vector2(0, -20)
 	elif jumping:
-		global_position = global_position.move_toward(player.global_position, speed * 2.0 * delta)
+		var target_pos = player.global_position + Vector2(0, -20)
+		global_position = global_position.move_toward(target_pos, speed * 2.0 * delta)
 	elif falling:
 		position.y += speed * 3 * delta
 		if falling and $RayCast2D.is_colliding():
@@ -72,30 +76,39 @@ func check_death():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		var player = body
+		var player_node = body #
 		
-		# Bezpieczne sprawdzenie: czy zmienna istnieje ORAZ czy jest aktywna
+		
 		var shield_active = false
-		if "sShieldOn" in player:
-			shield_active = player.sShieldOn
-		elif player.has_method("isShieldOnFunc"): # Sprawdzamy czy ma funkcję, której używaliśmy wcześniej
-			shield_active = player.isShieldOnFunc()
+		if "sShieldOn" in player_node:
+			shield_active = player_node.sShieldOn
+		elif player_node.has_method("isShieldOnFunc"):
+			shield_active = player_node.isShieldOnFunc()
 
+		
+
+
+		if shield_active:
+			if jumping: 
+				zrob_odrzut(player_node)
+			else:
+			   
+				direction_x *= -1
+				$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h
+			return #
+		
+		
 		if not shield_active:
 			var vignette = get_tree().get_first_node_in_group("Vignette")
 			if vignette:
 				animate_vignette(vignette)
 		
-		# Logika obrażeń
 		if not onplayer:
-			# Jeśli tarcza jest aktywna, nie zadawaj obrażeń
-			if not shield_active:
-				if player.has_method("get_damage"):
-					player.get_damage(10)
-				else:
-					respawn_player(player)
+			if player_node.has_method("get_damage"):
+				player_node.get_damage(10)
+				
 			else:
-				print("Atak zablokowany tarczą!")
+				respawn_player(player_node)
 			
 			
 			
@@ -200,20 +213,20 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 				# Opadanie (nieco dłuższe, żeby było czuć "lądowanie")
 				recoil_y_tween.tween_property(self, "global_position:y", start_pos.y, czas_calowity * 0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 				
-				# --- EFEKT UDERZENIA ---
+				
 				var squash_tween = create_tween()
 				scale = Vector2(0.6, 1.4) # Mocniejsze spłaszczenie przy uderzeniu
 				squash_tween.tween_property(self, "scale", Vector2(1, 1), 0.25).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
-				# --- KONIEC ---
+				
 				recoil_y_tween.finished.connect(func():
 					rotation_degrees = 0
 					zeskocz()
 				)
 			)
 			
+		
 		else:
-			
 			jumping = true
 			get_tree().create_timer(0.5).timeout.connect(func(): 
 				if jumping:
@@ -231,3 +244,53 @@ func spider():
 func _on_attack_timer_timeout() -> void:
 	if onplayer:
 		get_tree().get_first_node_in_group("Player").get_damage(10)
+		
+		
+		
+		
+func zrob_odrzut(target_player):
+	
+	jumping = false
+	onplayer = false
+	falling = false 
+	
+	
+	var dir_x = sign(global_position.x - target_player.global_position.x)
+	if dir_x == 0: dir_x = 1
+	
+	
+	var sila_odrzutu_x = 90 * dir_x 
+	var wysokosc_skoku = -25         
+	var czas_calowity = 0.35         
+	
+	var start_pos = global_position
+	var target_x = start_pos.x + sila_odrzutu_x
+	var peak_y = start_pos.y + wysokosc_skoku
+	
+	
+	
+	
+	var recoil_x_tween = create_tween()
+	recoil_x_tween.set_parallel(true)
+	recoil_x_tween.tween_property(self, "global_position:x", target_x, czas_calowity).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	recoil_x_tween.tween_property(self, "rotation_degrees", 360 * dir_x, czas_calowity).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	
+	
+	var recoil_y_tween = create_tween()
+	recoil_y_tween.tween_property(self, "global_position:y", peak_y, czas_calowity * 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	recoil_y_tween.tween_property(self, "global_position:y", start_pos.y, czas_calowity * 0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
+	
+	var squash_tween = create_tween()
+	scale = Vector2(0.6, 1.4) 
+	squash_tween.tween_property(self, "scale", Vector2(1, 1), 0.25).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+	
+	recoil_y_tween.finished.connect(func():
+		rotation_degrees = 0
+		zeskocz()
+	)
+	
+	
+func kill():
+	queue_free()

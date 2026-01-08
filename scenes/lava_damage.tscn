@@ -6,11 +6,12 @@
 size = Vector2(1684, 67)
 
 [node name="lavaDamage" type="Area2D"]
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_ahudy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(832, 23.5)
 shape = SubResource("RectangleShape2D_jjpmq")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
