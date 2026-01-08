@@ -1,7 +1,7 @@
 extends Area2D
 var max_health: int= 6
 var health := max_health
-var speed := 50
+var speed := 60
 var knockback_velocity := Vector2.ZERO
 var knockback_strength := 600.0
 var can_attack := true # Nowa zmienna sprawdzająca, czy może atakować
@@ -14,6 +14,9 @@ var vignette_tween: Tween
 var forward := true
 @onready var player = get_tree().get_first_node_in_group('Player')
 @export var notice_radius := 120
+var escape_timer := 0.0
+
+var escaping: bool = false
 
 func _ready():
 
@@ -25,6 +28,31 @@ func _process(delta):
 	check_death()
 	get_target()
 	update_health()
+	
+		
+	
+	
+	
+	if position.distance_to(player.position)<=5 and escaping == false: 
+		escaping = true
+		escape_timer = 0.4
+		forward = !forward 
+		
+	if escaping:
+		speed = 120
+	else:
+		speed = 60
+	if escaping:
+		
+		
+		escape_timer -= delta
+		if escape_timer <= 0:
+			escaping = false
+			
+		
+	   
+		target = marker2 if forward else marker1
+	
 	
 	if knockback_velocity.length() > 20:
 		position += knockback_velocity * delta
@@ -39,7 +67,8 @@ func get_target():
 	   not forward and position.distance_to(marker1.position) < 10:
 		forward = not forward
 		
-	if position.distance_to(player.position) < notice_radius:
+	if position.distance_to(player.position) < notice_radius and not escaping and not overlaps_body(player):
+		
 		target = player
 	elif forward:
 		target = marker2
@@ -63,17 +92,23 @@ func check_death():
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and can_attack and player.isShieldOn:
+		var bounce_direction = (global_position - body.global_position).normalized()
+		knockback_velocity = bounce_direction * knockback_strength
+		await get_tree().create_timer(0.5).timeout
+		queue_free()
 	if can_attack and body.is_in_group("Player"):
 		if body.has_method("get_damage"):
 			body.get_damage(25)
 		var vignette = get_tree().get_first_node_in_group("Vignette")
 		if vignette:
 			animate_vignette(vignette)
-		var bounce_direction = (global_position - body.global_position).normalized()
-		knockback_velocity = bounce_direction * knockback_strength
+		#var bounce_direction = (global_position - body.global_position).normalized()
+		#knockback_velocity = bounce_direction * knockback_strength
 		can_attack = false
 		await get_tree().create_timer(1.0).timeout
 		can_attack = true
+	
 	
 
 func animate_vignette(vignette: ColorRect):
