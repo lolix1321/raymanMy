@@ -84,7 +84,17 @@ func set_player_to_spawn():
 		
 func _process(delta: float) -> void:
 	cooldownAnim()
-	shieldCooldownAnim()		
+	shieldCooldownAnim()	
+	
+	for duch in get_tree().get_nodes_in_group("duch"):
+		if duch.isInPlayer:
+			print("duch jest w graczu")
+#			cos do tarczy jutro ogarne
+
+			break 
+		
+	
+	
 	if spiderOnHead:
 		spiderOnHeadFunc()
 	cooldownAnim()
@@ -221,6 +231,8 @@ func die():
 			spider = null
 			spiderOnHead = false
 			$ShieldArea/cooldownTarczy.paused = false
+			
+			
 	health = 100 
 	
 	if Global.last_checkpoint_pos != Vector2.ZERO:
@@ -377,7 +389,9 @@ func spiderOnHeadFunc():
 			$ShieldArea/cooldownTarczy.start()
 			$ShieldArea/cooldownTarczy.paused = true
 		else:
+			
 			$ShieldArea/cooldownTarczy.paused = true
+			
 			
 			
 		
