@@ -55,8 +55,11 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = direction_x>0
 	else:
 		$AnimatedSprite2D.flip_h = direction_x<0
+	if wasOnHead:
+		get_tree().get_first_node_in_group("Player").can_use_shield = true
 	
 	if onplayer:
+		get_tree().get_first_node_in_group("Player").can_use_shield = false
 		global_position = player.global_position + Vector2(0, -20)
 	elif jumping:
 		var target_pos = player.global_position + Vector2(0, -20)
