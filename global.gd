@@ -23,6 +23,8 @@ func save_progress_at_checkpoint():
 
 func player_died():
 	print("Gracz zginął! Resetowanie tymczasowych diamentów...") 
+	
+	
 	# Czyścimy tylko te, których nie dowieźliśmy do checkpointu
 	temporary_diamonds = 0 
 	diamonds_updated.emit(permanent_diamonds)
