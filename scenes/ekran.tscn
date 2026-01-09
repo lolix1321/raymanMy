@@ -9,6 +9,7 @@ shader_parameter/outer_radius = 1.200000057
 shader_parameter/vignette_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
 
 [node name="Vignette" type="CanvasLayer"]
+layer = 0
 
 [node name="ColorRect" type="ColorRect" parent="." groups=["Vignette"]]
 material = SubResource("ShaderMaterial_v0ra8")

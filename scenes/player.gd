@@ -22,7 +22,8 @@ var jumps_left := max_jumps
 var can_regenerate := false 
 @onready var dead := false
 @onready var entered = false
-
+@onready var shield_bar = $shieldBarCanv/shieldBar # Dostosuj ścieżkę do swojego paska tarczy
+@onready var shield_label = $shieldBarCanv/ShieldTimerLabel # Dostosuj ścieżkę
 var spiderOnHead = false
 
 var can_animate = true
@@ -44,6 +45,9 @@ func isShieldOnFunc():
 	
 func _ready():
 	$CooldownBar.visible = false
+	shield_bar.visible = true # Pasek tarczy ma być widoczny
+	shield_bar.max_value = 10.0 # Standardowy cooldown
+	shield_bar.value = 10.0     # Na start tarcza jest gotowa (pełna)
 	if $AnimatedSprite2D.material:
 		$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
 	
@@ -79,8 +83,8 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
-	
-			
+	cooldownAnim()
+	shieldCooldownAnim()		
 	if spiderOnHead:
 		spiderOnHeadFunc()
 	cooldownAnim()
@@ -436,3 +440,51 @@ func _on_trwanie_tarczy_timeout() -> void:
 	$ShieldArea/AnimatedSprite2D.visible = false
 	can_use_shield = false
 	$ShieldArea/cooldownTarczy.start()
+	
+	
+func shieldCooldownAnim():
+	var cd_timer = $ShieldArea/cooldownTarczy 
+	var trwanie_timer = $ShieldArea/trwanieTarczy
+	
+	# Resetowanie efektów (ważne, aby tarcza nie została rozjaśniona po użyciu)
+	shield_bar.modulate = Color(1, 1, 1, 1)
+	shield_label.scale = Vector2(1, 1) # Reset skali napisu, jeśli wcześniej był używany
+	
+	if not trwanie_timer.is_stopped():
+		# TARCZA AKTYWNA
+		shield_bar.max_value = trwanie_timer.wait_time
+		shield_bar.value = trwanie_timer.time_left
+		shield_label.visible = true
+		shield_label.text = str(snapped(trwanie_timer.time_left, 0.1)) + "s"
+		shield_label.modulate = Color(0.173, 1.0, 1.0, 1.0)
+
+	elif not cd_timer.is_stopped():
+		# TARCZA ŁADUJE SIĘ
+		shield_bar.max_value = cd_timer.wait_time
+		shield_bar.value = cd_timer.wait_time - cd_timer.time_left
+		shield_label.visible = true
+		shield_label.text = str(snapped(cd_timer.time_left, 0.1)) + "s"
+		shield_label.modulate = Color(1, 1, 1)
+		
+	else:
+		# TARCZA GOTOWA
+		shield_bar.max_value = 1.0
+		shield_bar.value = 1.0
+		shield_label.visible = true
+		shield_label.text = "READY!"
+		shield_label.modulate = Color(0.173, 1.0, 1.0, 1.0)
+		
+		# --- TYLKO EFEKT PULSOWANIA ŚWIATŁEM ---
+		var speed = 5.0 
+		var intensity_light = 0.5 # Zwiększyłem odrobinę dla lepszego efektu
+		
+		var time = Time.get_ticks_msec() * 0.001
+		var sin_wave = (sin(time * speed) + 1.0) * 0.5 # Mapowanie sinusa z (-1 do 1) na (0 do 1)
+		
+		# Obliczanie jasności
+		var light_value = 1.0 + (sin_wave * intensity_light)
+		
+		# Nakładamy kolor (rozjaśniamy bazowy kolor tarczy)
+		shield_bar.modulate = Color(light_value, light_value, light_value)
+		# Jeśli chcesz, żeby napis też pulsował światłem, odkomentuj poniższą linię:
+		shield_label.modulate = Color(0.173 * light_value, 1.0 * light_value, 1.0 * light_value)
