@@ -5,7 +5,6 @@ var health := max_health
 var speed := 60
 var szybkoscGonieniaGracza:int = 160
 
-
 var knockback_velocity := Vector2.ZERO
 var knockback_strength := 300.0
 var can_attack := true
