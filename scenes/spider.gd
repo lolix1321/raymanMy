@@ -88,9 +88,8 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		
 		var shield_active = false
-		if "sShieldOn" in player_node:
-			shield_active = player_node.sShieldOn
-		elif player_node.has_method("isShieldOnFunc"):
+		
+		if player_node.has_method("isShieldOnFunc"):
 			shield_active = player_node.isShieldOnFunc()
 
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dy17q1wahvid6"]
+[gd_scene load_steps=14 format=3 uid="uid://dy17q1wahvid6"]
 
 [ext_resource type="Script" uid="uid://bl1q85bawrd0n" path="res://scenes/black_ninja.gd" id="1_e738a"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_cojvc"]
@@ -36,6 +36,9 @@ size = Vector2(3.5, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojvc"]
 size = Vector2(3.5, 3)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_51160"]
+radius = 9.0
 
 [node name="BlackNinja" type="Area2D"]
 collision_layer = 4
@@ -84,8 +87,17 @@ texture_under = ExtResource("5_51160")
 texture_over = ExtResource("6_3cyjj")
 texture_progress = ExtResource("7_p1qyd")
 
+[node name="HeadShotArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadShotArea"]
+position = Vector2(4, -9)
+shape = SubResource("CircleShape2D_51160")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="RightCliff" to="." method="_on_right_cliff_body_exited"]
 [connection signal="body_exited" from="LeftCliff" to="." method="_on_left_cliff_body_exited"]
+[connection signal="area_entered" from="HeadShotArea" to="." method="_on_head_shot_area_area_entered"]
