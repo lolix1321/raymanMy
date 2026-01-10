@@ -100,17 +100,14 @@ func _process(delta: float) -> void:
 	cooldownAnim()
 	
 	if isGhostInside:
-#tutaj mozesz dac jakiegos shadera tylko pewnie on sie bedzie wykonywal w petli xd
-		
 		if isShieldOn:
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
 			can_use_shield = false
 			$ShieldArea/trwanieTarczy.stop()
 			$ShieldArea/cooldownTarczy.start()
-			$ShieldArea/cooldownTarczy.paused = true
 		else:
-			$ShieldArea/cooldownTarczy.paused = true
+			$ShieldArea/cooldownTarczy.paused = false
 			
 			
 		
