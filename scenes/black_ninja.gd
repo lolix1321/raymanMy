@@ -13,6 +13,14 @@ func _on_area_entered(area: Area2D) -> void:
 	var tween = create_tween() 
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.1)
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1)
+
+func _on_head_shot_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("pocisk"):
+		health -= 3
+		area.queue_free()
+	var tween = create_tween() 
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 1.0, 0.1)
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1)
 	
 func _process(delta: float) -> void:
 	update_health()

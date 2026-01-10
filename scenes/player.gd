@@ -25,13 +25,15 @@ var can_regenerate := false
 @onready var shield_bar = $shieldBarCanv/shieldBar # Dostosuj ścieżkę do swojego paska tarczy
 @onready var shield_label = $shieldBarCanv/ShieldTimerLabel # Dostosuj ścieżkę
 var spiderOnHead = false
-
+var isDying = false
 var can_animate = true
 var spider
 
 var isShieldOn = false
 var can_use_shield = true
 var isHittedDuringShield = false
+
+var isGhostInside = false
 
 
 signal shoot(pos: Vector2, direction: bool)
@@ -83,21 +85,35 @@ func set_player_to_spawn():
 
 		
 func _process(delta: float) -> void:
+	
+	
 	cooldownAnim()
 	shieldCooldownAnim()	
 	
-	for duch in get_tree().get_nodes_in_group("duch"):
-		if duch.isInPlayer:
-			print("duch jest w graczu")
-#			cos do tarczy jutro ogarne
-
-			break 
+	
 		
 	
 	
 	if spiderOnHead:
 		spiderOnHeadFunc()
+		
 	cooldownAnim()
+	
+	if isGhostInside:
+#tutaj mozesz dac jakiegos shadera tylko pewnie on sie bedzie wykonywal w petli xd
+		
+		if isShieldOn:
+			isShieldOn = false
+			$ShieldArea/AnimatedSprite2D.visible = false
+			can_use_shield = false
+			$ShieldArea/trwanieTarczy.stop()
+			$ShieldArea/cooldownTarczy.start()
+			$ShieldArea/cooldownTarczy.paused = true
+		else:
+			$ShieldArea/cooldownTarczy.paused = true
+			
+			
+		
 
 	if is_teleporting:
 		velocity = Vector2.ZERO
@@ -160,7 +176,7 @@ func get_input():
 		
 
 		
-	if Input.is_action_just_pressed("shoot") and can_shoot and has_gun:
+	if Input.is_action_just_pressed("shoot") and can_shoot and has_gun and not isGhostInside:
 		shoot.emit(global_position, facing_right)
 		can_shoot = false
 		$Timers/CooldownTimer.start()
@@ -231,6 +247,7 @@ func die():
 			spider = null
 			spiderOnHead = false
 			$ShieldArea/cooldownTarczy.paused = false
+	
 			
 			
 	health = 100 
@@ -381,6 +398,7 @@ func spiderOnHeadFunc():
 		jumpCounter = 0
 		spiderOnHead = true
 	else:
+		
 		if isShieldOn:
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
@@ -389,6 +407,7 @@ func spiderOnHeadFunc():
 			$ShieldArea/cooldownTarczy.start()
 			$ShieldArea/cooldownTarczy.paused = true
 		else:
+			
 			
 			$ShieldArea/cooldownTarczy.paused = true
 			
@@ -432,7 +451,7 @@ func _on_colision_area_entered(area: Area2D) -> void:
 
 func shield():
 	
-	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield:
+	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spiderOnHead and not isGhostInside and not spider:
 		isShieldOn = true
 		$ShieldArea/AnimatedSprite2D.visible = true
 		$ShieldArea/trwanieTarczy.start()
