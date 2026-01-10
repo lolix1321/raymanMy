@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://jve8mq13v6f2"]
+
+[ext_resource type="Script" uid="uid://bi43fdlbnu3ps" path="res://scenes/entrence_to_level_2.gd" id="1_40v24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70mj5"]
+size = Vector2(56, 71)
+
+[node name="entrenceToLevel2" type="Area2D" groups=["Player"]]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_40v24")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_70mj5")
+
+[node name="EnterTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="EnterTimer" to="." method="_on_enter_timer_timeout"]

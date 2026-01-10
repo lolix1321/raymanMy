@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=4 uid="uid://6cigpw87jtwb"]
+
+[ext_resource type="Texture2D" uid="uid://44x0ppusrtx8" path="res://graphic/sciana13.png" id="1_eqxsl"]
+[ext_resource type="Texture2D" uid="uid://04qp8nr3cx5v" path="res://graphic/test/parallax-00.png" id="1_ne2mo"]
+[ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="1_pbc48"]
+[ext_resource type="Texture2D" uid="uid://dmdceu03ue47" path="res://graphic/test/parallax-01.png" id="2_6cvei"]
+[ext_resource type="Script" uid="uid://bst18w2ks3wk3" path="res://scenes/cameraLevel1.gd" id="2_eqxsl"]
+[ext_resource type="PackedScene" uid="uid://beccln3gwj8l" path="res://scenes/ekran.tscn" id="3_b4j7a"]
+[ext_resource type="Texture2D" uid="uid://bwvifqj1dgne8" path="res://graphic/test/parallax-02.png" id="3_que50"]
+[ext_resource type="Texture2D" uid="uid://cbbeseln500cu" path="res://graphic/test/parallax-03.png" id="4_hey2k"]
+[ext_resource type="Texture2D" uid="uid://41c16c8mtp7m" path="res://graphic/test/parallax-04.png" id="9_6cvei"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4j7a"]
+texture = ExtResource("1_eqxsl")
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:8/0 = 0
+0:9/0 = 0
+0:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+0:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_wo48x"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_b4j7a")
+
+[node name="level2" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(722, 319.5)
+scale = Vector2(1, 1.7861111)
+texture = ExtResource("1_ne2mo")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(721, 467)
+texture = ExtResource("2_6cvei")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(723, 468)
+texture = ExtResource("3_que50")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(722, 466)
+texture = ExtResource("4_hey2k")
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMap"]
+tile_map_data = PackedByteArray("AAAAACcAAAAAAAMAAAABACcAAAABAAMAAAACACcAAAACAAMAAAADACcAAAADAAMAAAAEACcAAAAAAAMAAAAEACgAAAAAAAMAAAAFACcAAAABAAMAAAAFACgAAAABAAMAAAAGACcAAAACAAMAAAAGACgAAAACAAMAAAAHACcAAAADAAMAAAAHACgAAAADAAMAAAAIACgAAAAAAAMAAAAJACgAAAABAAMAAAAKACgAAAACAAMAAAALACgAAAADAAMAAAAMACgAAAAAAAMAAAANACgAAAABAAMAAAAOACgAAAACAAMAAAAPACgAAAADAAMAAAAQACgAAAAAAAMAAAARACgAAAABAAMAAAASACgAAAACAAMAAAATACgAAAADAAMAAAAUACgAAAAAAAMAAAAVACgAAAABAAMAAAAWACgAAAACAAMAAAAXACgAAAADAAMAAAAYACgAAAAAAAMAAAAZACgAAAABAAMAAAAaACgAAAACAAMAAAAbACgAAAADAAMAAAAcACgAAAAAAAMAAAAdACgAAAABAAMAAAAeACgAAAACAAMAAAAfACgAAAADAAMAAAAgACgAAAAAAAMAAAAhACgAAAABAAMAAAAiACgAAAACAAMAAAAjACgAAAADAAMAAAAkACgAAAAAAAMAAAAlACgAAAABAAMAAAAmACgAAAACAAMAAAAnACgAAAADAAMAAAAoACgAAAAAAAMAAAApACgAAAABAAMAAAAqACgAAAACAAMAAAArACgAAAADAAMAAAAsACgAAAAAAAMAAAAtACgAAAABAAMAAAAuACgAAAACAAMAAAAvACgAAAADAAMAAAAwACgAAAAAAAMAAAAxACgAAAABAAMAAAAyACgAAAACAAMAAAAzACgAAAADAAMAAAA0ACgAAAAAAAMAAAA1ACgAAAABAAMAAAA2ACgAAAACAAMAAAA3ACgAAAADAAMAAAA4ACgAAAAAAAMAAAA5ACgAAAABAAMAAAA6ACgAAAACAAMAAAA7ACgAAAADAAMAAAA8ACgAAAAAAAMAAAA9ACgAAAABAAMAAAA+ACgAAAACAAMAAAA/ACgAAAADAAMAAABAACgAAAAAAAMAAABBACgAAAABAAMAAABCACgAAAACAAMAAABDACgAAAADAAMAAABEACgAAAAAAAMAAABFACgAAAABAAMAAABGACgAAAACAAMAAABHACgAAAADAAMAAABIACgAAAAAAAMAAABJACgAAAABAAMAAABKACgAAAACAAMAAABLACgAAAADAAMAAABMACgAAAAAAAMAAABNACgAAAABAAMAAABOACgAAAACAAMAAABPACgAAAADAAMAAABQACgAAAAAAAMAAABRACgAAAABAAMAAABSACgAAAACAAMAAABTACgAAAADAAMAAABUACgAAAAAAAMAAABVACgAAAABAAMAAABWACgAAAACAAMAAABXACgAAAADAAMAAABYACgAAAAAAAMAAABZACgAAAABAAMAAABaACgAAAACAAMAAABbACgAAAADAAMAAABcACgAAAAAAAMAAABdACgAAAABAAMAAABeACgAAAACAAMAAABfACgAAAADAAMAAAA=")
+tile_set = SubResource("TileSet_wo48x")
+
+[node name="Player" parent="." instance=ExtResource("1_pbc48")]
+position = Vector2(300, 433)
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+position = Vector2(4, 5)
+offset = Vector2(0, -40)
+limit_left = 194
+limit_right = 10000003
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_vertical_enabled = true
+script = ExtResource("2_eqxsl")
+
+[node name="PortalTimer" type="Timer" parent="Player" groups=["Player"]]
+one_shot = true
+
+[node name="Ekran" parent="Player" instance=ExtResource("3_b4j7a")]
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_scale = Vector2(2, 1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(720, 549)
+texture = ExtResource("9_6cvei")
+
+[connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]

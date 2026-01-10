@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://bsekiujt56atn"]
+[gd_scene load_steps=65 format=4 uid="uid://bsekiujt56atn"]
 
 [ext_resource type="Texture2D" uid="uid://bu4rb6g5pav70" path="res://graphic/New Piskel (1)22.png" id="1_w7c3h"]
 [ext_resource type="Texture2D" uid="uid://c7mr1452hx0o2" path="res://graphic/sciana.png" id="2_arp2o"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://d1bkat54hg0fl" path="res://graphic/windowskarb.png" id="15_5k0ak"]
 [ext_resource type="Texture2D" uid="uid://dbf4wl1y13co" path="res://graphic/dorsy2.png" id="17_556r4"]
 [ext_resource type="Texture2D" uid="uid://cwypyf5acg6wh" path="res://graphic/courtain.png" id="17_cmcjb"]
+[ext_resource type="PackedScene" uid="uid://jve8mq13v6f2" path="res://scenes/entrence_to_level_2.tscn" id="23_556r4"]
 [ext_resource type="Texture2D" uid="uid://caih331ts2232" path="res://graphic/swiecawielka.png" id="24_3ies3"]
 [ext_resource type="Texture2D" uid="uid://birgs7tq0nl6" path="res://graphic/wielkasweica2.png" id="25_xy2fk"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="27_cmcjb"]
@@ -998,6 +999,9 @@ one_shot = true
 [node name="PortalEntrence1" parent="Portals" instance=ExtResource("10_olg7q")]
 position = Vector2(312, 285)
 
+[node name="entrenceToLevel2" parent="Portals" instance=ExtResource("23_556r4")]
+position = Vector2(617, 285)
+
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Stamina" parent="." instance=ExtResource("13_fpun6")]
@@ -1117,6 +1121,7 @@ position = Vector2(312, 282)
 [node name="menucanvas" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="menucanvas" instance=ExtResource("27_cmcjb")]
+visible = false
 
 [node name="undermapteleport" parent="." node_paths=PackedStringArray("spawn_point") instance=ExtResource("28_7agi7")]
 position = Vector2(1074, 459)

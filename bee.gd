@@ -42,7 +42,7 @@ func _process(delta):
 	# LOGIKA DLA ŻYWEGO DUCHA
 	check_death()
 	get_target()
-	update_health()
+	#update_health() - chyba lepiej bez 
 	
 	if ischasing and not isDying:
 		var camera = get_viewport().get_camera_2d()
@@ -169,11 +169,11 @@ func animate_vignette(vignette: ColorRect):
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
 	
-func update_health():
-	var healthbar = $AnimatedSprite2D/HealthBar
-	healthbar.max_value = max_health
-	healthbar.value = health
-	healthbar.visible = health < max_health
+#func update_health():
+	#var healthbar = $AnimatedSprite2D/HealthBar
+	#healthbar.max_value = max_health
+	#healthbar.value = health
+	#healthbar.visible = health < max_health
 	 
 func scary_shake_behavior(delta):
 	var frequency = 15.0 
