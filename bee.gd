@@ -3,10 +3,9 @@ extends Area2D
 var max_health: int = 6
 var health := max_health
 var speed := 60
-<<<<<<< HEAD
 var szybkoscGonieniaGracza:int = 160
-=======
->>>>>>> 41e15e86b81a0329ba8671c2fe9ac214b9acb8f0
+
+
 var knockback_velocity := Vector2.ZERO
 var knockback_strength := 300.0
 var can_attack := true
