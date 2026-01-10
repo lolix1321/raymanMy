@@ -1,5 +1,6 @@
 extends Area2D
-
+@export var blood_color: Color = Color.GREEN
+@onready var start_pos = global_position
 var max_health: int = 5
 var health := max_health
 var direction_x := 1
@@ -110,3 +111,7 @@ func update_health():
 		$HealthBar.position.x = -20 
 	elif direction_x > 0:
 		$HealthBar.position.x = -14.0
+		
+func reset_position():
+	global_position = start_pos
+	health = max_health

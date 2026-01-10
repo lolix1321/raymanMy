@@ -75,7 +75,7 @@ size = Vector2(1.75, 1.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdplg"]
 size = Vector2(28, 157)
 
-[node name="Spider" type="Area2D" groups=["Spider"]]
+[node name="Spider" type="Area2D" groups=["Spider", "enemies"]]
 collision_layer = 4
 collision_mask = 19
 script = ExtResource("1_algeo")

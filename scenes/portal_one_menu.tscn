@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://dkbxhp1g265co"]
+[gd_scene load_steps=77 format=4 uid="uid://dkbxhp1g265co"]
 
 [ext_resource type="Script" uid="uid://dr4ilj2qigv4g" path="res://scenes/portal_one_menu.gd" id="1_x3fpt"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_tcdi0"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://beccln3gwj8l" path="res://scenes/ekran.tscn" id="18_5kpgl"]
 [ext_resource type="PackedScene" uid="uid://boklgvb6j5qwi" path="res://scenes/lavadamagemini.tscn" id="18_iieun"]
 [ext_resource type="PackedScene" uid="uid://bfh0p45h2bofx" path="res://scenes/diamond.tscn" id="19_sjk68"]
+[ext_resource type="Script" uid="uid://bst18w2ks3wk3" path="res://scenes/cameraLevel1.gd" id="20_4es8y"]
 [ext_resource type="PackedScene" uid="uid://dtekrepd8qqxr" path="res://scenes/exit_from_lvl_1.tscn" id="20_78go5"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="20_dxsga"]
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
@@ -1140,6 +1141,7 @@ limit_right = 10000003
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_vertical_enabled = true
+script = ExtResource("20_4es8y")
 
 [node name="PortalTimer" type="Timer" parent="Player" groups=["Player"]]
 one_shot = true
@@ -1208,6 +1210,15 @@ position = Vector2(339, 466)
 
 [node name="BlackNinja2" parent="Enemies" instance=ExtResource("9_d8hb6")]
 position = Vector2(1079, 447)
+
+[node name="BlackNinja32" parent="Enemies" instance=ExtResource("9_d8hb6")]
+position = Vector2(520, 448)
+
+[node name="BlackNinja33" parent="Enemies" instance=ExtResource("9_d8hb6")]
+position = Vector2(548, 448)
+
+[node name="BlackNinja34" parent="Enemies" instance=ExtResource("9_d8hb6")]
+position = Vector2(488, 448)
 
 [node name="BlackNinja3" parent="Enemies" instance=ExtResource("9_d8hb6")]
 position = Vector2(1483, 354)
@@ -1503,7 +1514,7 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D5" type="PointLight2D" parent="Lights"]
-position = Vector2(1064, 422)
+position = Vector2(1063, 415)
 scale = Vector2(1.1640611, 1.0585936)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
@@ -2112,7 +2123,7 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D27" type="PointLight2D" parent="Lights"]
-position = Vector2(1469.0001, 501.00006)
+position = Vector2(1470.0001, 497)
 scale = Vector2(17.249998, 2.022461)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
@@ -2252,7 +2263,7 @@ position = Vector2(4898, 973)
 [node name="diamond5" parent="Diamonds" instance=ExtResource("19_sjk68")]
 position = Vector2(1871, 442)
 
-[node name="CanvasLayer" parent="." instance=ExtResource("20_dxsga")]
+[node name="diamondCounter" parent="." instance=ExtResource("20_dxsga")]
 
 [node name="menucanvas" type="CanvasLayer" parent="."]
 

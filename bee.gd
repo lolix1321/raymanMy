@@ -61,8 +61,10 @@ func _process(delta):
 				camera.offset -= shake
 	
 	if ischasing:
-		$AnimatedSprite2D.play("animacja_lecenia")
+		if not isDying: 
+			$AnimatedSprite2D.play("animacja_lecenia")
 		$AnimatedSprite2D/HealthBar.visible = false
+		
 		if $TimerDoZnikniecia.is_stopped():
 			$TimerDoZnikniecia.start()
 	
@@ -201,6 +203,7 @@ func _on_timer_do_znikniecia_timeout() -> void:
 func umieranieDucha():
 	if isDying: return
 	isDying = true
+	$AnimatedSprite2D.play("animacja_umierania")
 	
 	start_chromatic_effect(false)
 	isInPlayer = false
@@ -209,7 +212,7 @@ func umieranieDucha():
 		var bounce_direction = (global_position - player.global_position).normalized()
 		knockback_velocity = bounce_direction * (knockback_strength * 1.5) 
 	
-	$AnimatedSprite2D.play("animacja_umierania")
+	
 	speed = 0 
 	
 	var tween = create_tween()

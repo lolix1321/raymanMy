@@ -85,7 +85,6 @@ material = SubResource("ShaderMaterial_qf6nb")
 sprite_frames = SubResource("SpriteFrames_qf6nb")
 animation = &"animacja_lecenia"
 autoplay = "default"
-frame_progress = 0.4925379
 
 [node name="HealthBar" type="TextureProgressBar" parent="AnimatedSprite2D"]
 offset_left = -18.0

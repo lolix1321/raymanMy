@@ -200,6 +200,8 @@ func get_animation():
 		animation += "_gun"
 	if spiderOnHead:
 		animation += "_spider"
+	if isDying:
+		animation = "_gun"
 	$AnimatedSprite2D.animation = animation
 	$AnimatedSprite2D.flip_h = not facing_right
 	
@@ -237,39 +239,42 @@ func get_damage(amount):
 			die()
 	
 func die():
+	# 1. Sprawdzamy, czy gracz już nie umiera
+	if isDying: return
+	isDying = true
+	
+	# 2. ZAMRAŻANIE GRY (wszystko staje w miejscu)
+	get_tree().paused = true
+	
+	# 3. LOGIKA PAJĄKA
 	Global.player_died()
 	if spider:
 		if spiderOnHead:
-			spider.zeskocz()
+			
+			spider.process_mode = Node.PROCESS_MODE_ALWAYS
 			spider = null
 			spiderOnHead = false
-			$ShieldArea/cooldownTarczy.paused = false
+			if has_node("ShieldArea/cooldownTarczy"):
+				$ShieldArea/cooldownTarczy.paused = false
 	
-			
-			
+	# 4. START ANIMACJI ŚCIEMNIANIA (Z Singletonu Transition)
+	# Wywołujemy to z Autoloada, aby ekran pozostał czarny podczas reload_current_scene
+	if Transition.has_node("AnimationPlayer"):
+		Transition.get_node("AnimationPlayer").play("death_animation")
+	else:
+		print("BŁĄD: Nie znaleziono AnimationPlayer w Transition (Autoload)!")
+	
+	# 5. CZEKAMY NA PEŁNE ZACZERNIENIE (używając timera odpornego na pauzę)
+	await get_tree().create_timer(1.0, true, false, true).timeout
+	
+	# 6. RESET STATYSTYK I RELOAD (Gdy ekran jest już czarny)
 	health = 100 
 	
-	if Global.last_checkpoint_pos != Vector2.ZERO:
-		# Używamy set_deferred dla global_position, 
-		# bo zmiana pozycji wewnątrz fizyki (collision) bez tego czasem wywala błędy
-		set_deferred("global_position", Global.last_checkpoint_pos)
-		
-		# Zerujemy prędkość, żeby gracz nie "wyleciał" z checkpointu z pędem
-		velocity = Vector2.ZERO
-		
-		# Opcjonalnie: jeśli masz animacje, możesz tu wymusić "idle"
-		# $AnimatedSprite2D.play("idle")
-		
-		print("Odrodzenie na checkpoincie: ", Global.last_checkpoint_pos)
-	else:
-		# Jeśli nie było checkpointu, restartujemy poziom
-		get_tree().reload_current_scene()
+	# Kluczowe: wyłączamy pauzę tuż przed reloadem
+	get_tree().paused = false
 	
-	if Global.last_checkpoint_pos != Vector2.ZERO:
-		# Używamy set_deferred, żeby uniknąć błędów z fizyką przy teleportacji
-		set_deferred("global_position", Global.last_checkpoint_pos)
-		velocity = Vector2.ZERO
-		print("Odrodzenie na checkpoincie")
+	# Przeładowujemy scenę - Transition (Autoload) zasłoni szary ekran ładowania
+	get_tree().reload_current_scene()
 
 func animate_vignette():
 	var vignette = get_tree().get_first_node_in_group("Vignette")

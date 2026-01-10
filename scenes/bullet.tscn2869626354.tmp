@@ -23,6 +23,7 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 16
 collision_mask = 69
 script = ExtResource("1_y25gk")
+speed = null
 blood_scene = ExtResource("2_l5glv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -48,5 +49,4 @@ energy = 3.1
 texture = SubResource("GradientTexture2D_y25gk")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

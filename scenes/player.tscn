@@ -1,7 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=54 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
-[ext_resource type="Shader" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
+[ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://d0byiya60sjrj" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
-[ext_resource type="Shader" path="res://scenes/shield.gdshader" id="12_fulsm"]
+[ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
 [ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://cniluqrrwt7v6" path="res://graphic/playerShield/playerShield1.png" id="14_hax0n"]
 [ext_resource type="Texture2D" uid="uid://d3pl06k1wnr8k" path="res://graphic/playerShield/playerShield2.png" id="15_t4otl"]
@@ -239,6 +239,43 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jej6c"]
 size = Vector2(31, 4)
 
+[sub_resource type="Animation" id="Animation_4es8y"]
+resource_name = "death_animation"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 1.1666666, 2.2666667, 3.9333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dbbda"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yj223"]
+_data = {
+&"RESET": SubResource("Animation_dbbda"),
+&"death_animation": SubResource("Animation_4es8y")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 material = SubResource("ShaderMaterial_t4otl")
 collision_layer = 2
@@ -403,6 +440,26 @@ theme_override_colors/font_color = Color(0.63375676, 0.6337568, 0.63375676, 1)
 theme_override_fonts/font = ExtResource("40_cs1tg")
 text = "2"
 horizontal_alignment = 1
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="FadeLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_yj223")
+}
+speed_scale = 2.0
 
 [connection signal="timeout" from="ShieldArea/trwanieTarczy" to="." method="_on_trwanie_tarczy_timeout"]
 [connection signal="timeout" from="ShieldArea/cooldownTarczy" to="." method="_on_cooldown_tarczy_timeout"]

@@ -40,10 +40,11 @@ size = Vector2(3.5, 3)
 [sub_resource type="CircleShape2D" id="CircleShape2D_51160"]
 radius = 9.0
 
-[node name="BlackNinja" type="Area2D"]
+[node name="BlackNinja" type="Area2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_e738a")
+blood_color = Color(0, 0.62475675, 9.62615e-07, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_3cyjj")
