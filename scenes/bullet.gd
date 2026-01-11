@@ -35,17 +35,22 @@ func spawn_blood(color_to_apply: Color):
 			blood.rotation_degrees = 180 
 		else:
 			blood.rotation_degrees = 0
-
+			
+			
 func apply_screen_shake():
 	var camera = get_viewport().get_camera_2d()
-	# Kamera zatrzęsie się tylko, jeśli ma skrypt z metodą add_trauma
-	if camera and camera.has_method("add_trauma"):
-		camera.add_trauma(shake_amount)
+	if camera:
+		if camera.has_method("add_trauma"):
+			camera.add_trauma(shake_amount)
+			print("SHAKE POSZEDŁ") # Sprawdź w konsoli czy to wypisuje
+		else:
+			print("KAMERA NIE MA METODY")
+	else:
+		print("NIE ZNALAZŁO KAMERY")
 
 func bullet():
 	pass
 	
 func _on_body_entered(body: Node2D) -> void:
-	# Tutaj pocisk po prostu znika po uderzeniu w ścianę
-	# Nie wywołujemy apply_screen_shake(), więc ekran się nie zatrzęsie
+	call_deferred("queue_free")
 	queue_free()

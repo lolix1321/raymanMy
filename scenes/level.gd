@@ -2,6 +2,9 @@ extends Node2D
 
 const bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
 
+func _ready() -> void:
+	get_tree().get_first_node_in_group("Player").can_use_shield = false
+
 
 
 func _on_player_shoot(pos, facing_right) -> void:

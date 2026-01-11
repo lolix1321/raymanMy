@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d34rt8wqwhsbb" path="res://graphic/torch/spiderweb.png" id="8_oeie8"]
 [ext_resource type="Texture2D" uid="uid://b650afxmkjq43" path="res://graphic/lava232.png" id="8_s6j07"]
 [ext_resource type="PackedScene" uid="uid://dy17q1wahvid6" path="res://scenes/black_ninja.tscn" id="9_d8hb6"]
-[ext_resource type="Shader" uid="uid://cqr1h5gf32lqi" path="res://scenes/lava.gdshader" id="9_equ0j"]
+[ext_resource type="Shader" path="res://scenes/lava.gdshader" id="9_equ0j"]
 [ext_resource type="Texture2D" uid="uid://c60pfhxpqprty" path="res://graphic/chain.png" id="9_hhe2v"]
 [ext_resource type="Texture2D" uid="uid://3cfe2663lnkw" path="res://graphic/pillar.png" id="9_nhn07"]
 [ext_resource type="PackedScene" uid="uid://sm2eeiuqit6o" path="res://scenes/stamina.tscn" id="9_vp047"]
@@ -36,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://l4sgpyfd5k0a" path="res://scenes/spider.tscn" id="28_eusc0"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 [ext_resource type="PackedScene" uid="uid://bkxbrw6wtgehs" path="res://scenes/cross.tscn" id="32_eusc0"]
-[ext_resource type="Shader" uid="uid://6ly3v7af2hky" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
+[ext_resource type="Shader" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
 texture = ExtResource("5_x3fpt")
@@ -1312,72 +1312,84 @@ material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(1269, 379)
 marker1 = NodePath("../../BeePathPoints/Marker2D3")
 marker2 = NodePath("../../BeePathPoints/Marker2D4")
+notice_radius = 120
 
 [node name="Bee3" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(1442, 218)
 marker1 = NodePath("../../BeePathPoints/Marker2D6")
 marker2 = NodePath("../../BeePathPoints/Marker2D5")
+notice_radius = 120
 
 [node name="Bee4" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(2804, 250)
 marker1 = NodePath("../../BeePathPoints/Marker2D8")
 marker2 = NodePath("../../BeePathPoints/Marker2D7")
+notice_radius = 120
 
 [node name="Bee5" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(3409, 258)
 marker1 = NodePath("../../BeePathPoints/Marker2D9")
 marker2 = NodePath("../../BeePathPoints/Marker2D10")
+notice_radius = 120
 
 [node name="Bee6" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(3041, 81)
 marker1 = NodePath("../../BeePathPoints/Marker2D11")
 marker2 = NodePath("../../BeePathPoints/Marker2D12")
+notice_radius = 120
 
 [node name="Bee7" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(3318, -144)
 marker1 = NodePath("../../BeePathPoints/Marker2D13")
 marker2 = NodePath("../../BeePathPoints/Marker2D14")
+notice_radius = 120
 
 [node name="Bee8" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(4198, 54)
 marker1 = NodePath("../../BeePathPoints/Marker2D15")
 marker2 = NodePath("../../BeePathPoints/Marker2D16")
+notice_radius = 120
 
 [node name="Bee9" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(4552, 340)
 marker1 = NodePath("../../BeePathPoints/Marker2D17")
 marker2 = NodePath("../../BeePathPoints/Marker2D18")
+notice_radius = 120
 
 [node name="Bee10" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(4553, 1005)
 marker1 = NodePath("../../BeePathPoints/Marker2D19")
 marker2 = NodePath("../../BeePathPoints/Marker2D20")
+notice_radius = 120
 
 [node name="Bee11" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(3622, 929)
 marker1 = NodePath("../../BeePathPoints/Marker2D21")
 marker2 = NodePath("../../BeePathPoints/Marker2D22")
+notice_radius = 120
 
 [node name="Bee12" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(3144, 925)
 marker1 = NodePath("../../BeePathPoints/Marker2D23")
 marker2 = NodePath("../../BeePathPoints/Marker2D24")
+notice_radius = 120
 
 [node name="Bee13" parent="Enemies" node_paths=PackedStringArray("marker1", "marker2") instance=ExtResource("12_crg3w")]
 material = SubResource("ShaderMaterial_67yn7")
 position = Vector2(2608, 932)
 marker1 = NodePath("../../BeePathPoints/Marker2D25")
 marker2 = NodePath("../../BeePathPoints/Marker2D26")
+notice_radius = 120
 
 [node name="magicRight" parent="Enemies" instance=ExtResource("27_11na4")]
 position = Vector2(2735, 114)

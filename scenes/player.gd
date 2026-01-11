@@ -29,6 +29,8 @@ var isDying = false
 var can_animate = true
 var spider
 
+var duch
+
 var isShieldOn = false
 var can_use_shield = true
 var isHittedDuringShield = false
@@ -237,17 +239,26 @@ func get_damage(amount):
 		tween.tween_property($AnimatedSprite2D,"material:shader_parameter/amount",0.0,0.1).set_delay(0.1) 
 		if health <= 0:
 			die()
-	
+
+
+		
 func die():
 	# 1. Sprawdzamy, czy gracz już nie umiera
 	if isDying: return
 	isDying = true
 	
+	
+	
 	# 2. ZAMRAŻANIE GRY (wszystko staje w miejscu)
 	get_tree().paused = true
+	if duch:
+		duch.znikanieEfektu()
 	
 	# 3. LOGIKA PAJĄKA
 	Global.player_died()
+	if duch:
+		print("masz w sobie ducha")
+		duch.umieranieDucha()
 	if spider:
 		if spiderOnHead:
 			
@@ -523,3 +534,12 @@ func shieldCooldownAnim():
 		shield_bar.modulate = Color(light_value, light_value, light_value)
 		# Jeśli chcesz, żeby napis też pulsował światłem, odkomentuj poniższą linię:
 		shield_label.modulate = Color(0.173 * light_value, 1.0 * light_value, 1.0 * light_value)
+
+		
+
+
+
+
+func duszek(duszek):
+	duch = duszek
+	

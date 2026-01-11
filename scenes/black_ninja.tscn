@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dy17q1wahvid6"]
+[gd_scene load_steps=16 format=3 uid="uid://dy17q1wahvid6"]
 
 [ext_resource type="Script" uid="uid://bl1q85bawrd0n" path="res://scenes/black_ninja.gd" id="1_e738a"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_cojvc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b6b60v8flha5c" path="res://graphic/progressBars/progrsbarBack.png" id="5_51160"]
 [ext_resource type="Texture2D" uid="uid://d135ykr88vulo" path="res://graphic/progressBars/progresbarFrame.png" id="6_3cyjj"]
 [ext_resource type="Texture2D" uid="uid://dupe1d8mww0nt" path="res://graphic/progressBars/progresbar4.png" id="7_p1qyd"]
+[ext_resource type="Script" uid="uid://bqpwhpsfmupy8" path="res://scenes/head_shot_area.gd" id="8_3cyjj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3cyjj"]
 resource_local_to_scene = true
@@ -28,6 +29,9 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_51160"]
+height = 36.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmj5y"]
 size = Vector2(35.5, 4)
 
@@ -38,7 +42,6 @@ size = Vector2(3.5, 3)
 size = Vector2(3.5, 3)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_51160"]
-radius = 9.0
 
 [node name="BlackNinja" type="Area2D" groups=["enemies"]]
 collision_layer = 4
@@ -55,9 +58,9 @@ frame = 1
 frame_progress = 0.8557808
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(-1, 7.5)
-polygon = PackedVector2Array(7, 24.5, -7, 24.5, -7, 23.5, -6, 23.5, -6, 22.5, -4, 22.5, -4, 20.5, -5, 20.5, -5, 19.5, -6, 19.5, -6, 18.5, -7, 18.5, -7, 17.5, -8, 17.5, -8, 14.5, -7, 14.5, -7, 12.5, -6, 12.5, -6, 9.5, -8, 9.5, -8, 5.5, -9, 5.5, -9, -3.5, -10, -3.5, -10, -7.5, -9, -7.5, -9, -9.5, -8, -9.5, -8, -10.5, -6, -10.5, -6, -11.5, -4, -11.5, -4, -12.5, -2, -12.5, -2, -14.5, -3, -14.5, -3, -15.5, -4, -15.5, -4, -18.5, -3, -18.5, -3, -19.5, -2, -19.5, -2, -21.5, -1, -21.5, -1, -22.5, 0, -22.5, 0, -23.5, 1, -23.5, 1, -24.5, 8, -24.5, 8, -23.5, 10, -23.5, 10, -22.5, 12, -22.5, 12, -21.5, 13, -21.5, 13, -16.5, 14, -16.5, 14, -14.5, 13, -14.5, 13, -13.5, 13, -12.5, 12, -12.5, 12, -11.5, 13, -11.5, 13, -9.5, 12, -9.5, 12, -8.5, 10, -8.5, 10, -8.5, 10, -7.5, 7, -7.5, 7, -6.5, 8, -6.5, 8, -4.5, 9, -4.5, 9, -3.5, 10, -3.5, 10, -4.5, 12, -4.5, 13, -4.5, 13, -5.5, 14, -5.5, 14, -6.5, 19, -6.5, 19, -5.5, 21, -5.5, 21, -4.5, 23, -4.5, 23, -2.5, 22, -2.5, 22, -1.5, 21, -1.5, 21, -0.5, 19, -0.5, 19, -1.5, 18, -1.5, 18, -2.5, 17, -2.5, 17, -0.5, 16, -0.5, 16, 0.5, 14, 0.5, 14, -0.5, 14, -1.5, 13, -1.5, 13, -0.5, 12, -0.5, 12, 0.5, 10, 0.5, 10, 2.5, 8, 2.5, 8, 3.5, 5, 3.5, 5, 4.5, 6, 4.5, 6, 6.5, 7, 6.5, 7, 8.5, 6, 8.5, 6, 9.5, 5, 9.5, 5, 11.5, 5, 12.5, 6, 12.5, 6, 13.5, 7, 13.5, 7, 14.5, 8, 14.5, 8, 18.5, 6, 18.5, 6, 19.5, 5, 19.5, 5, 20.5, 4, 20.5, 4, 21.5, 5, 21.5, 5, 22.5, 6, 22.5, 6, 23.5, 7, 23.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 17)
+shape = SubResource("CapsuleShape2D_51160")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -88,13 +91,22 @@ texture_under = ExtResource("5_51160")
 texture_over = ExtResource("6_3cyjj")
 texture_progress = ExtResource("7_p1qyd")
 
-[node name="HeadShotArea" type="Area2D" parent="."]
+[node name="HeadShotArea" type="Area2D" parent="." groups=["enemies"]]
 collision_layer = 4
 collision_mask = 18
+script = ExtResource("8_3cyjj")
+blood_color = Color(0.026285598, 0.3567766, 0.39646658, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadShotArea"]
-position = Vector2(4, -9)
+position = Vector2(-1, -10)
 shape = SubResource("CircleShape2D_51160")
+
+[node name="wczesniejszaKOlizja" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="wczesniejszaKOlizja"]
+visible = false
+position = Vector2(-1, 7.5)
+polygon = PackedVector2Array(7, 24.5, -7, 24.5, -7, 23.5, -6, 23.5, -6, 22.5, -4, 22.5, -4, 20.5, -5, 20.5, -5, 19.5, -6, 19.5, -6, 18.5, -7, 18.5, -7, 17.5, -8, 17.5, -8, 14.5, -7, 14.5, -7, 12.5, -6, 12.5, -6, 9.5, -8, 9.5, -8, 5.5, -9, 5.5, -9, -3.5, -10, -3.5, -10, -7.5, -9, -7.5, -9, -9.5, -8, -9.5, -8, -10.5, -6, -10.5, -6, -11.5, -4, -11.5, -4, -12.5, -2, -12.5, -2, -14.5, -3, -14.5, -3, -15.5, -4, -15.5, -4, -18.5, -3, -18.5, -3, -19.5, -2, -19.5, -2, -21.5, -1, -21.5, -1, -22.5, 0, -22.5, 0, -23.5, 1, -23.5, 1, -24.5, 8, -24.5, 8, -23.5, 10, -23.5, 10, -22.5, 12, -22.5, 12, -21.5, 13, -21.5, 13, -16.5, 14, -16.5, 14, -14.5, 13, -14.5, 13, -13.5, 13, -12.5, 12, -12.5, 12, -11.5, 13, -11.5, 13, -9.5, 12, -9.5, 12, -8.5, 10, -8.5, 10, -8.5, 10, -7.5, 7, -7.5, 7, -6.5, 8, -6.5, 8, -4.5, 9, -4.5, 9, -3.5, 10, -3.5, 10, -4.5, 12, -4.5, 13, -4.5, 13, -5.5, 14, -5.5, 14, -6.5, 19, -6.5, 19, -5.5, 21, -5.5, 21, -4.5, 23, -4.5, 23, -2.5, 22, -2.5, 22, -1.5, 21, -1.5, 21, -0.5, 19, -0.5, 19, -1.5, 18, -1.5, 18, -2.5, 17, -2.5, 17, -0.5, 16, -0.5, 16, 0.5, 14, 0.5, 14, -0.5, 14, -1.5, 13, -1.5, 13, -0.5, 12, -0.5, 12, 0.5, 10, 0.5, 10, 2.5, 8, 2.5, 8, 3.5, 5, 3.5, 5, 4.5, 6, 4.5, 6, 6.5, 7, 6.5, 7, 8.5, 6, 8.5, 6, 9.5, 5, 9.5, 5, 11.5, 5, 12.5, 6, 12.5, 6, 13.5, 7, 13.5, 7, 14.5, 8, 14.5, 8, 18.5, 6, 18.5, 6, 19.5, 5, 19.5, 5, 20.5, 4, 20.5, 4, 21.5, 5, 21.5, 5, 22.5, 6, 22.5, 6, 23.5, 7, 23.5)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

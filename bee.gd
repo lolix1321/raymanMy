@@ -176,6 +176,7 @@ func animate_vignette(vignette: ColorRect):
 	#healthbar.visible = health < max_health
 	 
 func scary_shake_behavior(delta):
+	player.duszek(self)
 	var frequency = 15.0 
 	var amplitude = 10.0 
 	
@@ -220,3 +221,10 @@ func umieranieDucha():
 	
 	await get_tree().create_timer(4.0).timeout
 	queue_free()
+	
+	
+func znikanieEfektu():
+	var filter = get_tree().get_first_node_in_group("ChromaticFilter")
+	if not filter: return
+	if chromatic_tween: chromatic_tween.kill()
+	filter.material.set_shader_parameter("amount", 0.0)
