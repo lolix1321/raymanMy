@@ -95,7 +95,7 @@ texture_progress = ExtResource("7_p1qyd")
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("8_3cyjj")
-blood_color = Color(0.026285598, 0.3567766, 0.39646658, 1)
+blood_color = Color(0.8260096, 0.23286346, 0.6115514, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadShotArea"]
 position = Vector2(-1, -10)
