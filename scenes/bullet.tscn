@@ -1,14 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhi681scuegty"]
+[gd_scene load_steps=6 format=3 uid="uid://bhi681scuegty"]
 
 [ext_resource type="Texture2D" uid="uid://dep5fhssit5km" path="res://graphic/guns/bullet.png" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://fyhq1q21wxf3" path="res://scenes/bullet.gd" id="1_y25gk"]
 [ext_resource type="PackedScene" uid="uid://2tgwdgeqo430" path="res://scenes/krew.tscn" id="2_l5glv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y25gk"]
-size = Vector2(7, 3)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5glv"]
-size = Vector2(7, 3)
 
 [sub_resource type="Gradient" id="Gradient_3ies3"]
 offsets = PackedFloat32Array(0.24725275, 0.63736266)
@@ -28,17 +22,17 @@ blood_scene = ExtResource("2_l5glv")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mkf8s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="."]
 position = Vector2(0.5, -0.5)
-shape = SubResource("RectangleShape2D_y25gk")
+polygon = PackedVector2Array(-3.5, -1.5, -3.5, 1.5, 1.5, 1.5, 2.5, 0.5, 3.5, 0.5, 3.5, -0.5, 2.5, -0.5, 1.5, -1.5)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 80
 collision_mask = 65
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(0.5, -0.5)
-shape = SubResource("RectangleShape2D_l5glv")
+polygon = PackedVector2Array(-3.5, -1.5, -3.5, 1.5, 1.5, 1.5, 2.5, 0.5, 3.5, 0.5, 3.5, -0.5, 2.5, -0.5, 1.5, -1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0.49999952, -0.50000024)

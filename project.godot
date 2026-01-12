@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 Transition="*res://scenes/TransitionLayer.tscn"
+GlobalLoader="*res://scenyGlobalne/GlobalLoader.gd"
 
 [display]
 

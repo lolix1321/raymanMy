@@ -27,7 +27,7 @@ var can_regenerate := false
 var spiderOnHead = false
 var isDying = false
 var can_animate = true
-var spider
+@export var spider: Area2D
 
 var duch
 
@@ -48,6 +48,10 @@ func isShieldOnFunc():
 
 	
 func _ready():
+	if spider:
+		spider.health=0
+		spider.zeskocz()
+	
 	$CooldownBar.visible = false
 	shield_bar.visible = true # Pasek tarczy ma być widoczny
 	shield_bar.max_value = 10.0 # Standardowy cooldown
@@ -201,7 +205,10 @@ func get_animation():
 	if has_gun:
 		animation += "_gun"
 	if spiderOnHead:
-		animation += "_spider"
+		if spider:       
+			animation += "_spider"
+		
+			
 	if isDying:
 		animation = "_gun"
 	$AnimatedSprite2D.animation = animation
@@ -284,8 +291,8 @@ func die():
 	# Kluczowe: wyłączamy pauzę tuż przed reloadem
 	get_tree().paused = false
 	
-	# Przeładowujemy scenę - Transition (Autoload) zasłoni szary ekran ładowania
 	get_tree().reload_current_scene()
+
 
 func animate_vignette():
 	var vignette = get_tree().get_first_node_in_group("Vignette")
@@ -407,12 +414,15 @@ func cooldownAnim():
 var jumpCounter:int  = 0
 
 func spiderOnHeadFunc():
+	
 	if spiderOnHead == false:
 		jumpCounter = 0
 		spiderOnHead = true
 	else:
 		
+		
 		if isShieldOn:
+			print("tarcza wlaczona?")
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
 			can_use_shield = false
@@ -420,6 +430,7 @@ func spiderOnHeadFunc():
 			$ShieldArea/cooldownTarczy.start()
 			$ShieldArea/cooldownTarczy.paused = true
 		else:
+			
 			
 			
 			$ShieldArea/cooldownTarczy.paused = true
@@ -447,6 +458,7 @@ func spiderOnHeadFunc():
 
 func _on_colision_area_entered(area: Area2D) -> void:
 	if area.has_method("spider"):
+		print("juz jest pajak na tb")
 		if spider:
 			spider.zeskocz()
 			spiderOnHead = false

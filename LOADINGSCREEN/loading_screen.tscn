@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqkq3a556p4o2"]
+
+[ext_resource type="Script" uid="uid://ct62tqupkx7es" path="res://LOADINGSCREEN/loading_screen.gd" id="1_ueosu"]
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ueosu")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_right = 405.0
+offset_bottom = 27.0

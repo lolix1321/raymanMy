@@ -6,6 +6,8 @@ var teleporting := false
 
 func _on_body_entered(body):
 	if body is Player: # Bezpieczniejsze sprawdzenie
+
+		
 		entered = true
 
 func _on_body_exited(_body):
@@ -18,8 +20,9 @@ func _process(_delta):
 			if player:
 				player.start_portal_effect(true) 
 			$EnterTimer.start()
+			
 
 func _on_enter_timer_timeout():
 	Global.target_spawn_name = "MenuStart" 
 	Global.spawn_position = Vector2(295, 405) 
-	get_tree().change_scene_to_file("res://scenes/portal_one_menu.tscn")
+	GlobalLoader.load_level("res://scenes/portal_one_menu.tscn") 

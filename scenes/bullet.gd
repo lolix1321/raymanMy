@@ -6,6 +6,7 @@ var direction := 1
 @export var shake_amount := 0.2 # Siła traumy dodawana do kamery (0.0 - 1.0)
 
 func _ready():
+	shake_amount = 0.2
 	# Ustawienie kierunku sprite'a na starcie
 	$Sprite2D.flip_h = direction < 0
 

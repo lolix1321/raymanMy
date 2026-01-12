@@ -98,7 +98,7 @@ script = ExtResource("8_3cyjj")
 blood_color = Color(0.8260096, 0.23286346, 0.6115514, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadShotArea"]
-position = Vector2(-1, -10)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_51160")
 
 [node name="wczesniejszaKOlizja" type="Node2D" parent="."]

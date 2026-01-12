@@ -10,6 +10,8 @@ var vignette_tween: Tween
 
 func get_dmg(dmg, area):
 	if area.is_in_group("pocisk"):
+		if dmg == 3:
+			area.shake_amount = 0.3
 		health -= dmg
 		
 	var tween = create_tween() 
@@ -21,7 +23,9 @@ func _on_area_entered(area: Area2D) -> void:
 	area.queue_free()
 
 func _on_head_shot_area_area_entered(area: Area2D) -> void:
+	
 	get_dmg(3, area)
+	
 	area.queue_free()
 	
 func _process(delta: float) -> void:

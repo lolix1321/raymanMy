@@ -30,6 +30,16 @@ func shake():
 	offset.x = base_offset.x + max_offset.x * amount * randf_range(-1, 1)
 	offset.y = base_offset.y + max_offset.y * amount * randf_range(-1, 1)
 
+var is_shaking := false
+
 func add_trauma(amount: float):
+	if is_shaking:
+		return # Wybijamy z funkcji, jeśli już trwa cooldown
+		
 	trauma = min(trauma + amount, 1.0)
+	is_shaking = true
+	
+	# Odblokuje po 0.5s
+	await get_tree().create_timer(0.5).timeout
+	is_shaking = false
 	

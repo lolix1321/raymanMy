@@ -51,6 +51,7 @@ func _process(delta: float) -> void:
 	check_death()
 	get_animation()
 	
+	
 	if !wasOnHead:
 		$AnimatedSprite2D.flip_h = direction_x>0
 	else:
@@ -59,6 +60,12 @@ func _process(delta: float) -> void:
 		
 	
 	if onplayer:
+		if !player.spider:
+			
+				
+			player.spider = self
+			#zeskocz()
+		
 		
 		global_position = player.global_position + Vector2(0, -20)
 	elif jumping:
@@ -84,38 +91,20 @@ func check_death():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		var player_node = body #
-		
-		
+		if jumping or onplayer: return # <--- TO DODAJ. Jeśli skacze na łeb albo już tam jest, nie bij go z dotyku.
+
+		var player_node = body
 		var shield_active = false
-		
 		if player_node.has_method("isShieldOnFunc"):
 			shield_active = player_node.isShieldOnFunc()
 
-		
-
-
 		if shield_active:
-			if jumping: 
-				zrob_odrzut(player_node)
-			else:
-			   
-				direction_x *= -1
-				
-			return #
+			direction_x *= -1
+			return
 		
-		
-		if not shield_active:
-			var vignette = get_tree().get_first_node_in_group("Vignette")
-			if vignette:
-				animate_vignette(vignette)
-		
-		if not onplayer:
-			if player_node.has_method("get_damage"):
-				player_node.get_damage(10)
-				
-			else:
-				respawn_player(player_node)
+		# Zadaj obrażenia tylko jeśli pająk po prostu łazi po ziemi i wpadłeś na niego
+		if player_node.has_method("get_damage"):
+			player_node.get_damage(10)
 			
 			
 			
@@ -251,7 +240,10 @@ func spider():
 
 func _on_attack_timer_timeout() -> void:
 	if onplayer:
-		get_tree().get_first_node_in_group("Player").get_damage(10)
+		if player.spider == self:
+			get_tree().get_first_node_in_group("Player").get_damage(10)
+		else:
+			zeskocz()
 		
 		
 		
