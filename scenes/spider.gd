@@ -303,10 +303,12 @@ func spider():
 
 func _on_attack_timer_timeout() -> void:
 	if onplayer:
+		print(player.spider)
 		if player.spider == self:
 			get_tree().get_first_node_in_group("Player").get_damage(10)
 		else:
-			zeskocz()
+			player.spider.zeskocz()
+		
 		
 		
 		

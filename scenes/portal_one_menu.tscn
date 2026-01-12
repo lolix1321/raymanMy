@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d34rt8wqwhsbb" path="res://graphic/torch/spiderweb.png" id="8_oeie8"]
 [ext_resource type="Texture2D" uid="uid://b650afxmkjq43" path="res://graphic/lava232.png" id="8_s6j07"]
 [ext_resource type="PackedScene" uid="uid://dy17q1wahvid6" path="res://scenes/black_ninja.tscn" id="9_d8hb6"]
-[ext_resource type="Shader" path="res://scenes/lava.gdshader" id="9_equ0j"]
+[ext_resource type="Shader" uid="uid://cqr1h5gf32lqi" path="res://scenes/lava.gdshader" id="9_equ0j"]
 [ext_resource type="Texture2D" uid="uid://c60pfhxpqprty" path="res://graphic/chain.png" id="9_hhe2v"]
 [ext_resource type="Texture2D" uid="uid://3cfe2663lnkw" path="res://graphic/pillar.png" id="9_nhn07"]
 [ext_resource type="PackedScene" uid="uid://sm2eeiuqit6o" path="res://scenes/stamina.tscn" id="9_vp047"]
@@ -36,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://l4sgpyfd5k0a" path="res://scenes/spider.tscn" id="28_eusc0"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 [ext_resource type="PackedScene" uid="uid://bkxbrw6wtgehs" path="res://scenes/cross.tscn" id="32_eusc0"]
-[ext_resource type="Shader" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
+[ext_resource type="Shader" uid="uid://6ly3v7af2hky" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
 texture = ExtResource("5_x3fpt")

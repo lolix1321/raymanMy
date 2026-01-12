@@ -68,7 +68,7 @@ texture = ExtResource("1_6cvei")
 motion_scale = Vector2(0.1, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(736, 218)
+position = Vector2(594, 210)
 texture = ExtResource("2_ne2mo")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]

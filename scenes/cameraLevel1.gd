@@ -40,6 +40,6 @@ func add_trauma(amount: float):
 	is_shaking = true
 	
 	# Odblokuje po 0.5s
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.3).timeout
 	is_shaking = false
 	
