@@ -51,6 +51,8 @@ func _ready():
 	if spider:
 		spider.health=0
 		spider.zeskocz()
+		spider = null
+	
 	
 	$CooldownBar.visible = false
 	shield_bar.visible = true # Pasek tarczy ma być widoczny
@@ -101,7 +103,10 @@ func _process(delta: float) -> void:
 	
 	
 	if spiderOnHead:
-		spiderOnHeadFunc()
+		if spider:
+			spiderOnHeadFunc()
+		else:
+			spiderOnHead = false
 		
 	cooldownAnim()
 	
@@ -204,7 +209,7 @@ func get_animation():
 		animation = 'walk'
 	if has_gun:
 		animation += "_gun"
-	if spiderOnHead:
+	if spiderOnHead and spider :
 		if spider:       
 			animation += "_spider"
 		

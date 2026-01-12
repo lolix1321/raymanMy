@@ -31,12 +31,20 @@ func zeskocz():
 	jumping = false
 	falling = true
 	rotation_degrees = 0 # Obraca go do góry nogami
+	if player and player.spider != null:
+		player.spider = null
 	$AnimatedSprite2D.flip_h = not $AnimatedSprite2D.flip_h 
 	
 	
 func get_animation():
 	var animation = 'spider'
 	if onplayer:
+		var anim_node = player.get_node("AnimatedSprite2D")
+		var anim = anim_node.animation # tu wyciągamy nazwę aktualnej animacji
+
+		if not anim in ["walk_gun_spider", "idle_gun_spider", "jump_gun_spider"]:
+			zeskocz()
+		
 		animation = "spider_player"
 		
 	if jumping:
