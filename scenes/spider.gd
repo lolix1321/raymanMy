@@ -12,7 +12,7 @@ var sShieldOn: bool
 
 
 
-
+var pom = 0
 func _on_area_entered(area: Area2D) -> void:
 	if area.has_method('bullet'):
 		health -= 1
@@ -38,11 +38,69 @@ func get_animation():
 	var animation = 'spider'
 	if onplayer:
 		animation = "spider_player"
+		
 	if jumping:
+		
 		animation += "_jump"
 		
 	if falling:
+		
 		animation += "_jump2"
+		if player.isShieldOn and pom == 2:
+			
+			
+			var shield_marker = player.get_node("ShieldPoint")
+			
+			# Oblicz kierunek
+			var dir_x = sign(global_position.x - shield_marker.global_position.x)
+			if dir_x == 0: dir_x = 1 
+			
+			# --- ETAP 1: ATAK ---
+			var attack_tween = create_tween()
+			attack_tween.tween_property(self, "global_position", shield_marker.global_position, 0.1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+			
+			attack_tween.finished.connect(func():
+				# --- ZMIANY TUTAJ ---
+				var sila_odrzutu_x = 90 * dir_x  # Mocniejszy odrzut w bok
+				var wysokosc_skoku = -25         # Dużo niżej (płaski skos)
+				var czas_calowity = 0.35         # Szybsza animacja (bardziej dynamiczna)
+				
+				var start_pos = global_position
+				var target_x = start_pos.x + sila_odrzutu_x
+				var peak_y = start_pos.y + wysokosc_skoku
+				
+				# --- ETAP 2: PŁASKI ODRZUT ---
+				
+				# TWEEN X (Poziomo):
+				# Używamy TRANS_CIRC lub CUBIC, żeby pająk szybko wystrzelił w bok
+				var recoil_x_tween = create_tween()
+				recoil_x_tween.set_parallel(true)
+				recoil_x_tween.tween_property(self, "global_position:x", target_x, czas_calowity).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+				
+				# Rotacja (Szybszy obrót, bo krótszy czas)
+				recoil_x_tween.tween_property(self, "rotation_degrees", 360 * dir_x, czas_calowity).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				
+				# TWEEN Y (Pionowo - niski łuk):
+				var recoil_y_tween = create_tween()
+				
+				# Szybki wyskok w górę (krótki impuls)
+				recoil_y_tween.tween_property(self, "global_position:y", peak_y, czas_calowity * 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				
+				# Opadanie (nieco dłuższe, żeby było czuć "lądowanie")
+				recoil_y_tween.tween_property(self, "global_position:y", start_pos.y, czas_calowity * 0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+				
+				
+				var squash_tween = create_tween()
+				scale = Vector2(0.6, 1.4) # Mocniejsze spłaszczenie przy uderzeniu
+				squash_tween.tween_property(self, "scale", Vector2(1, 1), 0.25).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+				
+				recoil_y_tween.finished.connect(func():
+					rotation_degrees = 0
+					zeskocz()
+				)
+			)
+				
 	$AnimatedSprite2D.animation = animation
 
 
@@ -56,6 +114,9 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = direction_x>0
 	else:
 		$AnimatedSprite2D.flip_h = direction_x<0
+	
+	if onplayer and player.spiderOnHead and player.isShieldOn:
+		zeskocz()
 	
 		
 	
@@ -165,7 +226,9 @@ func update_health():
 		#$HealthBar.position.x = -14.0 
 
 func _on_player_detector_body_entered(_body: Node2D) -> void:
-	if not onplayer and not wasOnHead:
+	pom+=1
+	
+	if not onplayer and not wasOnHead or falling and player and not wasOnHead and pom !=2:
 		if player and player.isShieldOnFunc():
 			jumping = false
 			

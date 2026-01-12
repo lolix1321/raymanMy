@@ -422,13 +422,7 @@ func spiderOnHeadFunc():
 		
 		
 		if isShieldOn:
-			print("tarcza wlaczona?")
-			isShieldOn = false
-			$ShieldArea/AnimatedSprite2D.visible = false
-			can_use_shield = false
-			$ShieldArea/trwanieTarczy.stop()
-			$ShieldArea/cooldownTarczy.start()
-			$ShieldArea/cooldownTarczy.paused = true
+			print("pajak?", spider, "na glowie? ", spiderOnHead)
 		else:
 			
 			
@@ -476,7 +470,7 @@ func _on_colision_area_entered(area: Area2D) -> void:
 
 func shield():
 	
-	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spiderOnHead and not isGhostInside and not spider:
+	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spiderOnHead and not isGhostInside: #and not spider
 		isShieldOn = true
 		$ShieldArea/AnimatedSprite2D.visible = true
 		$ShieldArea/trwanieTarczy.start()

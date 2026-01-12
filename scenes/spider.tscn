@@ -84,7 +84,7 @@ script = ExtResource("1_algeo")
 material = SubResource("ShaderMaterial_1byya")
 position = Vector2(0, -10.2)
 sprite_frames = SubResource("SpriteFrames_8qx0x")
-animation = &"spider"
+animation = &"spider_player"
 autoplay = "spider"
 flip_h = true
 
