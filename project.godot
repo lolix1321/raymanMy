@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="raymanMy"
-run/main_scene="uid://bsekiujt56atn"
+run/main_scene="uid://6cigpw87jtwb"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

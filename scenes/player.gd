@@ -255,49 +255,53 @@ func get_damage(amount):
 
 		
 func die():
-	# 1. Sprawdzamy, czy gracz już nie umiera
 	if isDying: return
 	isDying = true
 	
+	# Zamrożenie postaci
+	set_physics_process(false)
+	set_process(false)
+	velocity = Vector2.ZERO
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+
+	var sprite = $AnimatedSprite2D
+	if sprite.material is ShaderMaterial:
+		var mat = sprite.material
+		var death_tween = create_tween()
+		
+		# --- DŁUŻSZA ANIMACJA ---
+		# Błysk bieli (szybki start, wolne wygasanie)
+		death_tween.parallel().tween_property(mat, "shader_parameter/amount", 1.0, 0.1)
+		death_tween.parallel().tween_property(mat, "shader_parameter/amount", 0.0, 1.5).set_delay(0.2)
+		
+		# Rozpad (wydłużony do 2 sekund dla lepszego efektu)
+		# TRANS_QUAD_OUT sprawi, że na początku wybuchną szybko, a potem zwolnią
+		death_tween.parallel().tween_property(mat, "shader_parameter/glitch_chance", 1.0, 2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 	
-	# 2. ZAMRAŻANIE GRY (wszystko staje w miejscu)
-	get_tree().paused = true
+	
+	# Start zaciemnienia ekranu (możesz też wydłużyć tę animację w AnimationPlayerze)
+	if Transition.has_node("AnimationPlayer"):
+		# Możesz dodać opóźnienie do animacji Transition, żeby najpierw było widać wybuch
+		await get_tree().create_timer(0.7).timeout 
+		Transition.get_node("AnimationPlayer").play("death_animation")
+	
+	# CZEKAMY DŁUŻEJ: suma czasu wybuchu (np. 2-2.5 sekundy)
+	await get_tree().create_timer(0.6).timeout
+
+	# Reset parametrów przed reloadem
+	if sprite.material is ShaderMaterial:
+		sprite.material.set_shader_parameter("glitch_chance", 0.0)
+		sprite.material.set_shader_parameter("amount", 0.0)
 	if duch:
 		duch.znikanieEfektu()
-	
-	# 3. LOGIKA PAJĄKA
 	Global.player_died()
-	if duch:
-		print("masz w sobie ducha")
-		duch.umieranieDucha()
-	if spider:
-		if spiderOnHead:
-			
-			spider.process_mode = Node.PROCESS_MODE_ALWAYS
-			spider = null
-			spiderOnHead = false
-			if has_node("ShieldArea/cooldownTarczy"):
-				$ShieldArea/cooldownTarczy.paused = false
-	
-	# 4. START ANIMACJI ŚCIEMNIANIA (Z Singletonu Transition)
-	# Wywołujemy to z Autoloada, aby ekran pozostał czarny podczas reload_current_scene
-	if Transition.has_node("AnimationPlayer"):
-		Transition.get_node("AnimationPlayer").play("death_animation")
-	else:
-		print("BŁĄD: Nie znaleziono AnimationPlayer w Transition (Autoload)!")
-	
-	# 5. CZEKAMY NA PEŁNE ZACZERNIENIE (używając timera odpornego na pauzę)
-	await get_tree().create_timer(1.0, true, false, true).timeout
-	
-	# 6. RESET STATYSTYK I RELOAD (Gdy ekran jest już czarny)
-	health = 100 
-	
-	# Kluczowe: wyłączamy pauzę tuż przed reloadem
-	get_tree().paused = false
-	
-	get_tree().reload_current_scene()
 
+
+	health = 100 
+	get_tree().reload_current_scene()
+	
 
 func animate_vignette():
 	var vignette = get_tree().get_first_node_in_group("Vignette")

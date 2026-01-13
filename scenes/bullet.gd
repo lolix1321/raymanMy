@@ -52,6 +52,6 @@ func apply_screen_shake():
 func bullet():
 	pass
 	
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	call_deferred("queue_free")
 	queue_free()

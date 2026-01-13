@@ -175,7 +175,7 @@ func animate_vignette(vignette: ColorRect):
 	#healthbar.value = health
 	#healthbar.visible = health < max_health
 	 
-func scary_shake_behavior(delta):
+func scary_shake_behavior(_delta):
 	player.duszek(self)
 	var frequency = 15.0 
 	var amplitude = 10.0 

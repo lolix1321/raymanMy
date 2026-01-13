@@ -6,7 +6,7 @@ var collected: bool = false
 func _ready() -> void:
 	add_to_group("Collectibles")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not collected:
 		position.y = start_y + sin(Time.get_ticks_msec() / 300.0) * 10
 
