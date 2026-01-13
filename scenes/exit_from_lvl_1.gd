@@ -9,6 +9,7 @@ var teleporting: bool = false
 
 func _on_body_entered(_body: PhysicsBody2D) -> void:
 	if _body is Player:
+		
 		entered = true
 
 func _on_body_exited(_body: PhysicsBody2D) -> void:
@@ -35,3 +36,4 @@ func start_teleportation():
 	
 	# Zmiana sceny
 	get_tree().change_scene_to_file(target_scene_path)
+	Global.returnLobby("level1")

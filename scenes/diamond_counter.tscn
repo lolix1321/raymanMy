@@ -19,7 +19,7 @@ size_flags_horizontal = 8
 theme_override_constants/margin_top = 70
 theme_override_constants/margin_right = 70
 
-[node name="DiamondLabel" type="Label" parent="MarginContainer"]
+[node name="DiamondLabel" type="Label" parent="MarginContainer" groups=["diamondLabel"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_w0h4o")
 theme_override_font_sizes/font_size = 30

@@ -42,12 +42,15 @@ signal shoot(pos: Vector2, direction: bool)
 
 
 
+
+
 func isShieldOnFunc():
 	return isShieldOn
 
 
 	
 func _ready():
+	
 	if spider:
 		spider.health=0
 		spider.zeskocz()
@@ -67,13 +70,14 @@ func _ready():
 		
 	elif Global.last_checkpoint_pos != Vector2.ZERO:
 		global_position = Global.last_checkpoint_pos
-		print("Gracz odrodzony w punkcie kontrolnym")
+		
 		
 	elif Global.spawn_position != Vector2.ZERO:
 		global_position = Global.spawn_position
 		# TUTAJ DODAJEMY EFEKT:
 		start_portal_effect(false) 
 		Global.spawn_position = Vector2.ZERO
+	get_tree().call_group("diamondLabel", "wyswietlijDiamenty")
 		
 
 func set_player_to_spawn():
@@ -84,7 +88,7 @@ func set_player_to_spawn():
 			velocity = Vector2.ZERO
 			
 		global_position = spawn_node.global_position
-		print("Pozycja ustawiona ostatecznie na: ", global_position)
+		
 		
 		if $AnimatedSprite2D.material:
 			$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
@@ -227,7 +231,7 @@ func get_facing_direction():
 	
 func get_damage(amount):
 	if vulnerable:
-		print("tarcza jest", isShieldOn)
+		
 		if isShieldOn:
 			amount = 0
 			isHittedDuringShield = true
@@ -239,7 +243,7 @@ func get_damage(amount):
 			
 			
 		health -= amount
-		print("dostales za ", amount)
+		
 		animate_vignette()
 		can_regenerate = false    
 		$Timers/GainHealth.stop()  
@@ -257,7 +261,8 @@ func get_damage(amount):
 func die():
 	if isDying: return
 	isDying = true
-	
+	health = 0
+	$Timers/GainHealth.stop()
 	# Zamrożenie postaci
 	set_physics_process(false)
 	set_process(false)
@@ -387,7 +392,7 @@ func _on_wait_timer_timeout() -> void:
 func _on_gain_health_timeout() -> void:
 	if can_regenerate and health < 100:
 		health = min(health + 10, 100) 
-		print("Zregenerowano! Obecne HP: ", health)
+		
 		if health >= 100:
 			$Timers/GainHealth.stop()
 
@@ -431,7 +436,8 @@ func spiderOnHeadFunc():
 		
 		
 		if isShieldOn:
-			print("pajak?", spider, "na glowie? ", spiderOnHead)
+			pass
+			
 		else:
 			
 			
@@ -461,7 +467,7 @@ func spiderOnHeadFunc():
 
 func _on_colision_area_entered(area: Area2D) -> void:
 	if area.has_method("spider"):
-		print("juz jest pajak na tb")
+		
 		if spider:
 			spider.zeskocz()
 			spiderOnHead = false
@@ -470,7 +476,7 @@ func _on_colision_area_entered(area: Area2D) -> void:
 		
 		
 		spider = area
-		print("spider to",spider )
+		
 
 
 		

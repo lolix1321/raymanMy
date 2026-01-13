@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d34rt8wqwhsbb" path="res://graphic/torch/spiderweb.png" id="8_oeie8"]
 [ext_resource type="Texture2D" uid="uid://b650afxmkjq43" path="res://graphic/lava232.png" id="8_s6j07"]
 [ext_resource type="PackedScene" uid="uid://dy17q1wahvid6" path="res://scenes/black_ninja.tscn" id="9_d8hb6"]
-[ext_resource type="Shader" uid="uid://cqr1h5gf32lqi" path="res://scenes/lava.gdshader" id="9_equ0j"]
+[ext_resource type="Shader" path="res://scenes/lava.gdshader" id="9_equ0j"]
 [ext_resource type="Texture2D" uid="uid://c60pfhxpqprty" path="res://graphic/chain.png" id="9_hhe2v"]
 [ext_resource type="Texture2D" uid="uid://3cfe2663lnkw" path="res://graphic/pillar.png" id="9_nhn07"]
 [ext_resource type="PackedScene" uid="uid://sm2eeiuqit6o" path="res://scenes/stamina.tscn" id="9_vp047"]
@@ -36,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://l4sgpyfd5k0a" path="res://scenes/spider.tscn" id="28_eusc0"]
 [ext_resource type="PackedScene" uid="uid://c85nsd8s2dlhj" path="res://scenyGlobalne/pause_menu.tscn" id="29_ecmrn"]
 [ext_resource type="PackedScene" uid="uid://bkxbrw6wtgehs" path="res://scenes/cross.tscn" id="32_eusc0"]
-[ext_resource type="Shader" uid="uid://6ly3v7af2hky" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
+[ext_resource type="Shader" path="res://scenes/chromaticAberration.gdshader" id="36_haeli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b360j"]
 texture = ExtResource("5_x3fpt")
@@ -1130,7 +1130,7 @@ tile_map_data = PackedByteArray("AACnAAcAAQABAAIAAACnAAgAAQABAAMAAACnAAUAAQABAAI
 tile_set = SubResource("TileSet_ijwot")
 
 [node name="Player" parent="." node_paths=PackedStringArray("spider") instance=ExtResource("2_tcdi0")]
-position = Vector2(300, 433)
+position = Vector2(2434, 917)
 spider = NodePath("../Enemies/NIEUSUWAC")
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
@@ -1177,6 +1177,7 @@ position = Vector2(4858, 841)
 [node name="PortalExit1" parent="Portals" groups=["Player"] instance=ExtResource("3_d2i8e")]
 position = Vector2(298, 443)
 collision_mask = 3
+metadata/_edit_lock_ = true
 
 [node name="ExitFromLvl1" parent="Portals" instance=ExtResource("20_78go5")]
 position = Vector2(2522, 935)
@@ -1189,6 +1190,7 @@ target_spawn_name = "MenuSpawnPoint"
 [node name="checkpoint" parent="CheckPoints" instance=ExtResource("8_li605")]
 position = Vector2(300, 436)
 is_starting_checkpoint = true
+metadata/_edit_lock_ = true
 
 [node name="checkpoint2" parent="CheckPoints" instance=ExtResource("8_li605")]
 position = Vector2(1818, 450)
@@ -1204,6 +1206,21 @@ position = Vector2(4274, 1042)
 
 [node name="Gun" parent="." instance=ExtResource("10_d8hb6")]
 position = Vector2(339, 466)
+
+[node name="Gun3" parent="." instance=ExtResource("10_d8hb6")]
+position = Vector2(2866, 127)
+
+[node name="Gun5" parent="." instance=ExtResource("10_d8hb6")]
+position = Vector2(4224, 1061)
+
+[node name="Gun6" parent="." instance=ExtResource("10_d8hb6")]
+position = Vector2(2471, 941)
+
+[node name="Gun4" parent="." instance=ExtResource("10_d8hb6")]
+position = Vector2(3874, 359)
+
+[node name="Gun2" parent="." instance=ExtResource("10_d8hb6")]
+position = Vector2(1870, 455)
 
 [node name="Bullets" type="Node2D" parent="."]
 
@@ -2173,6 +2190,7 @@ scale = Vector2(14.421879, 1.5693362)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
+metadata/_edit_lock_ = true
 
 [node name="PointLight2D73" type="PointLight2D" parent="Lights"]
 position = Vector2(4007, 1073)
@@ -2262,6 +2280,9 @@ position = Vector2(3254, 934)
 [node name="diamond20" parent="Diamonds" instance=ExtResource("19_sjk68")]
 position = Vector2(2399, 950)
 
+[node name="diamond26" parent="Diamonds" instance=ExtResource("19_sjk68")]
+position = Vector2(2593, 959)
+
 [node name="diamond21" parent="Diamonds" instance=ExtResource("19_sjk68")]
 position = Vector2(4064, 1000)
 
@@ -2278,7 +2299,7 @@ position = Vector2(1678, 452)
 position = Vector2(4898, 973)
 
 [node name="diamond5" parent="Diamonds" instance=ExtResource("19_sjk68")]
-position = Vector2(1871, 442)
+position = Vector2(1871, 431)
 
 [node name="diamondCounter" parent="." instance=ExtResource("20_dxsga")]
 
@@ -2299,6 +2320,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
