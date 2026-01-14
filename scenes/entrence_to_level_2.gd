@@ -24,3 +24,4 @@ func _on_enter_timer_timeout():
 	Global.target_spawn_name = "MenuStart" 
 	Global.spawn_position = Vector2(295, 405) 
 	get_tree().change_scene_to_file("res://scenes/level_2.tscn")
+#d
