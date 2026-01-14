@@ -1130,7 +1130,7 @@ tile_map_data = PackedByteArray("AACnAAcAAQABAAIAAACnAAgAAQABAAMAAACnAAUAAQABAAI
 tile_set = SubResource("TileSet_ijwot")
 
 [node name="Player" parent="." node_paths=PackedStringArray("spider") instance=ExtResource("2_tcdi0")]
-position = Vector2(232, 446)
+position = Vector2(2433, 935)
 spider = NodePath("../Enemies/NIEUSUWAC")
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
@@ -2148,7 +2148,7 @@ energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
 
 [node name="PointLight2D27" type="PointLight2D" parent="Lights"]
-position = Vector2(1477.0001, 511)
+position = Vector2(1506.0001, 514)
 scale = Vector2(17.249998, 2.022461)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
