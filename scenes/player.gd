@@ -259,6 +259,7 @@ func get_damage(amount):
 
 		
 func die():
+	$ShieldArea/AnimatedSprite2D.visible = false
 	if isDying: return
 	isDying = true
 	health = 0
@@ -301,11 +302,11 @@ func die():
 		sprite.material.set_shader_parameter("amount", 0.0)
 	if duch:
 		duch.znikanieEfektu()
-	Global.player_died()
+	
 
-
+	Global.player_died() #GLOBAL TERAZ RESETUJE SCENE TU NIE RESETOWAC!
 	health = 100 
-	get_tree().reload_current_scene()
+	
 	
 
 func animate_vignette():

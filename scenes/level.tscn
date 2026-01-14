@@ -1121,6 +1121,7 @@ position = Vector2(938, 259)
 position = Vector2(312, 282)
 
 [node name="menucanvas" type="CanvasLayer" parent="."]
+layer = 1000
 
 [node name="PauseMenu" parent="menucanvas" instance=ExtResource("27_cmcjb")]
 visible = false

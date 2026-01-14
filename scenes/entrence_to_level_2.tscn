@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://jve8mq13v6f2"]
+[gd_scene load_steps=4 format=3 uid="uid://jve8mq13v6f2"]
 
 [ext_resource type="Script" uid="uid://bi43fdlbnu3ps" path="res://scenes/entrence_to_level_2.gd" id="1_40v24"]
+[ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="2_hxtqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_70mj5"]
 size = Vector2(56, 71)
@@ -14,6 +15,25 @@ script = ExtResource("1_40v24")
 shape = SubResource("RectangleShape2D_70mj5")
 
 [node name="EnterTimer" type="Timer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -51.0
+offset_top = -64.0
+offset_right = 53.0
+offset_bottom = -24.0
+color = Color(0.120599605, 0.15217325, 0.15217325, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.3764706, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_hxtqj")
+theme_override_font_sizes/font_size = 26
+text = "0/25"
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

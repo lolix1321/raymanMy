@@ -1130,7 +1130,7 @@ tile_map_data = PackedByteArray("AACnAAcAAQABAAIAAACnAAgAAQABAAMAAACnAAUAAQABAAI
 tile_set = SubResource("TileSet_ijwot")
 
 [node name="Player" parent="." node_paths=PackedStringArray("spider") instance=ExtResource("2_tcdi0")]
-position = Vector2(2434, 917)
+position = Vector2(1767, 448)
 spider = NodePath("../Enemies/NIEUSUWAC")
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
@@ -1228,12 +1228,6 @@ position = Vector2(1870, 455)
 
 [node name="BlackNinja2" parent="Enemies" instance=ExtResource("9_d8hb6")]
 position = Vector2(1079, 447)
-
-[node name="BlackNinja32" parent="Enemies" instance=ExtResource("9_d8hb6")]
-position = Vector2(520, 448)
-
-[node name="BlackNinja33" parent="Enemies" instance=ExtResource("9_d8hb6")]
-position = Vector2(548, 448)
 
 [node name="BlackNinja34" parent="Enemies" instance=ExtResource("9_d8hb6")]
 position = Vector2(488, 448)
@@ -1444,10 +1438,6 @@ position = Vector2(2997, 267)
 
 [node name="NIEUSUWAC" parent="Enemies" instance=ExtResource("28_eusc0")]
 position = Vector2(606, 900)
-rotation = 3.1415927
-
-[node name="Spider2" parent="Enemies" instance=ExtResource("28_eusc0")]
-position = Vector2(435, 379)
 rotation = 3.1415927
 
 [node name="Spider3" parent="Enemies" instance=ExtResource("28_eusc0")]
@@ -1987,6 +1977,7 @@ scale = Vector2(1.95703, 1.6699218)
 color = Color(0.8834339, 0.42463818, 1.92523e-06, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_sjk68")
+metadata/_edit_lock_ = true
 
 [node name="moonglight" type="PointLight2D" parent="Lights"]
 position = Vector2(1441, 244)
@@ -2303,14 +2294,6 @@ position = Vector2(1871, 431)
 
 [node name="diamondCounter" parent="." instance=ExtResource("20_dxsga")]
 
-[node name="menucanvas" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="menucanvas" instance=ExtResource("29_ecmrn")]
-visible = false
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.585062, 0.585062, 0.58506197, 1)
-
 [node name="ChromaticAberration" type="CanvasLayer" parent="."]
 
 [node name="ChromaticFilter" type="ColorRect" parent="ChromaticAberration" groups=["ChromaticFilter"]]
@@ -2321,6 +2304,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
+
+[node name="menucanvas" type="CanvasLayer" parent="."]
+layer = 10067
+
+[node name="PauseMenu" parent="menucanvas" instance=ExtResource("29_ecmrn")]
+visible = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.585062, 0.585062, 0.58506197, 1)
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
