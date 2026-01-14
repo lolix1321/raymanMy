@@ -3,7 +3,8 @@ extends Area2D
 var entered := false
 var teleporting := false
 @onready var player = get_tree().get_first_node_in_group("Player")
-
+func _ready() -> void:
+	$ColorRect/Label.text = str(Global.level_data["level2"]) + "/25"
 func _on_body_entered(body):
 	if body is Player: # Bezpieczniejsze sprawdzenie
 		entered = true
@@ -23,3 +24,4 @@ func _on_enter_timer_timeout():
 	Global.target_spawn_name = "MenuStart" 
 	Global.spawn_position = Vector2(295, 405) 
 	get_tree().change_scene_to_file("res://scenes/level_2.tscn")
+#d
