@@ -16,8 +16,14 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1byya"]
 resource_local_to_scene = true
 shader = ExtResource("2_wghsh")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/whiteness_color = Color(1, 1, 1, 1)
 shader_parameter/amount = 0.0
+shader_parameter/glitch_chance = 0.0
+shader_parameter/explosion_speed = 2.0
+shader_parameter/particle_size = 30.0
+shader_parameter/glitch_speed = 7.0
+shader_parameter/shake_strength = 0.02
+shader_parameter/noise_strength = 0.2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8qx0x"]
 animations = [{

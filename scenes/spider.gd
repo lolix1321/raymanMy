@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 	check_death()
 	get_animation()
 	
+	
 	if is_bouncing:
 		return 
 
@@ -80,7 +81,7 @@ func odbij():
 		var t = create_tween().set_parallel(true)
 		
 		
-		var target_pos = global_position + Vector2(40 * dir, -30)
+		var target_pos = global_position + Vector2(80 * dir, -30) #80 TO BOK -30 TO GORA ODBIJANIE
 		
 		
 		t.tween_property(self, "global_position", target_pos, 0.4)\
@@ -188,6 +189,7 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 
 	if player:
 		jumping = true
+		$PlayerDetector.queue_free()
 		
 		
 		get_tree().create_timer(0.5).timeout.connect(func(): 
@@ -195,7 +197,6 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 			if jumping and pom == 1:
 				jumping = false
 				onplayer = true
-				wasOnHead = true
 				player.spiderOnHeadFunc()
 		)
 func spider():

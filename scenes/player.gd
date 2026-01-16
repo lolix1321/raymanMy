@@ -122,6 +122,7 @@ func _process(delta: float) -> void:
 	
 	
 	if spider:
+		print(spider)
 		spiderOnHeadFunc()
 		
 	cooldownAnim()
@@ -440,10 +441,12 @@ func cooldownAnim():
 			
 
 
+var used_spiders: Array = [] 
+
 func _on_colision_area_entered(area: Area2D) -> void:
-	if area.has_method("spider"):
-		
+	if area.has_method("spider") and not area in used_spiders:
 		spider = area
+		used_spiders.append(area) 
 
 
 func shield():
