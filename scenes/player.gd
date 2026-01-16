@@ -24,11 +24,12 @@ var can_regenerate := false
 @onready var entered = false
 @onready var shield_bar = $shieldBarCanv/shieldBar # Dostosuj ścieżkę do swojego paska tarczy
 @onready var shield_label = $shieldBarCanv/ShieldTimerLabel # Dostosuj ścieżkę
-var spiderOnHead = false
+
 var isDying = false
 var can_animate = true
-@export var spider: Area2D
 
+
+var spider
 var duch
 
 var isShieldOn = false
@@ -51,10 +52,7 @@ func isShieldOnFunc():
 	
 func _ready():
 	
-	if spider:
-		spider.health=0
-		spider.zeskocz()
-		spider = null
+	
 	
 	
 	$CooldownBar.visible = false
@@ -94,7 +92,24 @@ func set_player_to_spawn():
 			$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
 		start_portal_effect(false)
 		Global.target_spawn_name = ""
+		
+var jumpCounter:int  = 0
 
+func spiderOnHeadFunc():
+		
+	if !isShieldOn:
+		$ShieldArea/cooldownTarczy.paused = true
+	
+	
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		jumpCounter += 1
+		print(jumpCounter)
+		
+	if jumpCounter >= 2:
+		if spider:
+			spider.zeskocz()
+			$ShieldArea/cooldownTarczy.paused = false
+			jumpCounter = 0 
 		
 func _process(delta: float) -> void:
 	
@@ -106,11 +121,8 @@ func _process(delta: float) -> void:
 		
 	
 	
-	if spiderOnHead:
-		if spider:
-			spiderOnHeadFunc()
-		else:
-			spiderOnHead = false
+	if spider:
+		spiderOnHeadFunc()
 		
 	cooldownAnim()
 	
@@ -213,9 +225,8 @@ func get_animation():
 		animation = 'walk'
 	if has_gun:
 		animation += "_gun"
-	if spiderOnHead and spider :
-		if spider:       
-			animation += "_spider"
+	if spider:
+		animation += "_spider"
 		
 			
 	if isDying:
@@ -425,68 +436,19 @@ func cooldownAnim():
 		coolDownBar.max_value = timer.wait_time
 		coolDownBar.value = timer.time_left
 		
-		
-var jumpCounter:int  = 0
 
-func spiderOnHeadFunc():
-	
-	if spiderOnHead == false:
-		jumpCounter = 0
-		spiderOnHead = true
-	else:
-		
-		
-		if isShieldOn:
-			pass
 			
-		else:
-			
-			
-			
-			$ShieldArea/cooldownTarczy.paused = true
-			
-			
-			
-		
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			jumpCounter+=1
-			
-		if jumpCounter==2:
-			if spider:
-				spider.zeskocz()
-				spider = null
-				spiderOnHead = false
-				$ShieldArea/cooldownTarczy.paused = false
-			
-				
-				
-		
-	
-	
-	
 
 
 func _on_colision_area_entered(area: Area2D) -> void:
 	if area.has_method("spider"):
 		
-		if spider:
-			spider.zeskocz()
-			spiderOnHead = false
-			spider = null
-			$ShieldArea/cooldownTarczy.paused = false
-		
-		
 		spider = area
-		
-
-
-		
-		
 
 
 func shield():
 	
-	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spiderOnHead and not isGhostInside: #and not spider
+	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spider and not isGhostInside: #and not spider
 		isShieldOn = true
 		$ShieldArea/AnimatedSprite2D.visible = true
 		$ShieldArea/trwanieTarczy.start()
