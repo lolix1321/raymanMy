@@ -12,26 +12,24 @@ var jumping = false
 var falling = false
 var sShieldOn: bool 
 
-# --- ZMIENNE DO LOGIKI ODBICIA ---
-var pom = 1           # Licznik odbić (1 = może się odbić, 0 = już się nie odbije)
-var is_bouncing = false # Blokada fizyki na czas animacji salta
+
+var pom = 1        
+var is_bouncing = false 
 
 func _process(delta: float) -> void:
 	update_health()
 	check_death()
 	get_animation()
 	
-	# 1. JEŚLI PAJĄK LATA NA TWEENIE (ODBJA SIĘ), TO NIC INNEGO NIE RÓB
 	if is_bouncing:
 		return 
 
-	# 2. WARUNEK ODBICIA
-	# Jeśli ma jeszcze "pom" (1), gracz ma tarczę, a pająk spada lub siedzi
+	
 	if pom == 1 and player.isShieldOn and (falling or onplayer):
 		odbij()
-		return # Kończymy klatkę, żeby nie nakładać ruchu
+		return 
 	
-	# --- STANDARDOWE RUCHY (wykonują się tylko, gdy is_bouncing == false) ---
+
 	
 	if !wasOnHead:
 		$AnimatedSprite2D.flip_h = direction_x > 0
@@ -48,13 +46,13 @@ func _process(delta: float) -> void:
 		global_position = global_position.move_toward(target_pos, speed * 2.0 * delta)
 		
 	elif falling:
-		# Grawitacja działa dopiero jak is_bouncing się skończy
+		
 		position.y += speed * 3 * delta
 		if falling and $RayCast2D.is_colliding():
 			falling = false
-			rotation_degrees = 0 # Wraca do normalnej pozycji po upadku
+			rotation_degrees = 0 
 	else:
-		# Zwykłe chodzenie
+		
 		position.x += speed * direction_x * delta
 
 
@@ -184,16 +182,22 @@ func update_health():
 	healthbar.visible = health < max_health
 
 func _on_player_detector_body_entered(_body: Node2D) -> void:
-	if not onplayer and not wasOnHead and player:
+	
+	if onplayer or wasOnHead or pom == 0:
+		return
+
+	if player:
 		jumping = true
+		
+		
 		get_tree().create_timer(0.5).timeout.connect(func(): 
-			if jumping:
+			
+			if jumping and pom == 1:
 				jumping = false
 				onplayer = true
 				wasOnHead = true
 				player.spiderOnHeadFunc()
 		)
-
 func spider():
 	pass
 
