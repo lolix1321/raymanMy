@@ -1,15 +1,65 @@
-[gd_scene load_steps=13 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=28 format=4 uid="uid://6cigpw87jtwb"]
 
+[ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level_2.gd" id="1_172wr"]
 [ext_resource type="Texture2D" uid="uid://44x0ppusrtx8" path="res://graphic/sciana13.png" id="1_eqxsl"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="1_pbc48"]
 [ext_resource type="Texture2D" uid="uid://bw18kwgsgcdua" path="res://graphic/test/paralax_background.png" id="1_que50"]
 [ext_resource type="Script" uid="uid://bst18w2ks3wk3" path="res://scenes/cameraLevel1.gd" id="2_eqxsl"]
+[ext_resource type="PackedScene" uid="uid://du7ilvot25olx" path="res://scenes/meteor.tscn" id="2_g2hoc"]
 [ext_resource type="Texture2D" uid="uid://brp4r1fddxbaf" path="res://graphic/test/paralaxSAVE.png" id="2_ne2mo"]
 [ext_resource type="Script" uid="uid://ddh3tog0cdiou" path="res://scenes/clouds.gd" id="3_6cvei"]
+[ext_resource type="Shader" uid="uid://dm4gu03pfk45k" path="res://scenes/zorza.gdshader" id="4_g2hoc"]
+[ext_resource type="Shader" uid="uid://d0g5mxyog8wji" path="res://scenes/planet.gdshader" id="4_guvtl"]
 [ext_resource type="Texture2D" uid="uid://dnrx5q7ip6jyv" path="res://graphic/test/paralax_clouds_front.png" id="5_hey2k"]
+[ext_resource type="Texture2D" uid="uid://btyau2mq60an0" path="res://graphic/test/background.png" id="5_igmy8"]
 [ext_resource type="Texture2D" uid="uid://bkq1lximc1d74" path="res://graphic/test/paralax_clouds_back.png" id="5_que50"]
+[ext_resource type="Texture2D" uid="uid://dck3gqiiqj4mg" path="res://graphic/test/paralax_clouds_sun.png" id="6_igmy8"]
 [ext_resource type="Texture2D" uid="uid://bp1cnwn73u1m5" path="res://graphic/test/paralax_mountains.png" id="6_que50"]
 [ext_resource type="Texture2D" uid="uid://c7prriay2yfa5" path="res://graphic/test/front_leaves.png" id="10_que50"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_guvtl"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_igmy8"]
+offsets = PackedFloat32Array(0, 0.52916664)
+colors = PackedColorArray(0.79607844, 0.6784314, 0.8627451, 1, 0, 0, 0, 1)
+metadata/_snap_count = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wdtqu"]
+gradient = SubResource("Gradient_igmy8")
+width = 100
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.4901316, 0.046258226)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_igmy8"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_wdtqu"]
+offsets = PackedFloat32Array(0, 0.56666666)
+colors = PackedColorArray(0.30588236, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7qsfm"]
+gradient = SubResource("Gradient_wdtqu")
+fill = 1
+fill_from = Vector2(0.508547, 0.50427353)
+fill_to = Vector2(0.525641, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdtqu"]
+shader = ExtResource("4_guvtl")
+shader_parameter/speed = 0.29600001406
+shader_parameter/density = 1.19200005662
+shader_parameter/storm_darkness = 0.5600000266
+shader_parameter/storm_color = Color(0.1, 0.1, 0.15, 1)
+shader_parameter/lightning_frequency = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fldb1"]
+shader = ExtResource("4_g2hoc")
+shader_parameter/color_top = Color(0, 1, 0.8, 0.3764706)
+shader_parameter/color_bottom = Color(0.5019608, 0, 1, 1)
+shader_parameter/speed = 5.0
+shader_parameter/frequency = 4.98500023352762
+shader_parameter/amplitude = 0.0470000022325
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4j7a"]
 texture = ExtResource("1_eqxsl")
@@ -54,17 +104,69 @@ texture = ExtResource("1_eqxsl")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_b4j7a")
 
+[sub_resource type="Environment" id="Environment_wdtqu"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 0
+
 [node name="level2" type="Node2D"]
+script = ExtResource("1_172wr")
+meteor_scene = ExtResource("2_g2hoc")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Meteor" parent="ParallaxBackground" instance=ExtResource("2_g2hoc")]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(533, 240.00002)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+position = Vector2(534, 237.00002)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_que50")
+
+[node name="sunLight" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_guvtl")
+position = Vector2(456, 208)
+scale = Vector2(2.755742, 2.5903316)
+texture = SubResource("GradientTexture2D_wdtqu")
+
+[node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Background2"]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_igmy8")
+position = Vector2(592.00006, 24)
+scale = Vector2(6.320311, 5.9140625)
+texture = SubResource("GradientTexture2D_7qsfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background2"]
+modulate = Color(0.44313726, 0.101960786, 1, 1)
+material = SubResource("ShaderMaterial_wdtqu")
+position = Vector2(534, 237.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_igmy8")
+
+[node name="Background3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background3"]
+modulate = Color(0.44313726, 0.101960786, 1, 1)
+material = SubResource("ShaderMaterial_wdtqu")
+position = Vector2(534, 237.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("6_igmy8")
+
+[node name="sun" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/sun"]
+modulate = Color(0.44313726, 0.101960786, 1, 1)
+material = SubResource("ShaderMaterial_wdtqu")
+position = Vector2(534, 237.00002)
+scale = Vector2(1.2, 1.2)
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0, 0)
@@ -72,6 +174,17 @@ motion_scale = Vector2(0, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2(534, 363)
 scale = Vector2(1.2, 1.2)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+motion_mirroring = Vector2(1152, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_fldb1")
+offset_left = 2.0
+offset_top = -134.0
+offset_right = 1154.0
+offset_bottom = 211.0
 
 [node name="Clouds_back" type="ParallaxLayer" parent="ParallaxBackground"]
 texture_filter = 2
@@ -94,19 +207,19 @@ texture_filter = 2
 position = Vector2(671, 242)
 texture = ExtResource("5_hey2k")
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.05, 0)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains"]
 position = Vector2(720, 200)
 texture = ExtResource("6_que50")
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Islands" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(594, 210)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Islands"]
+position = Vector2(578, 213)
 texture = ExtResource("2_ne2mo")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -144,4 +257,12 @@ motion_scale = Vector2(2, 1)
 position = Vector2(720, 280)
 texture = ExtResource("10_que50")
 
+[node name="MeteorTimer" type="Timer" parent="."]
+wait_time = 5.345000000000001
+autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wdtqu")
+
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
+[connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
