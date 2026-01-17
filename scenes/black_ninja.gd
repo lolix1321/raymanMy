@@ -19,14 +19,15 @@ func get_dmg(dmg, area):
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/amount", 0.0, 0.1)
 	
 func _on_area_entered(area: Area2D) -> void:
-	get_dmg(1, area)
-	area.queue_free()
+	if area.is_in_group("pocisk"):
+		get_dmg(1, area)
+		area.queue_free()
 
 func _on_head_shot_area_area_entered(area: Area2D) -> void:
-	
-	get_dmg(3, area)
-	
-	area.queue_free()
+	if area.is_in_group("pocisk"):
+		get_dmg(3, area)
+		
+		area.queue_free()
 	
 func _process(delta: float) -> void:
 	update_health()
