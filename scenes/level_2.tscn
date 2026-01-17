@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=43 format=4 uid="uid://6cigpw87jtwb"]
 
 [ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level_2.gd" id="1_172wr"]
 [ext_resource type="Texture2D" uid="uid://44x0ppusrtx8" path="res://graphic/sciana13.png" id="1_eqxsl"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://du7ilvot25olx" path="res://scenes/meteor.tscn" id="2_g2hoc"]
 [ext_resource type="Texture2D" uid="uid://brp4r1fddxbaf" path="res://graphic/test/paralaxSAVE.png" id="2_ne2mo"]
 [ext_resource type="Script" uid="uid://ddh3tog0cdiou" path="res://scenes/clouds.gd" id="3_6cvei"]
+[ext_resource type="PackedScene" uid="uid://vq6uqkglbbkc" path="res://scenes/lightning_bolt.tscn" id="3_7qsfm"]
 [ext_resource type="Shader" uid="uid://dm4gu03pfk45k" path="res://scenes/zorza.gdshader" id="4_g2hoc"]
 [ext_resource type="Shader" uid="uid://d0g5mxyog8wji" path="res://scenes/planet.gdshader" id="4_guvtl"]
 [ext_resource type="Texture2D" uid="uid://dnrx5q7ip6jyv" path="res://graphic/test/paralax_clouds_front.png" id="5_hey2k"]
@@ -16,6 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://dck3gqiiqj4mg" path="res://graphic/test/paralax_clouds_sun.png" id="6_igmy8"]
 [ext_resource type="Texture2D" uid="uid://bp1cnwn73u1m5" path="res://graphic/test/paralax_mountains.png" id="6_que50"]
 [ext_resource type="Texture2D" uid="uid://c7prriay2yfa5" path="res://graphic/test/front_leaves.png" id="10_que50"]
+[ext_resource type="Texture2D" uid="uid://bvbbchbbipv0s" path="res://graphic/test/paralax_birds.png" id="10_wdtqu"]
+[ext_resource type="Shader" uid="uid://b08r3xor6bk7i" path="res://scenes/mountains.gdshader" id="14_k22d5"]
+[ext_resource type="Shader" uid="uid://5frtmcgotbo3" path="res://scenes/waterfall.gdshader" id="15_bv48q"]
+[ext_resource type="Texture2D" uid="uid://dsddggsd8nex7" path="res://graphic/test/paralax_mount_exp.png" id="16_k6a82"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_guvtl"]
 blend_mode = 1
@@ -53,13 +58,60 @@ shader_parameter/storm_darkness = 0.5600000266
 shader_parameter/storm_color = Color(0.1, 0.1, 0.15, 1)
 shader_parameter/lightning_frequency = 0.0
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wdtqu"]
+frequency = 0.03
+fractal_octaves = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7qsfm"]
+noise = SubResource("FastNoiseLite_wdtqu")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fldb1"]
 shader = ExtResource("4_g2hoc")
-shader_parameter/color_top = Color(0, 1, 0.8, 0.3764706)
-shader_parameter/color_bottom = Color(0.5019608, 0, 1, 1)
-shader_parameter/speed = 5.0
-shader_parameter/frequency = 4.98500023352762
-shader_parameter/amplitude = 0.0470000022325
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7qsfm")
+shader_parameter/color_base = Color(0.2, 1, 0.6, 1)
+shader_parameter/color_top = Color(0.99215686, 0.17254902, 1, 0.3764706)
+shader_parameter/speed = 0.002000000095
+shader_parameter/vertical_stretch = 0.02000000095
+shader_parameter/warping_strength = 0.0050000002375
+shader_parameter/sharpness = 4.5210001672475
+shader_parameter/intensity = 2.834000087115
+
+[sub_resource type="Environment" id="Environment_wdtqu"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 1.02
+glow_blend_mode = 0
+glow_hdr_threshold = 0.39
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wdtqu"]
+blend_mode = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bv48q"]
+noise_type = 3
+frequency = 0.051
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k22d5"]
+width = 32
+height = 128
+noise = SubResource("FastNoiseLite_bv48q")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k22d5"]
+shader = ExtResource("15_bv48q")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_k22d5")
+shader_parameter/water_color_light = Color(5.565118e-08, 0.045875423, 0.07862862, 1)
+shader_parameter/water_color_dark = Color(0.0019113338, 0.023930889, 0.084510185, 1)
+shader_parameter/speed = 0.1
+shader_parameter/distortion_strength = 0.050000002375
+shader_parameter/scale_y = 0.5
+shader_parameter/dissolve_start = 0.1670000079325
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6a82"]
+shader = ExtResource("14_k22d5")
+shader_parameter/fog_color = Color(0.41960785, 0.3254902, 0.8392157, 1)
+shader_parameter/fog_height = 0.362000017195
+shader_parameter/intensity = 0.2850000135375
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4j7a"]
 texture = ExtResource("1_eqxsl")
@@ -104,14 +156,47 @@ texture = ExtResource("1_eqxsl")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_b4j7a")
 
-[sub_resource type="Environment" id="Environment_wdtqu"]
-background_mode = 3
-glow_enabled = true
-glow_blend_mode = 0
+[sub_resource type="Animation" id="Animation_bv48q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParallaxBackground/Clouds2/LightningFlash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7qsfm"]
+resource_name = "flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParallaxBackground/Clouds2/LightningFlash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.25490198), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 0.29411766), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k22d5"]
+_data = {
+&"RESET": SubResource("Animation_bv48q"),
+&"flash": SubResource("Animation_7qsfm")
+}
 
 [node name="level2" type="Node2D"]
 script = ExtResource("1_172wr")
 meteor_scene = ExtResource("2_g2hoc")
+lightning_bolt_scene = ExtResource("3_7qsfm")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -176,15 +261,18 @@ position = Vector2(534, 363)
 scale = Vector2(1.2, 1.2)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
+motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
 material = SubResource("ShaderMaterial_fldb1")
-offset_left = 2.0
-offset_top = -134.0
-offset_right = 1154.0
-offset_bottom = 211.0
+offset_left = -165.0
+offset_top = -21.0
+offset_right = 987.0
+offset_bottom = 164.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ParallaxBackground/ParallaxLayer/ColorRect"]
+environment = SubResource("Environment_wdtqu")
 
 [node name="Clouds_back" type="ParallaxLayer" parent="ParallaxBackground"]
 texture_filter = 2
@@ -195,6 +283,19 @@ script = ExtResource("3_6cvei")
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Clouds_back"]
 position = Vector2(633, 228)
 texture = ExtResource("5_que50")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParallaxBackground/Clouds_back"]
+visible = false
+position = Vector2(0, 200)
+amount = 10
+texture = ExtResource("10_wdtqu")
+lifetime = 15.06
+emission_shape = 3
+emission_rect_extents = Vector2(400, 20)
+spread = 8.24
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 70.0
 
 [node name="Clouds2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.05, 0)
@@ -207,19 +308,48 @@ texture_filter = 2
 position = Vector2(671, 242)
 texture = ExtResource("5_hey2k")
 
+[node name="LightningFlash" type="ColorRect" parent="ParallaxBackground/Clouds2"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_wdtqu")
+offset_right = 1399.0
+offset_bottom = 441.0
+mouse_filter = 2
+color = Color(0.91764706, 1, 1, 1)
+
+[node name="WaterFall" type="Line2D" parent="ParallaxBackground/Clouds2"]
+visible = false
+material = SubResource("ShaderMaterial_k22d5")
+position = Vector2(383, 3193)
+rotation = 1.5707964
+scale = Vector2(17.83865, 1.383644)
+points = PackedVector2Array(-167.99997, 47, -167.99997, 53)
+width = 5.0
+texture_mode = 1
+
 [node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.05, 0)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains"]
-position = Vector2(720, 200)
+material = SubResource("ShaderMaterial_k6a82")
+position = Vector2(720, 191)
 texture = ExtResource("6_que50")
+
+[node name="Mountains2" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+motion_scale = Vector2(0.05, 0)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains2"]
+material = SubResource("ShaderMaterial_k6a82")
+position = Vector2(634, 301)
+texture = ExtResource("16_k6a82")
 
 [node name="Islands" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Islands"]
-position = Vector2(578, 213)
+position = Vector2(581, 215)
 texture = ExtResource("2_ne2mo")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -258,11 +388,19 @@ position = Vector2(720, 280)
 texture = ExtResource("10_que50")
 
 [node name="MeteorTimer" type="Timer" parent="."]
-wait_time = 5.345000000000001
+wait_time = 3.0
 autostart = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_wdtqu")
+[node name="LightningTimer" type="Timer" parent="."]
+wait_time = 13.438
+one_shot = true
+autostart = true
+
+[node name="LightningAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k22d5")
+}
 
 [connection signal="timeout" from="Player/PortalTimer" to="Player" method="_on_portal_timer_timeout"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="LightningTimer" to="." method="_on_lightning_timer_timeout"]
