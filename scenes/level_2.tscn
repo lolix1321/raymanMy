@@ -336,13 +336,12 @@ position = Vector2(720, 191)
 texture = ExtResource("6_que50")
 
 [node name="Mountains2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.05, 0)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains2"]
 material = SubResource("ShaderMaterial_k6a82")
-position = Vector2(634, 301)
+position = Vector2(719, 256)
 texture = ExtResource("16_k6a82")
 
 [node name="Islands" type="ParallaxLayer" parent="ParallaxBackground"]
