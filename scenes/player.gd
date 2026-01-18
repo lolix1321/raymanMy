@@ -41,8 +41,8 @@ var isGhostInside = false
 signal shoot(pos: Vector2, direction: bool)
 
 
-
-
+@onready var camera_target = $CameraTarget
+var cam_stick_dist = 60.0
 
 func isShieldOnFunc():
 	return isShieldOn
@@ -120,16 +120,24 @@ const GRAVITY_FALLING = 1000.0   # Ciężka grawitacja (jak spadasz lub puścił
 const SPEED_WALK = 180.0        
 const SPEED_SPRINT = 280.0      
 
-# var stamina... (twoje zmienne)
+
 
 func _physics_process(delta: float) -> void:
+	var target_stick_x = 0.0
+	if direction_x > 0:
+		target_stick_x = cam_stick_dist
+	elif direction_x < 0:
+		target_stick_x = -3*cam_stick_dist
+	else:
+		target_stick_x = camera_target.position.x
+
+	camera_target.position.x = lerp(camera_target.position.x, target_stick_x, 2.0 * delta)
 	
-	# --- SYF SYSTEMOWY ---
 	cooldownAnim()
 	shieldCooldownAnim()	
 	if spider: spiderOnHeadFunc()
 	if isGhostInside:
-		# (Tu twoja logika ducha - skróciłem dla czytelności)
+		
 		if isShieldOn:
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
@@ -146,30 +154,20 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# ==========================================
-	# 1. SYSTEM DWÓCH GRAWITACJI (SERCE MARIO)
-	# ==========================================
-	var current_gravity = GRAVITY_FALLING # Domyślnie spadamy szybko (cegła)
 
-	# JEŚLI: Lecimy do góry (velocity.y < 0) ORAZ trzymamy spację...
+	var current_gravity = GRAVITY_FALLING 
+
+
 	if velocity.y < 0 and Input.is_action_pressed("jump"):
-		# ...TO: Grawitacja jest lżejsza. Dzięki temu lecisz wyżej.
+		
 		current_gravity = GRAVITY_RISING
 	
-	# Aplikujemy wybraną grawitację
+
 	velocity.y += current_gravity * delta
 
-	# ==========================================
-	# 2. SKOK (PROSTY)
-	# ==========================================
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_FORCE
-		# Nie potrzebujemy tu żadnego ucinania ani variable jump height.
-		# Robi to system grawitacji wyżej.
 
-	# ==========================================
-	# 3. RUCH POZIOMY
-	# ==========================================
 	var current_speed = SPEED_WALK
 	if Input.is_action_pressed("Sprint") and stamina > 0 and can_sprint:
 		current_speed = SPEED_SPRINT

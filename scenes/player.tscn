@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=55 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://c0mgfqy7lryeo" path="res://graphic/playerShield/playerShield19.png" id="32_apa73"]
 [ext_resource type="Texture2D" uid="uid://bw6545ktg4aeh" path="res://graphic/playerShield/playerShieldGray.png" id="39_j2b1d"]
 [ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="40_cs1tg"]
+[ext_resource type="Script" uid="uid://bst18w2ks3wk3" path="res://scenes/cameraLevel1.gd" id="41_2dvfe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t4otl"]
 shader = ExtResource("1_hax0n")
@@ -466,6 +467,25 @@ libraries = {
 &"": SubResource("AnimationLibrary_yj223")
 }
 speed_scale = 2.0
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(19, 0)
+
+[node name="Level1Camera" type="Camera2D" parent="CameraTarget"]
+position = Vector2(107, 0)
+offset = Vector2(0, -40)
+zoom = Vector2(5.5, 5.5)
+process_callback = 0
+limit_left = 191
+limit_right = 10000003
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.5
+drag_right_margin = 0.1
+script = ExtResource("41_2dvfe")
 
 [connection signal="timeout" from="ShieldArea/trwanieTarczy" to="." method="_on_trwanie_tarczy_timeout"]
 [connection signal="timeout" from="ShieldArea/cooldownTarczy" to="." method="_on_cooldown_tarczy_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://dkbxhp1g265co"]
+[gd_scene load_steps=76 format=4 uid="uid://dkbxhp1g265co"]
 
 [ext_resource type="Script" uid="uid://dr4ilj2qigv4g" path="res://scenes/portal_one_menu.gd" id="1_x3fpt"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player.tscn" id="2_tcdi0"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://beccln3gwj8l" path="res://scenes/ekran.tscn" id="18_5kpgl"]
 [ext_resource type="PackedScene" uid="uid://boklgvb6j5qwi" path="res://scenes/lavadamagemini.tscn" id="18_iieun"]
 [ext_resource type="PackedScene" uid="uid://bfh0p45h2bofx" path="res://scenes/diamond.tscn" id="19_sjk68"]
-[ext_resource type="Script" uid="uid://bst18w2ks3wk3" path="res://scenes/cameraLevel1.gd" id="20_4es8y"]
 [ext_resource type="PackedScene" uid="uid://dtekrepd8qqxr" path="res://scenes/exit_from_lvl_1.tscn" id="20_78go5"]
 [ext_resource type="PackedScene" uid="uid://bacewamobby6l" path="res://scenes/diamond_counter.tscn" id="20_dxsga"]
 [ext_resource type="PackedScene" uid="uid://dtcoemt5miss8" path="res://scenes/torch.tscn" id="22_0lkga"]
@@ -1131,18 +1130,6 @@ tile_set = SubResource("TileSet_ijwot")
 
 [node name="Player" parent="." instance=ExtResource("2_tcdi0")]
 position = Vector2(302, 436)
-
-[node name="Camera2D2" type="Camera2D" parent="Player"]
-position = Vector2(4, 5)
-offset = Vector2(0, -40)
-zoom = Vector2(5.5, 5.5)
-process_callback = 0
-limit_left = 191
-limit_right = 10000003
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-script = ExtResource("20_4es8y")
 
 [node name="PortalTimer" type="Timer" parent="Player" groups=["Player"]]
 one_shot = true
