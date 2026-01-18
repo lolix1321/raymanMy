@@ -21,6 +21,7 @@ func _process(delta):
 		# Kiedy wstrząs się kończy, upewniamy się, że wracamy do bazy
 		offset = base_offset
 		rotation = 0
+	position = position.lerp($"..".position, delta * 3)
 
 func shake():
 	var amount = pow(trauma, trauma_power)

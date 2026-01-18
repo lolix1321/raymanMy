@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 class_name Player
-var stamina = 5150.0       
+var stamina = 50.0       
 var max_stamina = 50.0    
 var stamina_drain = 20.0   
 var stamina_regen = 10.0  
@@ -111,9 +111,9 @@ func spiderOnHeadFunc():
 			jumpCounter = 0 
 		
 
-const JUMP_FORCE = -100.0        # Siła wybicia (startowa)
+const JUMP_FORCE = -600.0        # Siła wybicia (startowa)
 
-# TU JEST SEKRET: Dwie grawitacje
+
 const GRAVITY_RISING = 400.0     # Lekka grawitacja (jak trzymasz spację i lecisz w górę)
 const GRAVITY_FALLING = 1000.0   # Ciężka grawitacja (jak spadasz lub puściłeś spację)
 
