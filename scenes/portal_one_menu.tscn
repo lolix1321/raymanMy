@@ -1138,7 +1138,6 @@ offset = Vector2(0, -40)
 zoom = Vector2(5.5, 5.5)
 limit_left = 194
 limit_right = 10000003
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_vertical_enabled = true
 script = ExtResource("20_4es8y")

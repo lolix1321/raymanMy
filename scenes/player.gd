@@ -17,8 +17,7 @@ var has_diamond := false
 var has_gun := false
 var can_shoot := true
 var vulnerable := true
-var max_jumps := 2
-var jumps_left := max_jumps
+
 var can_regenerate := false 
 @onready var dead := false
 @onready var entered = false
@@ -111,23 +110,26 @@ func spiderOnHeadFunc():
 			$ShieldArea/cooldownTarczy.paused = false
 			jumpCounter = 0 
 		
-func _process(delta: float) -> void:
+
+const JUMP_FORCE = -100.0        # Siła wybicia (startowa)
+
+# TU JEST SEKRET: Dwie grawitacje
+const GRAVITY_RISING = 400.0     # Lekka grawitacja (jak trzymasz spację i lecisz w górę)
+const GRAVITY_FALLING = 1000.0   # Ciężka grawitacja (jak spadasz lub puściłeś spację)
+
+const SPEED_WALK = 180.0        
+const SPEED_SPRINT = 280.0      
+
+# var stamina... (twoje zmienne)
+
+func _physics_process(delta: float) -> void:
 	
-	
+	# --- SYF SYSTEMOWY ---
 	cooldownAnim()
 	shieldCooldownAnim()	
-	
-	
-		
-	
-	
-	if spider:
-		print(spider)
-		spiderOnHeadFunc()
-		
-	cooldownAnim()
-	
+	if spider: spiderOnHeadFunc()
 	if isGhostInside:
+		# (Tu twoja logika ducha - skróciłem dla czytelności)
 		if isShieldOn:
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
@@ -137,58 +139,61 @@ func _process(delta: float) -> void:
 		else:
 			$ShieldArea/cooldownTarczy.paused = false
 			
-			
-		
-
 	if is_teleporting:
 		velocity = Vector2.ZERO
-
-	
-	if is_teleporting:
-		velocity = Vector2.ZERO
-		direction_x=0
+		direction_x = 0
 		set_anim('jump')
-
 		move_and_slide()
-		return 
-		
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = -150
-			jumps_left = max_jumps - 1
-		elif jumps_left > 0:
-			velocity.y = -150
-			jumps_left -= 1
+		return
+
+	# ==========================================
+	# 1. SYSTEM DWÓCH GRAWITACJI (SERCE MARIO)
+	# ==========================================
+	var current_gravity = GRAVITY_FALLING # Domyślnie spadamy szybko (cegła)
+
+	# JEŚLI: Lecimy do góry (velocity.y < 0) ORAZ trzymamy spację...
+	if velocity.y < 0 and Input.is_action_pressed("jump"):
+		# ...TO: Grawitacja jest lżejsza. Dzięki temu lecisz wyżej.
+		current_gravity = GRAVITY_RISING
+	
+	# Aplikujemy wybraną grawitację
+	velocity.y += current_gravity * delta
+
+	# ==========================================
+	# 2. SKOK (PROSTY)
+	# ==========================================
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_FORCE
+		# Nie potrzebujemy tu żadnego ucinania ani variable jump height.
+		# Robi to system grawitacji wyżej.
+
+	# ==========================================
+	# 3. RUCH POZIOMY
+	# ==========================================
+	var current_speed = SPEED_WALK
 	if Input.is_action_pressed("Sprint") and stamina > 0 and can_sprint:
-		speed = 150
+		current_speed = SPEED_SPRINT
 		stamina -= stamina_drain * delta
 		if stamina <= 0:
 			stamina = 0
 			can_sprint = false
-			speed = 120
+			current_speed = SPEED_WALK
 	else:
-		speed = 120
+		current_speed = SPEED_WALK
 		if stamina < max_stamina:
 			stamina += stamina_regen * delta
 		if stamina >= 20:
 			can_sprint = true
 
 	get_input()
-	velocity.x = direction_x * speed 
+	velocity.x = direction_x * current_speed
+	
 	move_and_slide()
-	gravity()
-
-	get_animation()
 
 	if can_animate:
 		get_animation()
-
-	get_facing_direction()
-
-
 	
-
-
+	get_facing_direction()
 func get_input():
 	direction_x = Input.get_axis("left", "right")
 	
@@ -214,9 +219,7 @@ func get_input():
 		speed = 120
 	
 		
-func gravity():
-	velocity.y += 5
-	
+
 	
 func get_animation():
 	var animation = 'idle'

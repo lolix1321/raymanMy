@@ -986,7 +986,6 @@ zoom = Vector2(5.5, 5.5)
 limit_left = 0
 limit_top = 120
 limit_right = 1872
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_vertical_enabled = true
 script = ExtResource("11_8iemx")
