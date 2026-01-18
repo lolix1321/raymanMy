@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=54 format=4 uid="uid://6cigpw87jtwb"]
 
 [ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level_2.gd" id="1_172wr"]
 [ext_resource type="Texture2D" uid="uid://44x0ppusrtx8" path="res://graphic/sciana13.png" id="1_eqxsl"]
@@ -6,27 +6,26 @@
 [ext_resource type="Texture2D" uid="uid://bw18kwgsgcdua" path="res://graphic/test/paralax_background.png" id="1_que50"]
 [ext_resource type="PackedScene" uid="uid://du7ilvot25olx" path="res://scenes/meteor.tscn" id="2_g2hoc"]
 [ext_resource type="Texture2D" uid="uid://brp4r1fddxbaf" path="res://graphic/test/paralaxSAVE.png" id="2_ne2mo"]
-[ext_resource type="Script" path="res://scenes/clouds.gd" id="3_6cvei"]
+[ext_resource type="Script" uid="uid://ddh3tog0cdiou" path="res://scenes/clouds.gd" id="3_6cvei"]
 [ext_resource type="PackedScene" uid="uid://vq6uqkglbbkc" path="res://scenes/lightning_bolt.tscn" id="3_7qsfm"]
-[ext_resource type="Shader" path="res://scenes/level2wineta.gdshader" id="4_1sb0y"]
-[ext_resource type="Shader" path="res://scenes/zorza.gdshader" id="4_g2hoc"]
-[ext_resource type="Shader" path="res://scenes/planet.gdshader" id="4_guvtl"]
-[ext_resource type="Shader" path="res://scenes/volumetric.gdshader" id="4_va6c3"]
+[ext_resource type="Shader" uid="uid://c1nfwehj5mi31" path="res://scenes/level2wineta.gdshader" id="4_1sb0y"]
+[ext_resource type="Shader" uid="uid://dm4gu03pfk45k" path="res://scenes/zorza.gdshader" id="4_g2hoc"]
+[ext_resource type="Shader" uid="uid://d0g5mxyog8wji" path="res://scenes/planet.gdshader" id="4_guvtl"]
+[ext_resource type="Shader" uid="uid://bij3o8ueams4p" path="res://scenes/volumetric.gdshader" id="4_va6c3"]
 [ext_resource type="Texture2D" uid="uid://dnrx5q7ip6jyv" path="res://graphic/test/paralax_clouds_front.png" id="5_hey2k"]
 [ext_resource type="Texture2D" uid="uid://btyau2mq60an0" path="res://graphic/test/background.png" id="5_igmy8"]
-[ext_resource type="Script" path="res://scenes/volumetirc.gd" id="5_pc3at"]
+[ext_resource type="Script" uid="uid://w0x5lcvnwv6o" path="res://scenes/volumetirc.gd" id="5_pc3at"]
 [ext_resource type="Texture2D" uid="uid://bkq1lximc1d74" path="res://graphic/test/paralax_clouds_back.png" id="5_que50"]
-[ext_resource type="Shader" path="res://scenes/pyl.gdshader" id="5_vhnap"]
-[ext_resource type="Script" path="res://scenes/pylek.gd" id="5_vwfin"]
+[ext_resource type="Shader" uid="uid://dby5uroq3ia01" path="res://scenes/pyl.gdshader" id="5_vhnap"]
+[ext_resource type="Script" uid="uid://cnrd5s32kclgs" path="res://scenes/pylek.gd" id="5_vwfin"]
 [ext_resource type="Texture2D" uid="uid://dck3gqiiqj4mg" path="res://graphic/test/paralax_clouds_sun.png" id="6_igmy8"]
 [ext_resource type="Texture2D" uid="uid://bp1cnwn73u1m5" path="res://graphic/test/paralax_mountains.png" id="6_que50"]
-[ext_resource type="Shader" path="res://scenes/godrays.gdshader" id="8_63d2t"]
+[ext_resource type="Shader" uid="uid://b0nrrv0fiki6o" path="res://scenes/godrays.gdshader" id="8_63d2t"]
 [ext_resource type="Texture2D" uid="uid://bvbbchbbipv0s" path="res://graphic/test/paralax_birds.png" id="10_wdtqu"]
-[ext_resource type="Shader" path="res://scenes/mountains.gdshader" id="14_k22d5"]
-[ext_resource type="Shader" path="res://scenes/waterfall.gdshader" id="15_bv48q"]
-[ext_resource type="Texture2D" uid="uid://s6l6vmbl5lth" path="res://graphic/test/paralax_mountains_new.png" id="16_k6a82"]
-[ext_resource type="Shader" path="res://scenes/islands.gdshader" id="21_bgibu"]
-[ext_resource type="Texture2D" uid="uid://buc8kuifpvrn0" path="res://graphic/test/image-removebg-preview (1).png" id="24_bgibu"]
+[ext_resource type="Shader" uid="uid://b08r3xor6bk7i" path="res://scenes/mountains.gdshader" id="14_k22d5"]
+[ext_resource type="Shader" uid="uid://5frtmcgotbo3" path="res://scenes/waterfall.gdshader" id="15_bv48q"]
+[ext_resource type="Texture2D" uid="uid://dhjpvxmesxvfe" path="res://graphic/test/paralax_mountains_fafa.png" id="20_bgibu"]
+[ext_resource type="Shader" uid="uid://ba5ggbc7xwq8b" path="res://scenes/islands.gdshader" id="21_bgibu"]
 [ext_resource type="Script" uid="uid://dbpsk15jk1otv" path="res://scenes/camera_2d_2.gd" id="28_bgibu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwfin"]
@@ -411,8 +410,8 @@ motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains2"]
 material = SubResource("ShaderMaterial_k6a82")
-position = Vector2(717, 200)
-texture = ExtResource("16_k6a82")
+position = Vector2(721, 218)
+texture = ExtResource("20_bgibu")
 
 [node name="Islands" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
@@ -430,15 +429,15 @@ tile_map_data = PackedByteArray("AAAEACgAAAAAAAMAAAAFACgAAAABAAMAAAAGACgAAAACAAM
 tile_set = SubResource("TileSet_wo48x")
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
-layer = 1
+layer = 100
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
-visible = false
 motion_scale = Vector2(2, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
-position = Vector2(337, 207)
-texture = ExtResource("24_bgibu")
+position = Vector2(519, 378)
+texture = ExtResource("20_bgibu")
 
 [node name="MeteorTimer" type="Timer" parent="."]
 wait_time = 2.02
@@ -455,6 +454,7 @@ libraries = {
 }
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+visible = false
 position = Vector2(527.5, 274)
 scale = Vector2(6.275, 3.74)
 copy_mode = 2
