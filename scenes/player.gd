@@ -117,8 +117,8 @@ const JUMP_FORCE = -600.0        # Siła wybicia (startowa)
 const GRAVITY_RISING = 400.0     # Lekka grawitacja (jak trzymasz spację i lecisz w górę)
 const GRAVITY_FALLING = 1000.0   # Ciężka grawitacja (jak spadasz lub puściłeś spację)
 
-const SPEED_WALK = 180.0        
-const SPEED_SPRINT = 280.0      
+const SPEED_WALK = 160.0        
+const SPEED_SPRINT = 250.0      
 
 
 

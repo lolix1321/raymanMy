@@ -351,6 +351,10 @@ wait_time = 0.05
 wait_time = 0.05
 one_shot = true
 
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
 [node name="Fire" type="Node2D" parent="."]
 
 [node name="FireLeft" type="Sprite2D" parent="Fire"]
