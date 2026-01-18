@@ -123,6 +123,7 @@ const SPEED_SPRINT = 250.0
 
 
 func _physics_process(delta: float) -> void:
+	print($CameraTarget/Level1Camera.enabled)
 	var target_stick_x = 0.0
 	if direction_x > 0:
 		target_stick_x = cam_stick_dist

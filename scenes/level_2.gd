@@ -15,7 +15,7 @@ func _ready():
 	# 1. Konfiguracja meteorytów (zakładam, że masz Timer o nazwie MeteorTimer podpięty w edytorze)
 	# Jeśli nie masz podpiętego w edytorze, odkomentuj linię poniżej:
 	# $MeteorTimer.timeout.connect(_on_meteor_timer_timeout)
-
+	$Player.get_node("CameraTarget/Level1Camera").enabled = false
 	# 2. Konfiguracja błyskawic
 	if lightning_flash_rect:
 		lightning_flash_rect.modulate = Color(0.8, 0.9, 1.0) * 1.5
