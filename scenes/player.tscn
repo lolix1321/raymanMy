@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
-[ext_resource type="Texture2D" uid="uid://d0byiya60sjrj" path="res://graphic/assets_ray/ssds/knight3.png" id="3_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://nxp08eror8dm" path="res://graphic/assets_ray/ssds/knight_new.png" id="4_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dxkaxiq3mnw5h" path="res://graphic/spider/spiderOnPlayer2.png" id="5_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dk3e1k3mfcijy" path="res://graphic/guns/fire.png" id="6_tuyoq"]
@@ -61,7 +61,7 @@ shader_parameter/noise_strength = 0.2
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_3v2ag")
+"texture": ExtResource("4_2dvfe")
 }],
 "loop": true,
 "name": &"idle",

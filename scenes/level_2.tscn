@@ -460,6 +460,7 @@ scale = Vector2(6.275, 3.74)
 copy_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("sun_object")]
+visible = false
 material = SubResource("ShaderMaterial_pc3at")
 anchors_preset = 15
 anchor_right = 1.0
