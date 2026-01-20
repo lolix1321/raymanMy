@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=58 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
@@ -10,15 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://cqil8hgaifse4" path="res://graphic/assets_ray/ssds/knight_run.png" id="7_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://ds41q3jndmfhe" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun1.png" id="8_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wahaltqieu1e" path="res://graphic/assets_ray/ssds/knight_run_gun.png" id="8_f1ej7"]
-[ext_resource type="Texture2D" uid="uid://k4m5ggyll2h3" path="res://graphic/assets_ray/ssds/knight_run2.png" id="8_jej6c"]
 [ext_resource type="Texture2D" uid="uid://dsq6yxetlncip" path="res://graphic/assets_ray/ssds/knight_run_gun2.png" id="8_oprun"]
 [ext_resource type="Texture2D" uid="uid://dgg0igejaavu0" path="res://graphic/assets_ray/jump_anim/jump_anim0.png" id="8_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cd4l1c0effi5" path="res://graphic/assets_ray/jump_anim/jump_anim1.png" id="9_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://dude4wekn1ql6" path="res://graphic/assets_ray/ssds/knight11.png" id="10_hhpqf"]
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://crguh01k4xjvv" path="res://graphic/assets_ray/ssds/knight12.png" id="11_g5jhy"]
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
 [ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
+[ext_resource type="Texture2D" uid="uid://daqdvrae0f7u3" path="res://graphic/assets_ray/ssds/knight13.png" id="12_holxr"]
 [ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://bw4dvuedc5njn" path="res://graphic/assets_ray/ssds/knight14.png" id="13_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://cniluqrrwt7v6" path="res://graphic/playerShield/playerShield1.png" id="14_hax0n"]
 [ext_resource type="Texture2D" uid="uid://d3pl06k1wnr8k" path="res://graphic/playerShield/playerShield2.png" id="15_t4otl"]
 [ext_resource type="Texture2D" uid="uid://b3drgt347v6bk" path="res://graphic/playerShield/playerShield3.png" id="16_j2b1d"]
@@ -108,11 +111,17 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_jej6c")
+"duration": 0.6,
+"texture": ExtResource("10_hhpqf")
 }, {
-"duration": 1.0,
-"texture": ExtResource("7_3v2ag")
+"duration": 0.6,
+"texture": ExtResource("11_g5jhy")
+}, {
+"duration": 0.6,
+"texture": ExtResource("12_holxr")
+}, {
+"duration": 0.6,
+"texture": ExtResource("13_mx1m4")
 }],
 "loop": true,
 "name": &"walk",
@@ -291,10 +300,11 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_smehm")
-position = Vector2(1, -10)
+position = Vector2(-2, 4)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
+frame_progress = 0.45874664
 
 [node name="ShieldArea" type="Area2D" parent="."]
 collision_layer = 2
