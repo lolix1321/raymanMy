@@ -1,7 +1,13 @@
 extends CharacterBody2D
 
 class_name Player
-var stamina = 50.0       
+
+# --- ZMIENNE FIZYKI ---
+const ACCELERATION = 800.0  
+const FRICTION = 1200.0     
+
+# --- RESZTA ZMIENNYCH ---
+var stamina = 50.0        
 var max_stamina = 50.0    
 var stamina_drain = 20.0   
 var stamina_regen = 10.0  
@@ -17,16 +23,14 @@ var has_diamond := false
 var has_gun := false
 var can_shoot := true
 var vulnerable := true
-
 var can_regenerate := false 
 @onready var dead := false
 @onready var entered = false
-@onready var shield_bar = $shieldBarCanv/shieldBar # Dostosuj ścieżkę do swojego paska tarczy
-@onready var shield_label = $shieldBarCanv/ShieldTimerLabel # Dostosuj ścieżkę
+@onready var shield_bar = $shieldBarCanv/shieldBar 
+@onready var shield_label = $shieldBarCanv/ShieldTimerLabel 
 
 var isDying = false
 var can_animate = true
-
 
 var spider
 var duch
@@ -37,27 +41,28 @@ var isHittedDuringShield = false
 
 var isGhostInside = false
 
-
 signal shoot(pos: Vector2, direction: bool)
-
 
 @onready var camera_target = $CameraTarget
 var cam_stick_dist = 60.0
 
+const JUMP_FORCE = -420.0       
+const GRAVITY_RISING = 800.0    
+const GRAVITY_FALLING = 1600.0  
+const SPEED_WALK = 180.0        
+const SPEED_SPRINT = 260.0      
+
+# NOWE: Licznik pauzy przy zwrocie
+var _turn_timer: float = 0.0 
+
 func isShieldOnFunc():
 	return isShieldOn
 
-
-	
 func _ready():
-	
-	
-	
-	
 	$CooldownBar.visible = false
-	shield_bar.visible = true # Pasek tarczy ma być widoczny
-	shield_bar.max_value = 10.0 # Standardowy cooldown
-	shield_bar.value = 10.0     # Na start tarcza jest gotowa (pełna)
+	shield_bar.visible = true 
+	shield_bar.max_value = 10.0 
+	shield_bar.value = 10.0      
 	if $AnimatedSprite2D.material:
 		$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
 	
@@ -68,24 +73,18 @@ func _ready():
 	elif Global.last_checkpoint_pos != Vector2.ZERO:
 		global_position = Global.last_checkpoint_pos
 		
-		
 	elif Global.spawn_position != Vector2.ZERO:
 		global_position = Global.spawn_position
-		# TUTAJ DODAJEMY EFEKT:
 		start_portal_effect(false) 
 		Global.spawn_position = Vector2.ZERO
 	get_tree().call_group("diamondLabel", "wyswietlijDiamenty")
-		
 
 func set_player_to_spawn():
 	var spawn_node = get_tree().current_scene.find_child(Global.target_spawn_name, true, false)
 	if spawn_node:
-		# Resetujemy prędkość, żeby postać "nie wleciała" w nową scenę z pędem
 		if self is CharacterBody2D:
 			velocity = Vector2.ZERO
-			
 		global_position = spawn_node.global_position
-		
 		
 		if $AnimatedSprite2D.material:
 			$AnimatedSprite2D.material.set_shader_parameter("amount", 0.0)
@@ -95,10 +94,8 @@ func set_player_to_spawn():
 var jumpCounter:int  = 0
 
 func spiderOnHeadFunc():
-		
 	if !isShieldOn:
 		$ShieldArea/cooldownTarczy.paused = true
-	
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jumpCounter += 1
@@ -109,36 +106,23 @@ func spiderOnHeadFunc():
 			spider.zeskocz()
 			$ShieldArea/cooldownTarczy.paused = false
 			jumpCounter = 0 
-		
-
-const JUMP_FORCE = -600.0        # Siła wybicia (startowa)
-
-
-const GRAVITY_RISING = 400.0     # Lekka grawitacja (jak trzymasz spację i lecisz w górę)
-const GRAVITY_FALLING = 1000.0   # Ciężka grawitacja (jak spadasz lub puściłeś spację)
-
-const SPEED_WALK = 160.0        
-const SPEED_SPRINT = 250.0      
-
-
 
 func _physics_process(delta: float) -> void:
-	print($CameraTarget/Level1Camera.enabled)
+	# --- KAMERA ---
 	var target_stick_x = 0.0
 	if direction_x > 0:
 		target_stick_x = cam_stick_dist
 	elif direction_x < 0:
 		target_stick_x = -3*cam_stick_dist
 	else:
-		target_stick_x = camera_target.position.x
+		target_stick_x = 0.0
 
 	camera_target.position.x = lerp(camera_target.position.x, target_stick_x, 2.0 * delta)
 	
 	cooldownAnim()
-	shieldCooldownAnim()	
+	shieldCooldownAnim()    
 	if spider: spiderOnHeadFunc()
 	if isGhostInside:
-		
 		if isShieldOn:
 			isShieldOn = false
 			$ShieldArea/AnimatedSprite2D.visible = false
@@ -155,20 +139,18 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-
+	# --- GRAWITACJA ---
 	var current_gravity = GRAVITY_FALLING 
-
-
 	if velocity.y < 0 and Input.is_action_pressed("jump"):
-		
 		current_gravity = GRAVITY_RISING
 	
-
 	velocity.y += current_gravity * delta
 
+	# --- SKOK ---
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_FORCE
 
+	# --- SPRINT I STAMINA ---
 	var current_speed = SPEED_WALK
 	if Input.is_action_pressed("Sprint") and stamina > 0 and can_sprint:
 		current_speed = SPEED_SPRINT
@@ -184,68 +166,103 @@ func _physics_process(delta: float) -> void:
 		if stamina >= 20:
 			can_sprint = true
 
-	get_input()
-	velocity.x = direction_x * current_speed
+	get_input() # Pobiera direction_x
+
+	# =========================================================
+	# --- NOWA LOGIKA ZMIANY KIERUNKU (PAUZA) ---
+	# =========================================================
+	
+	# Sprawdzamy, czy gracz próbuje zmienić kierunek na przeciwny
+	if direction_x != 0:
+		var trying_to_turn = (direction_x > 0 and not facing_right) or (direction_x < 0 and facing_right)
+		
+		# Jeśli zmieniamy kierunek i timer nie jest aktywny -> Aktywujemy pauzę
+		if trying_to_turn and _turn_timer <= 0:
+
+			velocity.x = 0               # Natychmiastowe zatrzymanie (reset pędu)
+			facing_right = direction_x > 0 # Od razu aktualizujemy stronę patrzenia
+	
+	# Obsługa pauzy
+	if _turn_timer > 0:
+		_turn_timer -= delta
+		velocity.x = 0 # Trzymamy gracza w miejscu
+		# Wymuszamy aktualizację sprite'a, żeby wyglądało że już się obrócił
+		$AnimatedSprite2D.flip_h = not facing_right 
+		
+	else:
+		# --- NORMALNY RUCH (Gdy nie ma pauzy) ---
+		if direction_x != 0:
+			# Rozpędzanie
+			velocity.x = move_toward(velocity.x, direction_x * current_speed, ACCELERATION * delta)
+		else:
+			# Hamowanie
+			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	
 	move_and_slide()
 
 	if can_animate:
 		get_animation()
 	
+	# Uwaga: get_facing_direction jest teraz mniej potrzebne, bo robimy to w logice wyżej,
+	# ale zostawiam, żeby nie psuć reszty logiki jeśli gdzieś jest używane.
 	get_facing_direction()
+
 func get_input():
 	direction_x = Input.get_axis("left", "right")
 	
 	shield()
 	
-	
+	# --- SKOK ---
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = -230
+		velocity.y = JUMP_FORCE 
 		
+		var start_anim = "jump_start"
+		if has_gun: start_anim += "_gun"
+		if spider: start_anim += "_spider"
 		
+		$AnimatedSprite2D.play(start_anim)
 
-		
+	# --- STRZELANIE ---
 	if Input.is_action_just_pressed("shoot") and can_shoot and has_gun and not isGhostInside:
 		shoot.emit(global_position, facing_right)
 		can_shoot = false
 		$Timers/CooldownTimer.start()
 		$Timers/FireTimer.start()
 		$Fire.get_child(facing_right).show()
-		
-	if Input.is_action_just_pressed("Sprint") and is_on_floor():
-		speed = 150
-	if Input.is_action_just_released("Sprint"):
-		speed = 120
-	
-		
 
-	
 func get_animation():
-	var animation = 'idle'
-	if not is_on_floor():
-		animation = 'jump'
-	elif direction_x != 0:
-		animation = 'walk'
-	if has_gun:
-		animation += "_gun"
-	if spider:
-		animation += "_spider"
-		
-			
 	if isDying:
-		animation = "_gun"
-	$AnimatedSprite2D.animation = animation
+		return 
+
+	var base_animation = "idle" 
+	
+	if is_on_floor():
+		if abs(velocity.x) > 10.0:
+			base_animation = "walk"
+	else:
+		if velocity.y > 0:
+			base_animation = "jump_down"
+		else:
+			base_animation = "jump_up"
+
+	if has_gun:
+		base_animation += "_gun"
+	if spider:
+		base_animation += "_spider"
+	
+	if $AnimatedSprite2D.animation != base_animation:
+		$AnimatedSprite2D.play(base_animation)
+	
+	# Sprite update - redundantne z logiką wyżej, ale dla pewności:
 	$AnimatedSprite2D.flip_h = not facing_right
 	
 func get_facing_direction():
-	if direction_x != 0:
-		facing_right = direction_x >= 0
-		
-		
-	
+	# To służy głównie do aktualizacji zmiennej facing_right, gdy nie jesteśmy w trakcie zwrotu
+	if _turn_timer <= 0 and direction_x != 0:
+		facing_right = direction_x > 0
+
 func get_damage(amount):
 	if vulnerable:
-		
 		if isShieldOn:
 			amount = 0
 			isHittedDuringShield = true
@@ -255,11 +272,10 @@ func get_damage(amount):
 			$ShieldArea/trwanieTarczy.stop()
 			$ShieldArea/cooldownTarczy.start()
 			
-			
 		health -= amount
 		
 		animate_vignette()
-		can_regenerate = false    
+		can_regenerate = false     
 		$Timers/GainHealth.stop()  
 		$Timers/WaitTimer.start(3.0)
 		vulnerable = false
@@ -270,15 +286,13 @@ func get_damage(amount):
 		if health <= 0:
 			die()
 
-
-		
 func die():
 	$ShieldArea/AnimatedSprite2D.visible = false
 	if isDying: return
 	isDying = true
 	health = 0
 	$Timers/GainHealth.stop()
-	# Zamrożenie postaci
+	
 	set_physics_process(false)
 	set_process(false)
 	velocity = Vector2.ZERO
@@ -290,38 +304,24 @@ func die():
 		var mat = sprite.material
 		var death_tween = create_tween()
 		
-		# --- DŁUŻSZA ANIMACJA ---
-		# Błysk bieli (szybki start, wolne wygasanie)
 		death_tween.parallel().tween_property(mat, "shader_parameter/amount", 1.0, 0.1)
 		death_tween.parallel().tween_property(mat, "shader_parameter/amount", 0.0, 1.5).set_delay(0.2)
-		
-		# Rozpad (wydłużony do 2 sekund dla lepszego efektu)
-		# TRANS_QUAD_OUT sprawi, że na początku wybuchną szybko, a potem zwolnią
 		death_tween.parallel().tween_property(mat, "shader_parameter/glitch_chance", 1.0, 2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
-	
-	
-	# Start zaciemnienia ekranu (możesz też wydłużyć tę animację w AnimationPlayerze)
 	if Transition.has_node("AnimationPlayer"):
-		# Możesz dodać opóźnienie do animacji Transition, żeby najpierw było widać wybuch
 		await get_tree().create_timer(0.7).timeout 
 		Transition.get_node("AnimationPlayer").play("death_animation")
 	
-	# CZEKAMY DŁUŻEJ: suma czasu wybuchu (np. 2-2.5 sekundy)
 	await get_tree().create_timer(0.6).timeout
 
-	# Reset parametrów przed reloadem
 	if sprite.material is ShaderMaterial:
 		sprite.material.set_shader_parameter("glitch_chance", 0.0)
 		sprite.material.set_shader_parameter("amount", 0.0)
 	if duch:
 		duch.znikanieEfektu()
 	
-
-	Global.player_died() #GLOBAL TERAZ RESETUJE SCENE TU NIE RESETOWAC!
+	Global.player_died() 
 	health = 100 
-	
-	
 
 func animate_vignette():
 	var vignette = get_tree().get_first_node_in_group("Vignette")
@@ -329,35 +329,25 @@ func animate_vignette():
 	
 	var mat = vignette.material
 	
-	# Jeśli leci poprzedni tween, ubijamy go
 	if vignette_tween and vignette_tween.is_running():
 		vignette_tween.kill()
 	
 	vignette_tween = create_tween()
 	
-	# --- ZMIANA TUTAJ ---
-	# Sprawdzamy czy tarcza jest włączona. 
-	# Użyj 'player.sShieldOn' lub samej zmiennej 'sShieldOn' w zależności gdzie ona jest.
 	if isShieldOn: 
-		# Jeśli tarcza jest on: Szybki powrót do normalnego koloru (czarny) i rozmiaru
 		vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.1)
 		vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.1)
-		return # Kończymy funkcję, nie robimy czerwonego błysku
+		return 
 	
-	# --- EFEKT OBRAŻEŃ (Tylko gdy tarcza wyłączona) ---
-	
-	# Natychmiast czerwień (uderzenie)
 	mat.set_shader_parameter("vignette_color", Color(0.7, 0, 0, 1.0))
 	mat.set_shader_parameter("outer_radius", 1.5)
 	
-	# Powrót do czerni (zanikanie bólu)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/vignette_color", Color(0, 0, 0, 1.0), 0.5)
 	vignette_tween.parallel().tween_property(mat, "shader_parameter/outer_radius", 1.2, 0.5)
 
 func _on_cooldown_timer_timeout() -> void:
 	$CooldownBar.visible = false
 	can_shoot = true
-
 
 func _on_fire_timer_timeout() -> void:
 	for child in $Fire.get_children():
@@ -371,11 +361,8 @@ func _on_jump_timer_end_timeout() -> void:
 	for child in $jumpAnimation.get_children():
 		child.hide()
 
-
-
 func _on_invicibility_timer_timeout() -> void:
 	vulnerable = true
-
 
 func start_portal_effect(entering: bool):
 	is_teleporting = true 
@@ -396,38 +383,25 @@ func _on_portal_timer_timeout() -> void:
 	is_teleporting = false
 	can_shoot = true
 
-
-
 func _on_wait_timer_timeout() -> void:
 	can_regenerate = true
 	$Timers/GainHealth.start(1.0) 
-	
-
 
 func _on_gain_health_timeout() -> void:
 	if can_regenerate and health < 100:
 		health = min(health + 10, 100) 
-		
 		if health >= 100:
 			$Timers/GainHealth.stop()
-
-			
-			
-
 
 func zmianaCanAnimate():
 	can_animate = !can_animate
 
-
 func set_anim(anim: String):
-	
 	if has_gun:
 		anim += "_gun"
 	$AnimatedSprite2D.animation = anim
 	$AnimatedSprite2D.flip_h = not facing_right
 	
-	
-
 func cooldownAnim():
 	if !$Timers/CooldownTimer.is_stopped():
 		var timer = $Timers/CooldownTimer
@@ -435,13 +409,8 @@ func cooldownAnim():
 		var _left = $Timers/CooldownTimer.time_left
 		coolDownBar.visible = true
 		
-		
 		coolDownBar.max_value = timer.wait_time
 		coolDownBar.value = timer.time_left
-		
-
-			
-
 
 var used_spiders: Array = [] 
 
@@ -450,25 +419,15 @@ func _on_colision_area_entered(area: Area2D) -> void:
 		spider = area
 		used_spiders.append(area) 
 
-
 func shield():
-	
-	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spider and not isGhostInside: #and not spider
+	if Input.is_action_just_pressed("shield") and can_use_shield and not isShieldOn and not isHittedDuringShield and not spider and not isGhostInside:
 		isShieldOn = true
 		$ShieldArea/AnimatedSprite2D.visible = true
 		$ShieldArea/trwanieTarczy.start()
-		
-	
-	
-	
-		
-	
-
 
 func _on_cooldown_tarczy_timeout() -> void:
 	can_use_shield = true
 	isHittedDuringShield = false
-
 
 func _on_trwanie_tarczy_timeout() -> void:
 	isShieldOn = false
@@ -476,17 +435,14 @@ func _on_trwanie_tarczy_timeout() -> void:
 	can_use_shield = false
 	$ShieldArea/cooldownTarczy.start()
 	
-	
 func shieldCooldownAnim():
 	var cd_timer = $ShieldArea/cooldownTarczy 
 	var trwanie_timer = $ShieldArea/trwanieTarczy
 	
-	# Resetowanie efektów (ważne, aby tarcza nie została rozjaśniona po użyciu)
 	shield_bar.modulate = Color(1, 1, 1, 1)
-	shield_label.scale = Vector2(1, 1) # Reset skali napisu, jeśli wcześniej był używany
+	shield_label.scale = Vector2(1, 1)
 	
 	if not trwanie_timer.is_stopped():
-		# TARCZA AKTYWNA
 		shield_bar.max_value = trwanie_timer.wait_time
 		shield_bar.value = trwanie_timer.time_left
 		shield_label.visible = true
@@ -494,7 +450,6 @@ func shieldCooldownAnim():
 		shield_label.modulate = Color(0.173, 1.0, 1.0, 1.0)
 
 	elif not cd_timer.is_stopped():
-		# TARCZA ŁADUJE SIĘ
 		shield_bar.max_value = cd_timer.wait_time
 		shield_bar.value = cd_timer.wait_time - cd_timer.time_left
 		shield_label.visible = true
@@ -502,33 +457,20 @@ func shieldCooldownAnim():
 		shield_label.modulate = Color(1, 1, 1)
 		
 	else:
-		# TARCZA GOTOWA
 		shield_bar.max_value = 1.0
 		shield_bar.value = 1.0
 		shield_label.visible = true
 		shield_label.text = "READY!"
 		shield_label.modulate = Color(0.173, 1.0, 1.0, 1.0)
 		
-		# --- TYLKO EFEKT PULSOWANIA ŚWIATŁEM ---
 		var speed = 5.0 
-		var intensity_light = 0.5 # Zwiększyłem odrobinę dla lepszego efektu
-		
+		var intensity_light = 0.5
 		var time = Time.get_ticks_msec() * 0.001
-		var sin_wave = (sin(time * speed) + 1.0) * 0.5 # Mapowanie sinusa z (-1 do 1) na (0 do 1)
-		
-		# Obliczanie jasności
+		var sin_wave = (sin(time * speed) + 1.0) * 0.5
 		var light_value = 1.0 + (sin_wave * intensity_light)
 		
-		# Nakładamy kolor (rozjaśniamy bazowy kolor tarczy)
 		shield_bar.modulate = Color(light_value, light_value, light_value)
-		# Jeśli chcesz, żeby napis też pulsował światłem, odkomentuj poniższą linię:
 		shield_label.modulate = Color(0.173 * light_value, 1.0 * light_value, 1.0 * light_value)
-
-		
-
-
-
 
 func duszek(duszek):
 	duch = duszek
-	

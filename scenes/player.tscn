@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=61 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
@@ -10,17 +10,20 @@
 [ext_resource type="Texture2D" uid="uid://cqil8hgaifse4" path="res://graphic/assets_ray/ssds/knight_run.png" id="7_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://ds41q3jndmfhe" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun1.png" id="8_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wahaltqieu1e" path="res://graphic/assets_ray/ssds/knight_run_gun.png" id="8_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://bpy84y6idc6w2" path="res://graphic/assets_ray/ssds/knight_jump_anim3.png" id="8_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://dsq6yxetlncip" path="res://graphic/assets_ray/ssds/knight_run_gun2.png" id="8_oprun"]
 [ext_resource type="Texture2D" uid="uid://dgg0igejaavu0" path="res://graphic/assets_ray/jump_anim/jump_anim0.png" id="8_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cd4l1c0effi5" path="res://graphic/assets_ray/jump_anim/jump_anim1.png" id="9_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://culisdu5au6v8" path="res://graphic/assets_ray/jump_anim/jump_anim2.png" id="10_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://dude4wekn1ql6" path="res://graphic/assets_ray/ssds/knight11.png" id="10_hhpqf"]
+[ext_resource type="Texture2D" uid="uid://e4artg4jawj7" path="res://graphic/assets_ray/ssds/knight_jump_anim1.png" id="11_4gjji"]
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://crguh01k4xjvv" path="res://graphic/assets_ray/ssds/knight12.png" id="11_g5jhy"]
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
 [ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
 [ext_resource type="Texture2D" uid="uid://daqdvrae0f7u3" path="res://graphic/assets_ray/ssds/knight13.png" id="12_holxr"]
 [ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://bg73cbp0y8teh" path="res://graphic/assets_ray/ssds/knight_jump_anim2.png" id="12_u2ulf"]
 [ext_resource type="Texture2D" uid="uid://bw4dvuedc5njn" path="res://graphic/assets_ray/ssds/knight14.png" id="13_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://cniluqrrwt7v6" path="res://graphic/playerShield/playerShield1.png" id="14_hax0n"]
 [ext_resource type="Texture2D" uid="uid://d3pl06k1wnr8k" path="res://graphic/playerShield/playerShield2.png" id="15_t4otl"]
@@ -96,6 +99,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("8_mx1m4")
+}],
+"loop": true,
+"name": &"jump_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("8_f1ej7")
 }],
 "loop": true,
@@ -108,6 +119,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump_gun_spider",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_4gjji")
+}],
+"loop": false,
+"name": &"jump_start",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_u2ulf")
+}],
+"loop": true,
+"name": &"jump_up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -302,9 +329,8 @@ script = ExtResource("1_g2els")
 material = SubResource("ShaderMaterial_smehm")
 position = Vector2(-2, 4)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"walk"
+animation = &"jump_start"
 autoplay = "idle"
-frame_progress = 0.45874664
 
 [node name="ShieldArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -483,9 +509,11 @@ libraries = {
 speed_scale = 2.0
 
 [node name="CameraTarget" type="Marker2D" parent="."]
+visible = false
 position = Vector2(19, 0)
 
 [node name="Level1Camera" type="Camera2D" parent="CameraTarget"]
+visible = false
 position = Vector2(107, 0)
 offset = Vector2(0, -40)
 zoom = Vector2(5.5, 5.5)
