@@ -22,8 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
 [ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
 [ext_resource type="Texture2D" uid="uid://daqdvrae0f7u3" path="res://graphic/assets_ray/ssds/knight13.png" id="12_holxr"]
+[ext_resource type="Texture2D" uid="uid://drbf4iv85u54t" path="res://graphic/assets_ray/ssds/sdsdsdsd.png" id="12_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
-[ext_resource type="Texture2D" uid="uid://bg73cbp0y8teh" path="res://graphic/assets_ray/ssds/knight_jump_anim2.png" id="12_u2ulf"]
 [ext_resource type="Texture2D" uid="uid://bw4dvuedc5njn" path="res://graphic/assets_ray/ssds/knight14.png" id="13_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://cniluqrrwt7v6" path="res://graphic/playerShield/playerShield1.png" id="14_hax0n"]
 [ext_resource type="Texture2D" uid="uid://d3pl06k1wnr8k" path="res://graphic/playerShield/playerShield2.png" id="15_t4otl"]
@@ -131,7 +131,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_u2ulf")
+"texture": ExtResource("12_mx1m4")
 }],
 "loop": true,
 "name": &"jump_up",
@@ -329,7 +329,7 @@ script = ExtResource("1_g2els")
 material = SubResource("ShaderMaterial_smehm")
 position = Vector2(-2, 4)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"jump_start"
+animation = &"jump_up"
 autoplay = "idle"
 
 [node name="ShieldArea" type="Area2D" parent="."]

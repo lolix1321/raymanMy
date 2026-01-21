@@ -59,6 +59,7 @@ func isShieldOnFunc():
 	return isShieldOn
 
 func _ready():
+	DisplayServer.window_set_min_size(Vector2i(960, 540))
 	$CooldownBar.visible = false
 	shield_bar.visible = true 
 	shield_bar.max_value = 10.0 
@@ -255,6 +256,8 @@ func get_animation():
 	
 	# Sprite update - redundantne z logiką wyżej, ale dla pewności:
 	$AnimatedSprite2D.flip_h = not facing_right
+	
+
 	
 func get_facing_direction():
 	# To służy głównie do aktualizacji zmiennej facing_right, gdy nie jesteśmy w trakcie zwrotu
