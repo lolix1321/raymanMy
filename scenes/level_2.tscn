@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=55 format=4 uid="uid://6cigpw87jtwb"]
 
 [ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level_2.gd" id="1_172wr"]
 [ext_resource type="Texture2D" uid="uid://44x0ppusrtx8" path="res://graphic/sciana13.png" id="1_eqxsl"]
@@ -25,6 +25,7 @@
 [ext_resource type="Shader" uid="uid://b08r3xor6bk7i" path="res://scenes/mountains.gdshader" id="14_k22d5"]
 [ext_resource type="Shader" uid="uid://5frtmcgotbo3" path="res://scenes/waterfall.gdshader" id="15_bv48q"]
 [ext_resource type="Texture2D" uid="uid://dhjpvxmesxvfe" path="res://graphic/test/paralax_mountains_fafa.png" id="20_bgibu"]
+[ext_resource type="Texture2D" uid="uid://dab3i3qhhy804" path="res://graphic/tilesets/tileset1.png" id="23_pc3at"]
 [ext_resource type="Script" uid="uid://dbpsk15jk1otv" path="res://scenes/camera_2d_2.gd" id="28_bgibu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwfin"]
@@ -179,9 +180,65 @@ texture = ExtResource("1_eqxsl")
 6:11/0 = 0
 7:11/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bgibu"]
+texture = ExtResource("23_pc3at")
+4:2/0 = 0
+5:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:3/0 = 0
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:3/0 = 0
+8:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:3/0 = 0
+9:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:5/0 = 0
+4:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:5/0 = 0
+7:5/0 = 0
+7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:5/0 = 0
+8:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:5/0 = 0
+9:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:7/0 = 0
+6:7/0 = 0
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:7/0 = 0
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:7/0 = 0
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:7/0 = 0
+9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:8/0 = 0
+8:8/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_wo48x"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_b4j7a")
+sources/1 = SubResource("TileSetAtlasSource_bgibu")
 
 [sub_resource type="Animation" id="Animation_bv48q"]
 length = 0.001
@@ -235,7 +292,6 @@ meteor_scene = ExtResource("2_g2hoc")
 lightning_bolt_scene = ExtResource("3_7qsfm")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 material = SubResource("ShaderMaterial_vwfin")
@@ -250,7 +306,6 @@ script = ExtResource("5_vwfin")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="blacknes" type="CanvasLayer" parent="ParallaxBackground"]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/blacknes"]
 material = SubResource("ShaderMaterial_vhnap")
@@ -326,7 +381,6 @@ position = Vector2(534, 363)
 scale = Vector2(1.2, 1.2)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(1152, 0)
 
@@ -452,13 +506,11 @@ libraries = {
 }
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-visible = false
 position = Vector2(527.5, 274)
 scale = Vector2(6.275, 3.74)
 copy_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("sun_object")]
-visible = false
 material = SubResource("ShaderMaterial_pc3at")
 anchors_preset = 15
 anchor_right = 1.0
