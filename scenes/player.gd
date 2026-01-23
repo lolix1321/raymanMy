@@ -248,6 +248,8 @@ func get_input():
 func get_animation():
 	if isDying:
 		return 
+	if czyKuca and is_on_floor():
+		return
 
 	var base_animation = "idle" 
 	
