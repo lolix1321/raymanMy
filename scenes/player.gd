@@ -54,7 +54,7 @@ const SPEED_SPRINT = 260.0
 
 # NOWE: Licznik pauzy przy zwrocie
 var _turn_timer: float = 0.0 
-
+var czyKuca:bool = false
 func isShieldOnFunc():
 	return isShieldOn
 
@@ -146,58 +146,72 @@ func _physics_process(delta: float) -> void:
 		current_gravity = GRAVITY_RISING
 	
 	velocity.y += current_gravity * delta
-
-	# --- SKOK ---
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_FORCE
-
-	# --- SPRINT I STAMINA ---
-	var current_speed = SPEED_WALK
-	if Input.is_action_pressed("Sprint") and stamina > 0 and can_sprint:
-		current_speed = SPEED_SPRINT
-		stamina -= stamina_drain * delta
-		if stamina <= 0:
-			stamina = 0
-			can_sprint = false
-			current_speed = SPEED_WALK
-	else:
-		current_speed = SPEED_WALK
-		if stamina < max_stamina:
-			stamina += stamina_regen * delta
-		if stamina >= 20:
-			can_sprint = true
-
-	get_input() # Pobiera direction_x
-
-	# =========================================================
-	# --- NOWA LOGIKA ZMIANY KIERUNKU (PAUZA) ---
-	# =========================================================
 	
-	# Sprawdzamy, czy gracz próbuje zmienić kierunek na przeciwny
-	if direction_x != 0:
-		var trying_to_turn = (direction_x > 0 and not facing_right) or (direction_x < 0 and facing_right)
-		
-		# Jeśli zmieniamy kierunek i timer nie jest aktywny -> Aktywujemy pauzę
-		if trying_to_turn and _turn_timer <= 0:
-
-			velocity.x = 0               # Natychmiastowe zatrzymanie (reset pędu)
-			facing_right = direction_x > 0 # Od razu aktualizujemy stronę patrzenia
-	
-	# Obsługa pauzy
-	if _turn_timer > 0:
-		_turn_timer -= delta
-		velocity.x = 0 # Trzymamy gracza w miejscu
-		# Wymuszamy aktualizację sprite'a, żeby wyglądało że już się obrócił
-		$AnimatedSprite2D.flip_h = not facing_right 
-		
+	czyKuca = Input.is_action_pressed("kucnij")
+	if czyKuca and is_on_floor():
+		velocity.x = 0
+		$collisionKucniecie.disabled = false
+		$CollisionShape2D.disabled = true
+		set_anim('kucniecie')
+		if Input.is_action_just_pressed("left"):
+			direction_x = -1
+		if Input.is_action_just_pressed("right"):
+			direction_x = 1
 	else:
-		# --- NORMALNY RUCH (Gdy nie ma pauzy) ---
-		if direction_x != 0:
-			# Rozpędzanie
-			velocity.x = move_toward(velocity.x, direction_x * current_speed, ACCELERATION * delta)
+		$collisionKucniecie.disabled = true
+		$CollisionShape2D.disabled = false
+
+		# --- SKOK ---
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = JUMP_FORCE
+
+		# --- SPRINT I STAMINA ---
+		var current_speed = SPEED_WALK
+		if Input.is_action_pressed("Sprint") and stamina > 0 and can_sprint:
+			current_speed = SPEED_SPRINT
+			stamina -= stamina_drain * delta
+			if stamina <= 0:
+				stamina = 0
+				can_sprint = false
+				current_speed = SPEED_WALK
 		else:
-			# Hamowanie
-			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+			current_speed = SPEED_WALK
+			if stamina < max_stamina:
+				stamina += stamina_regen * delta
+			if stamina >= 20:
+				can_sprint = true
+
+		get_input() # Pobiera direction_x
+
+		# =========================================================
+		# --- NOWA LOGIKA ZMIANY KIERUNKU (PAUZA) ---
+		# =========================================================
+		
+		# Sprawdzamy, czy gracz próbuje zmienić kierunek na przeciwny
+		if direction_x != 0:
+			var trying_to_turn = (direction_x > 0 and not facing_right) or (direction_x < 0 and facing_right)
+			
+			# Jeśli zmieniamy kierunek i timer nie jest aktywny -> Aktywujemy pauzę
+			if trying_to_turn and _turn_timer <= 0:
+
+				velocity.x = 0               # Natychmiastowe zatrzymanie (reset pędu)
+				facing_right = direction_x > 0 # Od razu aktualizujemy stronę patrzenia
+		
+		# Obsługa pauzy
+		if _turn_timer > 0:
+			_turn_timer -= delta
+			velocity.x = 0 # Trzymamy gracza w miejscu
+			# Wymuszamy aktualizację sprite'a, żeby wyglądało że już się obrócił
+			$AnimatedSprite2D.flip_h = not facing_right 
+			
+		else:
+			# --- NORMALNY RUCH (Gdy nie ma pauzy) ---
+			if direction_x != 0:
+				# Rozpędzanie
+				velocity.x = move_toward(velocity.x, direction_x * current_speed, ACCELERATION * delta)
+			else:
+				# Hamowanie
+				velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	
 	move_and_slide()
 

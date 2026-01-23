@@ -1,7 +1,7 @@
-[gd_scene load_steps=61 format=3 uid="uid://dyxomf0byld4o"]
+[gd_scene load_steps=62 format=3 uid="uid://dyxomf0byld4o"]
 
 [ext_resource type="Script" uid="uid://d3oyx6fptafqx" path="res://scenes/player.gd" id="1_g2els"]
-[ext_resource type="Shader" uid="uid://dg68j34060cbx" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
+[ext_resource type="Shader" path="res://scenes/shiledPlayer.gdshader" id="1_hax0n"]
 [ext_resource type="Shader" uid="uid://de8kwq1p65hls" path="res://scenes/flicker.gdshader" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://nxp08eror8dm" path="res://graphic/assets_ray/ssds/knight_new.png" id="4_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://bk40x0m0cdcpa" path="res://graphic/assets_ray/ssds/kngiht_gun.png" id="4_f1ej7"]
@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dxoey22irvm5" path="res://scenes/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://crguh01k4xjvv" path="res://graphic/assets_ray/ssds/knight12.png" id="11_g5jhy"]
 [ext_resource type="Texture2D" uid="uid://lvyoms1i0ljw" path="res://graphic/assets_ray/ssds/spiderOnPlayerGun2.png" id="11_qfm1y"]
-[ext_resource type="Shader" uid="uid://cubb7x1ifcjsy" path="res://scenes/shield.gdshader" id="12_fulsm"]
+[ext_resource type="Shader" path="res://scenes/shield.gdshader" id="12_fulsm"]
 [ext_resource type="Texture2D" uid="uid://daqdvrae0f7u3" path="res://graphic/assets_ray/ssds/knight13.png" id="12_holxr"]
 [ext_resource type="Texture2D" uid="uid://drbf4iv85u54t" path="res://graphic/assets_ray/ssds/sdsdsdsd.png" id="12_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://ci1dh4fltuppl" path="res://graphic/playerShield/playerShield.png" id="12_qfm1y"]
@@ -135,6 +135,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_4gjji")
+}],
+"loop": true,
+"name": &"kucniecie",
 "speed": 5.0
 }, {
 "frames": [{
@@ -253,6 +261,10 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
 radius = 9.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mx1m4"]
+radius = 9.0
+height = 18.0
+
 [sub_resource type="Gradient" id="Gradient_jej6c"]
 offsets = PackedFloat32Array(0.24725275, 0.63736266)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -329,7 +341,7 @@ script = ExtResource("1_g2els")
 material = SubResource("ShaderMaterial_smehm")
 position = Vector2(-2, 4)
 sprite_frames = SubResource("SpriteFrames_g2els")
-animation = &"jump_up"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="ShieldArea" type="Area2D" parent="."]
@@ -356,6 +368,10 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 5)
 shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="collisionKucniecie" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 11)
+shape = SubResource("CapsuleShape2D_mx1m4")
 
 [node name="Timers" type="Node" parent="."]
 
