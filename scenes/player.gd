@@ -109,6 +109,12 @@ func spiderOnHeadFunc():
 			jumpCounter = 0 
 
 func _physics_process(delta: float) -> void:
+	# Postać nie będzie się ślizgać w dół, gdy stoi w miejscu
+	floor_stop_on_slope = true 
+
+	floor_max_angle = deg_to_rad(65) 
+
+	apply_floor_snap()
 	# --- KAMERA ---
 	var target_stick_x = 0.0
 	if direction_x > 0:
