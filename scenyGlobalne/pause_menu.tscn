@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c85nsd8s2dlhj"]
 
-[ext_resource type="Shader" uid="uid://c7u86k63i6wh0" path="res://pausemenu.gdshader" id="1_78yyw"]
+[ext_resource type="Shader" uid="uid://c7u86k63i6wh0" path="res://shaders/pausemenu.gdshader" id="1_78yyw"]
 [ext_resource type="Script" uid="uid://rlujeu1pbfvx" path="res://scenyGlobalne/pause_menu.gd" id="1_e7msu"]
 [ext_resource type="FontFile" uid="uid://kg08gr31fkiq" path="res://fonts/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf" id="3_12s6w"]
 
