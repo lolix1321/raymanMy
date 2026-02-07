@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=66 format=4 uid="uid://6cigpw87jtwb"]
 
 [ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level1/level_2.gd" id="1_172wr"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player/player.tscn" id="1_pbc48"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://ch3hnjylqlncq" path="res://graphic/tilesets/tileset_laczenia.png" id="25_45kkt"]
 [ext_resource type="Script" uid="uid://dbpsk15jk1otv" path="res://scenes/camera/camera_2d_2.gd" id="28_bgibu"]
 [ext_resource type="PackedScene" uid="uid://dy17q1wahvid6" path="res://scenes/alien/black_ninja.tscn" id="29_taw0e"]
+[ext_resource type="Texture2D" uid="uid://bptwth58o1r48" path="res://graphic/rocket/rocketone.png" id="31_ksmsp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwfin"]
 shader = ExtResource("5_vhnap")
@@ -3252,6 +3253,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_pc3at")
 sun_object = NodePath("../ParallaxBackground/Background/sunLight")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1884, 85)
+texture = ExtResource("31_ksmsp")
 
 [node name="BlackNinja" parent="." instance=ExtResource("29_taw0e")]
 position = Vector2(891, 160)
