@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://6cigpw87jtwb"]
+[gd_scene load_steps=74 format=4 uid="uid://6cigpw87jtwb"]
 
 [ext_resource type="Script" uid="uid://c0u8et824fikb" path="res://scenes/level1/level_2.gd" id="1_172wr"]
 [ext_resource type="PackedScene" uid="uid://dyxomf0byld4o" path="res://scenes/player/player.tscn" id="1_pbc48"]
@@ -3012,6 +3012,180 @@ shader_parameter/decay = 0.95
 shader_parameter/exposure = 1.0
 shader_parameter/samples = 50
 
+[sub_resource type="Gradient" id="Gradient_ksmsp"]
+offsets = PackedFloat32Array(0.086538464, 0.37019232, 0.75961536, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.86774045, 0.7176112, 0.29200524, 1, 0.8509804, 0, 0, 1, 0.8509804, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_767p0"]
+gradient = SubResource("Gradient_ksmsp")
+
+[sub_resource type="Curve" id="Curve_yidv6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_j1l7d"]
+curve = SubResource("Curve_yidv6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_67ypl"]
+lifetime_randomness = 0.09
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 100, 0)
+direction = Vector3(0, 1, 0)
+spread = 103.846
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 500, 0)
+scale_min = 5.0
+scale_max = 7.0
+scale_curve = SubResource("CurveTexture_j1l7d")
+color_ramp = SubResource("GradientTexture1D_767p0")
+
+[sub_resource type="Animation" id="Animation_ksmsp"]
+resource_name = "landing_rocket"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.4333334),
+"transitions": PackedFloat32Array(0.40612623, 1),
+"update": 0,
+"values": [Vector2(164, -146), Vector2(164, 229)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D:process_material:spread")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.4666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(168, 229), Vector2(168, 229)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CutsceneCamera:enabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_767p0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(164, -136)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D:process_material:spread")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [103.846]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(168, 286)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yidv6"]
+_data = {
+&"RESET": SubResource("Animation_767p0"),
+&"landing_rocket": SubResource("Animation_ksmsp")
+}
+
 [node name="level2" type="Node2D"]
 script = ExtResource("1_172wr")
 meteor_scene = ExtResource("2_g2hoc")
@@ -3255,14 +3429,20 @@ script = ExtResource("5_pc3at")
 sun_object = NodePath("../ParallaxBackground/Background/sunLight")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1884, 85)
+position = Vector2(164, -136)
 texture = ExtResource("31_ksmsp")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+amount = 80
+lifetime = 0.43
+process_material = SubResource("ParticleProcessMaterial_67ypl")
 
 [node name="BlackNinja" parent="." instance=ExtResource("29_taw0e")]
 position = Vector2(891, 160)
 
 [node name="Player" parent="." instance=ExtResource("1_pbc48")]
-position = Vector2(144, 318)
+visible = false
+position = Vector2(168, 286)
 
 [node name="Camera2D2" type="Camera2D" parent="Player" node_paths=PackedStringArray("target")]
 position = Vector2(4, 70)
@@ -3282,6 +3462,15 @@ look_ahead_dist = 55.0
 
 [node name="PortalTimer" type="Timer" parent="Player" groups=["Player"]]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yidv6")
+}
+autoplay = "landing_rocket"
+
+[node name="CutsceneCamera" type="Camera2D" parent="."]
+position = Vector2(188, 242)
 
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
 [connection signal="timeout" from="LightningTimer" to="." method="_on_lightning_timer_timeout"]
